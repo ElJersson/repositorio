@@ -25,7 +25,7 @@
 	<div class="cont-menu">
 		<nav>
 		<router-link to="/redesconocimiento" @click="closeMenu">Redes de conocimiento</router-link>
-			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
+			<router-link to="/instructor" @click="closeMenu">Instructores</router-link>
 			<a >Centros de formacion</a>
 			<a>Ambientes de formacion</a>
 			<a >Materiales de formacion</a>
