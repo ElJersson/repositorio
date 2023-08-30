@@ -1,53 +1,48 @@
 <template>
   <div>
-  <div class="page-container">
-    <div class="fullscreen-bg">
-  <img src="/fondo.jpg" alt="Fondo de pantalla">
-</div>
-    <div class="toolbar">
-  <ul class="toolbar-list">
-    <i class="fa-solid fa-bars fa-2xl" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" style="color: #ffffff;margin-left: 10px;"></i>
-    <li class="toolbar-item toolbar-item-start"><a href="#">Inicio</a></li>
-   
-    <li class="toolbar-item"><a @click="cerrarSesion">Cerrar sesion</a></li>
-  </ul>
-</div>
-<div class="offcanvas offcanvas-start" style="background-color: rgba(21, 120, 66, 0.896);" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel" style="color: #ffffff;">Administrador</h5>
-    <button type="button" class="btn-close" style="background-color: #ffffff;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <header class="header">
+		<div class="container">
+		<div class="btn-menu">
+			<label for="btn-menu" ><i class="fa-solid fa-bars fa-xl" style="color: #000000;"></i></label>
+		</div>
+			<div class="logo">
+			</div>
+			<nav class="menu">
+				<a href="#">Inicio</a>
+				<a href="#">Nosotros</a>
+				<a href="#">Contacto</a>
+        <i class="fa-solid fa-right-from-bracket fa-lg" style="color: #050505;"></i>
+			</nav>
+		</div>
+	</header>
+	<div class="capa">
+   <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./senna.jpg" alt="">
+   <router-view></router-view>
   </div>
-  <div class="offcanvas-body">
-    <router-link to="/Registro"><button   data-bs-dismiss="offcanvas" class="btn2"><i class="fa-solid fa-plus fa-xl"  style="color: #000000;"></i> programas de formacion </button></router-link><br><br> 
- <router-link to="/busesre"><button  data-bs-dismiss="offcanvas" class="btn2"><i class="fa-solid fa-book fa-xl" style="color: #050505;"></i> redes de conocimineto </button></router-link><br><br> 
-  </div>
+<!--	--------------->
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+	<div class="cont-menu">
+		<nav>
+		<router-link to="/redesconocimiento" @click="closeMenu">Redes de conocimiento</router-link>
+			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
+			<a >Centros de formacion</a>
+			<a>Ambientes de formacion</a>
+			<a >Materiales de formacion</a>
+			<a >Uusarios</a>
+      <a >Configuracion</a>
+		</nav>
+		<label for="btn-menu">✖️</label>
+	</div>
 </div>
-<router-view></router-view>
-<img src="/sena.png" style="width: 600px; height: 300px; z-index: -1; position: absolute;">    
-  </div>
-  <div class="footer-bar">
-      <ul class="footer-bar-list">
-        <li class="footer-bar-item"><a href="#">Política de privacidad</a></li>
-        <li class="footer-bar-item"><a href="#">Términos y condiciones</a></li>
-        <li class="footer-bar-item"><a href="#">Contacto</a></li>
-      </ul>
-    </div>
 </div>
+
 </template>
 
 <script setup>
-// Ejecutar lisBus() al cargar el componente
-// Agregar la función para cerrar la sesión
-const cerrarSesion = () => {
-  // Mostrar un cuadro de diálogo de confirmación
-  const confirmarCerrar = window.confirm("¿Estás seguro de que deseas cerrar la sesión?");
-
-  if (confirmarCerrar) {
-    // Aquí puedes realizar la solicitud al frontend para cerrar la sesión
-    // Puedes redirigir al usuario a la página de inicio de sesión o ejecutar cualquier otra acción necesaria.
-    // Por ejemplo, si estás utilizando Vue Router, puedes hacer algo como esto:
-    // router.push('/login'); // Redirige a la página de inicio de sesión.
-  }};
+  const closeMenu = () => {
+    document.getElementById('btn-menu').checked = false;
+  };
 </script>
 
 <style >
@@ -55,52 +50,22 @@ const cerrarSesion = () => {
   width: 350px;
   height: 50px;
   border-radius: 10px;
+  box-shadow: 10px  10px 10px rgba(13, 14, 16, 0.741);
 
 }
 .btn2:hover{
-background-color: #4f5be0;
+background-color: #3ebd1e;
 color: #fff;
 transition: 0.5s all;
+transform: scale(1.1);
 
 }
 .btn2:active{
   transform: scale(1.1);
   /* Scaling button to 0.98 to its original size */
-  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11);
-}
-.toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #0c5e1c;
-  color: #fff;
-  height: 60px;
-}
-.texto{
-  box-shadow:10px 10px 10px  #0a0909;
-  border-radius: 5px;
-}
-.page-container {
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    height: 100vh; /* Adjust as needed */
-    background-color: #142a8900; /* Set a background color for the page */
-  }
-.toolbar-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
 }
 
-.toolbar-item {
-  margin: 0 10px;
-}
+
 .btn {
   text-decoration: none;
   border: none;
@@ -116,7 +81,7 @@ transition: 0.5s all;
 
 }
 .btn:hover {
-  color: #fff;
+  color: #241b1b;
   background-color: rgb(23, 105, 24);
 }
 .btn:active {
@@ -125,90 +90,127 @@ transition: 0.5s all;
   box-shadow: 3px 2px 22px 1px rgb(11, 12, 11);
   /* Lowering the shadow */
 }
-.toolbar-item-start {
-  margin-left: auto;
-}
-
-.toolbar-item a {
-  
-  text-decoration: none;
-}
-
-.toolbar-item a:hover {
-  text-decoration: underline;
-}
-.imagen{
-width: 40px;
-height: 40px;
-}
-
-.fullscreen-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
+*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: 'Montserrat Alternates', sans-serif;
+	}
+	
+  .capa {
+   margin-top: 20px; 
   width: 100%;
   height: 100%;
-  z-index: -1;
-  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11);
-  /* Lowering the shadow */
-}
-
-.fullscreen-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.grid-item {
-  border-radius: 50px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 100px;
-  background-color: #13137822; 
-  box-shadow: 5px 6px 12px rgb(0, 0, 0);
-}
-
-
-.grid-item {
-  transition: transform 0.3s ease;
-}
-
-.grid-item.highlighted {
-  transform: scale(1.3);
-  background-color: #d1dde7;
-  
-}
-.footer-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #0c5e1c;
-  color: #fff;
-  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgb(255, 255, 255);
+  z-index: -1;
 }
+	/*Estilos para el encabezado*/
+	.header{
+		width: 100%;
+		height: 100px;
+		position: fixed;
+		top: 0;left: 0;
+    background-color: #26b502;
+  
+	}
+	.container{
+		width: 90%;
+		max-width: 1200px;
+		margin: auto;
+	}
+	.container .btn-menu, .logo{
+		float: left;
+		line-height:100px;
+	}
+	.container .btn-menu label{
+		color: #fff;
+		font-size: 25px;
+		cursor: pointer;
+	}
+	.logo h1{
+		color: #fff;
+		font-weight: 400;
+		font-size: 22px;
+		margin-left: 10px;
+	}
+	.container .menu{
+		float: right;
+		line-height: 100px;
+	}
+	.container .menu a{
+		display: inline-block;
+		padding: 15px;
+		line-height: normal;
+		text-decoration: none;
+		color: #090808;
+		transition: all 0.3s ease;
+		border-bottom: 2px solid transparent;
+		font-size: 15px;
+		margin-right: 5px;
+	}
+	.container .menu a:hover{
+		border-bottom: 2px solid #c7c7c7;
+		padding-bottom: 5px;
+	}
+	/*Fin de Estilos para el encabezado*/
 
-.footer-bar-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
+	/*Menù lateral*/
+	#btn-menu{
+		display: none;
+	}
+	.container-menu{
+		position: absolute;
+		background: rgb(157, 155, 155);
+		width: 100%;
+		height: 100vh;
+		top: 0;left: 0;
+		transition: all 500ms ease;
+		opacity: 0;
+		visibility: hidden;
+	}
+	#btn-menu:checked ~ .container-menu{
+		opacity: 1;
+		visibility: visible;
+	}
+	.cont-menu{
+		width: 100%;
+		max-width: 250px;
+		background: #3ebd1e;
+		height: 100vh;
+		position: relative;
+		transition: all 500ms ease;
+		transform: translateX(-100%);
+	}
+	#btn-menu:checked ~ .container-menu .cont-menu{
+		transform: translateX(0%);
+	}
+	.cont-menu nav{
+		transform: translateY(15%);
+	}
+	.cont-menu nav a{
+		display: block;
+		text-decoration: none;
+		padding: 20px;
+		color: #fffcfc;
+		border-left: 5px solid transparent;
+		transition: all 400ms ease;
+	}
+	.cont-menu nav a:hover{
+		border-left: 5px solid #000000;
+		background: #ffffff;
+    
+	}
+	.cont-menu label{
+		position: absolute;
+		right: 5px;
+		top: 10px;
+		color: #fff;
+		cursor: pointer;
+		font-size: 18px;
+	}
+	/*Fin de Menù lateral*/
 
-.footer-bar-item {
-  margin: 0 10px;
-}
-
-.footer-bar-item a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-bar-item a:hover {
-  text-decoration: underline;
-}
 </style>
