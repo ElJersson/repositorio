@@ -19,7 +19,7 @@ class Server{
     }
     conectarBD(){
         mongoose.connect(process.env.mongoDB)
-        .then(()=>console.log('conectado'))
+        .then(()=>console.log('conectado')).catch((Err)=> console.log(Err))
     }
 
     routes(){
