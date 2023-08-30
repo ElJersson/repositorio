@@ -1,4 +1,4 @@
-import Administrador from "../modules/usuario.js";
+import Usuario from "../modules/usuario.js";
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 
@@ -62,6 +62,19 @@ const httpUsuario = {
             res.status(500).json({ mensaje: "Error al crear el Usuario" });
         }
     },
+//     postAdministrador: async (req, res) => {
+//         const { cc, nombre, apellidos, password,direccion,email, telefono, estado  } = req.body;
+//         try {
+//             const nuevoAdministrador = {cc,nombre,apellidos,password,direccion,email,telefono,estado
+//             };     
+//             const salt=bcryptjs.genSaltSync()
+//             nuevoAdministrador.password =  bcryptjs.hashSync(req.body.password,salt)
+//            Administrador.create(nuevoAdministrador)
+//             res.status(201).json(nuevoAdministrador);
+//         } catch (error) {
+//             res.status(500).json({ mensaje: "Error al crear el administrador" });
+//         }
+//     },
 
     putUsuario: async (req, res) => {
         const { id } = req.params;
