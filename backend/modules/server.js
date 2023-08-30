@@ -3,9 +3,8 @@ import cors from "cors"
 import mongoose from 'mongoose'
 import redConocimiento from "../routes/redConocimiento.js"
 import ambienteFormacion from "../routes/ambienteFormacion.js"
-import tiquetes from "../routes/tiquetes.js"
-import administrador from "../routes/administrador.js"
-import Instructor from "../routes/Instructor.js"
+import desarolloCurricular from "../routes/desarolloCurricular.js"
+import usuario from "../routes/usuario.js"
 import programaFormacion from "../routes/programaFormacion.js"
 
 
@@ -25,9 +24,8 @@ class Server{
     routes(){
         this.app.use('/redConocimiento',redConocimiento)
         this.app.use('/ambienteFormacion',ambienteFormacion)
-        this.app.use('/tiquetes',tiquetes)
-        this.app.use('/administrador',administrador)
-        this.app.use('/Instructor',Instructor)
+        this.app.use('/desarolloCurricular',desarolloCurricular)
+        this.app.use('/usuario',usuario)
         this.app.use('/programaFormacion',programaFormacion)
     }
 

@@ -8,6 +8,7 @@ const programaFormacionSchema = new mongoose.Schema({
   version: { type: Number, required: true },
   estado:  { type: Boolean, default: true },
   diseñoCurricular: { type: String},
+  instructor: { type: mongoose.Schema.Types.ObjectId, ref: 'Instructor' ,require:true},
 
 });
 

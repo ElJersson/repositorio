@@ -5,5 +5,5 @@ const redConocimientoSchema = new mongoose.Schema({
     codigo: { type: String, required: true },
     estado:  { type: Boolean, default: true },
   });
-// hol
+
 export default mongoose.model('RedConocimiento', redConocimientoSchema)

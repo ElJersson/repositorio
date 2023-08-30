@@ -1,4 +1,4 @@
-import Administrador from "../modules/administrador.js";
+import Administrador from "../modules/usuario.js";
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 
@@ -8,20 +8,20 @@ function generartoken(id) {
 }
 
 
-const httpAdministrador = {
+const httpUsuario = {
     iniciarSesion: async (req, res) => {
         const { email, password } = req.body;
     
         try {
-          const admin = await Administrador.findOne({ email });
+          const usuario = await Usuario.findOne({ email });
           
-          if (!admin) {
+          if (!usuario) {
             return res.status(401).json({ message: "Correo incorrectos" });
           }
-         let id = admin._id
+         let id = usuario._id
          console.log(id);
 
-         const compContraseña = bcryptjs.compareSync(password, admin.password);
+         const compContraseña = bcryptjs.compareSync(password, usuario.password);
          console.log('compContraseña:', compContraseña);
           if (!compContraseña) {
             return res.status(401).json({ message: "contraseña incorrectos" });
@@ -37,67 +37,50 @@ const httpAdministrador = {
         }
       },
     
-    getAdministrador: async (req, res) => {
+    getUsuario: async (req, res) => {
         try {
-            const administradores = await Administrador.find();
-            res.json(administradores);
+            const Usuarios = await Usuario.find();
+            res.json(Usuarios);
         } catch (error) {
-            res.status(500).json({ mensaje: "Error al obtener los administradores" });
+            res.status(500).json({ mensaje: "Error al obtener los Usuarios" });
         }
     },
 
     //   mirar para crear un adiminstrador por nombre y apellido
 
-    postAdministrador: async (req, res) => {
-        const { cc, nombre, apellidos, password,direccion,email, telefono, estado  } = req.body;
-
+    postUsuario: async (req, res) => {
+        const { cc, nombre, apellidos, password,direccion,email,perfilProfecional,curriculum,rol,telefono, estado  } = req.body;
         try {
-           
-            const nuevoAdministrador = {
-                cc,
-                nombre,
-                apellidos,
-                password,
-                direccion,
-                email,
-                telefono,
-                estado
-            };
-           
+            const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfecional,curriculum,rol,telefono,estado};
             const salt=bcryptjs.genSaltSync()
-            nuevoAdministrador.password =  bcryptjs.hashSync(req.body.password,salt)
+            nuevoUsuario.password =  bcryptjs.hashSync(req.body.password,salt)
 
-           Administrador.create(nuevoAdministrador)
+            Usuario.create(nuevoUsuario)
 
-            res.status(201).json(nuevoAdministrador);
+            res.status(201).json(nuevoUsuario);
         } catch (error) {
-            res.status(500).json({ mensaje: "Error al crear el administrador" });
+            res.status(500).json({ mensaje: "Error al crear el Usuario" });
         }
     },
 
-    putAdministrador: async (req, res) => {
+    putUsuario: async (req, res) => {
         const { id } = req.params;
-        const { nombreApellidos, ciudad_destino, fecha_hora_origen, estado } = req.body;
+        const { nombre, apellidos,direccion,perfilProfecional,curriculum,telefono,estado } = req.body;
 
         try {
-            const administradorActualizado = await Administrador.findByIdAndUpdate(
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(
                 id,
-                {
-                    nombreApellidos,
-                    ciudad_destino,
-                    fecha_hora_origen,
-                    estado
-                },
+                {nombre,apellidos,direccion,perfilProfecional,curriculum,telefono,estado },
                 { new: true }
             );
 
-            if (administradorActualizado) {
-                res.json(administradorActualizado);
+            if (usuarioActualizado) {
+                res.json(usuarioActualizado);
             } else {
-                res.status(404).json({ mensaje: "Administrador no encontrado" });
+                res.status(404).json({ mensaje: "usuario no encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ mensaje: "Error al actualizar el administrador" });
+            res.status(500).json({ mensaje: "Error al actualizar el usuario" });
         }
     },
     actualizarestado: async (req, res) => {
@@ -110,7 +93,7 @@ const httpAdministrador = {
 
         try {
 
-            const administradorActualizado = await Administrador.findByIdAndUpdate(id, actualizado);
+            const administradorActualizado = await Usuario.findByIdAndUpdate(id, actualizado);
 
             if (administradorActualizado) {
                 console.log(administradorActualizado);
@@ -126,4 +109,4 @@ const httpAdministrador = {
 
 };
 
-export default httpAdministrador;
+export default httpUsuario;
