@@ -1,6 +1,6 @@
 <template>
  <div class="d-md-flex half">
-    <div class="bg" style="background-image: url('./Sena-.jpg');width: 1000px; "></div>
+    <img class="bg" src="./Sena-.jpg" style="width: 1000px; ">
     <div class="contents">
 
       <div class="container">
@@ -17,9 +17,24 @@
                   <input type="text" class="form-control" placeholder="Tu-email@gmail.com" id="username" v-model="email">
                 </div>
                 <div class="form-group last mb-3">
-                  <label for="password">Contraseña</label>
-                  <input type="password" class="form-control" placeholder="Tu contraseña" id="password" v-model="password">
-                </div>
+    <label for="password">Contraseña</label>
+    <div class="password-input-container">
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        class="form-control"
+        placeholder="Tu contraseña"
+        id="password"
+        v-model="password"
+      />
+      <button
+        class="toggle-password"
+        @click="togglePasswordVisibility"
+        type="button"
+      >
+      <i :class="showPassword ? 'far fa-eye-slash' : 'far fa-eye'" style="color: black;"></i>
+      </button>
+    </div>
+  </div>
                 
                 <div class="d-sm-flex mb-5 align-items-center">
                   <label class="control control--checkbox mb-3 mb-sm-0"><span class="caption">Recordar mi</span>
@@ -33,6 +48,7 @@
       Cargando
     </div>
                 <button class="btn" @click="login" :disabled="loading">INGRESAR</button>
+                <div v-if="error" class="error" style="color: rgb(255, 255, 255);">{{ error }}</div>
 
               </form>
             </div>
@@ -42,8 +58,6 @@
     </div>
   </div>
 </template>
-
-
 
 <script setup>
  import { ref, onMounted } from "vue";
@@ -58,7 +72,11 @@ const email = ref("");
 const password = ref("");
 const loading = ref(false);
 const error = ref(null);
+const showPassword = ref(false);
 
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
 
 const login = async () => {
   loading.value = true;
@@ -96,6 +114,8 @@ onMounted(async () => {
 </script>
 
 
+
+
   
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Acme');
@@ -110,6 +130,32 @@ body {
   height: 50px; /* Ajusta la altura según tus necesidades */
 }
 
+.password-input-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff; /* Cambia el color según tus preferencias */
+  font-size: 14px;
+  padding: 0;
+  outline: none;
+}
+
+/* Estilos para ocultar/ver la contraseña */
+.password-input-container input[type="password"] {
+  padding-right: 35px; /* Espacio para el botón */
+}
+
+.password-input-container input[type="password"][type="text"] {
+  padding-right: 0;
+}
 .loading-spinner:after {
   /* Estilo del spinner */
   content: "";
@@ -278,5 +324,5 @@ h2 {
 
 .control--checkbox input:disabled:checked ~ .control__indicator {
   background-color: #7e0cf5;
-  opacity: .2; }
+  opacity: .2;}
   </style>

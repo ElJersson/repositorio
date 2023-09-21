@@ -1,7 +1,7 @@
 <template >
 
-    <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
-    /* Lowering the shadow */">
+   <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
+    /* Lowering the shadow */">
   
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
@@ -143,6 +143,7 @@
           
                             <!-- perfil profecional  -->
                             <input v-model="editperfilProfesional" type="text" class="form-control" placeholder="Perfil profesional" :class="{'is-invalid': !editperfilProfesional}" /><br>
+                           
                             <input class="form-control"  type="file"><br>
                        
                    
@@ -150,8 +151,8 @@
                     <h6>Rol</h6>
                     <input v-model="editRol" type="number" class="form-control" placeholder="Rol de usuario" :class="{'is-invalid': !editRol}" /><br>
                      <!-- boton guardar -->
-                     <button @click="guardar()" type="button" class="btn2" style="width: 100px;  ">
-                        Guardar
+                     <button @click="actualizarUsuarioEditado(editUsuario._id)" type="button" class="btn2" style="width: 100px;  ">
+                        Editar
                     </button>
                    </div>
                  
@@ -176,7 +177,10 @@
               <tr v-for="usuario in usuariosActivos" :key="usuario.id && usuario.id">
                 <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.apellidos }}</td>
-                <td>{{ usuario.rol }}</td>
+                <td> 
+                  <span v-if="usuario.rol === 1">Instructor</span>
+                  <span v-else-if="usuario.rol === 2">Gestor</span>
+                  <span v-else-if="usuario.rol === 3">Invitado</span></td>
                 <!-- <td>{{ usuario.redconocimiento }}</td> -->
                 <td>
                   <span v-if="usuario.estado" style="color: green">Activo</span>
@@ -248,6 +252,7 @@ let editperfilProfesional = ref("");
 let editCurriculum = ref("");
 let editTelefono = ref(0);
 let editEstado = ref(true);
+let editRol= ref(0)
 
 let usuariosActivos = ref([]);
 
@@ -320,6 +325,7 @@ function editarUsuario(usuario) {
   editCurriculum.value = usuario.curriculum;
   editTelefono.value = usuario.telefono;
   editEstado.value = usuario.estado;
+  editRol.value = usuario.rol
 }
 
 const lisUsuario = async()=>{
@@ -340,6 +346,7 @@ async function actualizarUsuarioEditado(id) {
       perfilProfesional: editperfilProfesional.value,
       curriculum: editCurriculum.value,
       telefono: editTelefono.value,
+      rol: editRol.value.value,
       estado: editEstado.value,
 
     });

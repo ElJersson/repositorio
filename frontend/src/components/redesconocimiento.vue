@@ -1,7 +1,7 @@
 <template >
 
-    <div class="container" style="background-color:  #fefefe; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
-    /* Lowering the shadow */">
+<div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
+    /* Lowering the shadow */">
   
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
