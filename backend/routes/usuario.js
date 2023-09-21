@@ -13,7 +13,7 @@ router.post('/inicio-sesion', httpUsuario.iniciarSesion);
 
 router.post("/crearUsuario", httpUsuario.postUsuario);
 
-router.put("/usuario/:id", httpUsuario.putUsuario);
+router.put("/editUsuario/:id", httpUsuario.putUsuario);
 
 router.put("/estado/:id", httpUsuario.actualizarestado)
 

@@ -1,21 +1,23 @@
 <template >
 
-    <div class="container" style="background-color:  #fefefe; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
+    <div class="container" style="background-color:  #fbfbfb; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
     /* Lowering the shadow */">
   
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
-      <button
-        type="button"
-        class="btn"
-        data-bs-toggle="modal"
-        data-bs-target="#agregarBus"
-        style="width: 220px; height: 50px; background-color: rgb(35, 120, 51); display: flex; align-items: center; justify-content: center; color: #ffffff;"
-      >
-        <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;"></i> agregar
-      </button>
+    <button
+    type="button"
+    class="btn"
+    data-bs-toggle="modal"
+    data-bs-target="#agregarBus"
+    style="width: 220px; height: 50px; background-color: rgb(25, 103, 42); display: flex; align-items: center; justify-content: center; color: #e0e0e0;"
+  >
+    <i class="fa-solid fa-plus fa-xl" style="color: #fffefe;"></i>
+   
+  </button>
   
-      <div class="input-container" style="background-color: black;">
+  
+      <div class="input-container">
         <input placeholder="Buscar..." type="search" class="input">
           <!-- Tu código SVG para el icono de búsqueda -->
       </div>
@@ -33,7 +35,7 @@
             style="background-color:  #ffffff; border-radius: 10px"
           >
             <div class="modal-header">
-              <h2>agregar</h2>
+              <h2>Agregar programa de formacion</h2>
               <button
                 type="button"
                 class="btn-close"
@@ -44,7 +46,7 @@
             <div class="modal-body">
               <div>
                 <div class="card-body">
-              <!-- input numero del bus -->
+              <!-- input codigo -->
                 <input
                   v-model="codigo"
                   type="text"
@@ -53,45 +55,40 @@
                   placeholder="codigo"
                 /><br>
             
-              <!-- input nombre -->
+              <!-- input agregar denominacion -->
                 <input
-                  v-model="nombre"
+                  v-model="denominacion"
                   type="text"
                   class="form-control"
-                 placeholder="Nombre"
-                  :class="{'is-invalid': !nombre}"
+                 placeholder="Denominacion"
+                  :class="{'is-invalid': !conductor}"
                 /><br>
-              
-  
-              <!-- input capacidad -->
+
+                <!-- input nivel de formacion -->
                 <input
-                  v-model="centroformacion"
+                  v-model="nivel_formacion"
                   type="text"
                   class="form-control"
-                  placeholder="centro formacion"
-                  :class="{'is-invalid': !centroformacion}"
+                 placeholder="Nivel de formacion"
+                  :class="{'is-invalid': !nivel_formacion}"
                 /><br>
-              
-  
-              <!-- input placa -->
+
+                <!-- input red de conocimiento -->
                 <input
-                  v-model="descripcion"
+                  v-model="red_conocimiento"
                   type="text"
                   class="form-control"
-                 placeholder="Descripcion"
-                  :class="{'is-invalid': !descripcion}"
+                 placeholder="Red de conocimiento"
+                  :class="{'is-invalid': !red_conocimiento}"
                 /><br>
-              
-              <!-- input marca -->
-                <input
-                  type="file"
+               <!-- input de version -->
+               <input
+                  v-model="version"
+                  type="number"
                   class="form-control"
-                 placeholder="Archivos"
-                  :class="{'is-invalid': !archivos}"
+                 placeholder="Version"
+                  :class="{'is-invalid': !version}"
                 /><br>
-                <select :class="{'is-invalid': !rolSeleccionado}" class="form-select" id="red-conocimiento" v-model="redConocimientoSeleccionada">
-                        <option v-for="red in redesConocimiento" :key="red.id" :value="red">{{ red.nombre }}</option>
-                    </select> 
               <!-- boton guardar -->
               <button
                 @click="guardar()"
@@ -119,9 +116,9 @@
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <div class="modal-content" style="background-color:  #fdfdfd; border-radius: 10px">
+          <div class="modal-content" style="background-color:  #e0e0e0; border-radius: 10px">
             <div class="modal-header">
-              <h2>editar</h2>
+              <h2>Editar rol de usuario</h2>
               <button
                 type="button"
                 class="btn-close"
@@ -131,55 +128,50 @@
               ></button>
             </div>
             <div class="modal-body">
-              <!-- input editar numero de bus -->
-              <h5>numero de bus</h5>
+             
+  
+              <!-- input editar el codigo  -->
+          <h5>Codigo</h5>
                 <input
-                  v-model="editNumBus"
+                  v-model="editCodigo"
                   type="text"
                   class="form-control"
-                 placeholder="numero de bus"
-                  
-                />
-              
-              <!-- input editar conductor -->
-              <h5>conductor</h5>
-                <input
-                  v-model="editConductor"
-                  type="text"
-                  class="form-control"
-                  placeholder="conductor"
+                 placeholder="codigo"
                 />
               
   
-              <!-- input editar capacidad -->
-          <h5>capacidad</h5>
+              <!-- input editar denominacion -->
+              <h5>Denominacion</h5>
                 <input
-                  v-model="editCapacidad"
+                  v-model="editdenominacion"
                   type="text"
                   class="form-control"
-                 placeholder="capacidad"
+                 placeholder="Denominacion"
+                />
+                
+              <!-- input editar nivel de formacion -->
+              <h5>Nivel De Formacion</h5>
+                <input
+                  v-model="editnivel_formacion"
+                  type="text"
+                  class="form-control"
+                 placeholder="Nivel formacion"
                 />
               
-  
-              <!-- input editar placa -->
-              <h5>placa</h5>
+                
+              <!-- input editar red de conocimiento-->
+              <h5>Red De Conocimiento</h5>
                 <input
-                  v-model="editPlaca"
+                  v-model="editred_conocimiento"
                   type="text"
                   class="form-control"
-                 placeholder="placa"
+                 placeholder="Red de conocimiento"
                 />
               
-              <!-- input editar marca -->
-              <h5>marca</h5>
-                <input
-                  v-model="editMarca"
-                  type="text"
-                  class="form-control"
-                 placeholder="marca"
-                />
               
             </div>
+
+
             <div class="modal-footer">
               <button
                 type="button"
@@ -193,43 +185,39 @@
         </div>
       </div>
     
-      <div class="accordion" id="accordionExample">
-    <div
-      class="accordion-item"
-      v-for="(item, index) in ambienteformacion"
-      :key="index"
-    >
-      <h2 class="accordion-header" :id="'heading' + index">
-        <button
-          class="accordion-button"
-          type="button"
-          data-bs-toggle="collapse"
-          :data-bs-target="'#collapse' + index"
-          :aria-expanded="index === 0 ? 'true' : 'false'"
-          :aria-controls="'collapse' + index"
-        >
-          <tr>
-            <th>Codigo: {{ item.codigo }}</th><br>
-            <th>Ambiente: {{ item.ambiente }}</th><br>
-            <th>Tipo: {{ item.tipo }}</th><br>
-          </tr>
-        </button>
-      </h2>
-      <div
-        :id="'collapse' + index"
-        class="accordion-collapse collapse"
-        :class="{ show: index === 0 }"
-        :aria-labelledby="'heading' + index"
-        data-bs-parent="#accordionExample"
-      >
-        <div class="accordion-body">
-          <strong>Ciudad: {{ item.ciudad }}</strong><br>
-          <strong>Centro de formación: {{ item.centroFormacion }}</strong><br>
-          <strong>Descripción: {{ item.descripcion }}</strong><br>
-        </div>
-      </div>
-    </div>
-  </div>
+          <table class="table table-striped table-success table-hover"  >
+            <thead>
+              <tr>
+                <th>codigo</th>
+                <th>denominacion</th>
+                <th>Estado</th>
+                <th>Editar</th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="bus in busesActivos" :key="bus.id && bus.id">
+                <td>{{ bus.codigo }}</td>
+                <td>{{ bus.denominacion }}</td>
+                <td>
+                  <span v-if="bus.estado" style="color: green">Activo</span>
+                  <span v-else style="color: red">Inactivo</span>
+                </td>
+                <td>
+                  <!-- boton  modal editar bus -->
+                
+                  <i  data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"   @click="editarBus(bus)" class="fa-solid fa-pen fa-lg" style="color: #000000;"></i>
+                 
+                </td><td>
+                  <label class="switch">
+      <input type="checkbox" class="checkbox">
+      <div class="slider"></div>
+  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
     </div>
   </template>
   
@@ -316,9 +304,16 @@
   
   .input:focus, input:hover {
    outline: none;
-   border-color: rgba(0, 0, 0, 0.4);
+   border-color: rgba(234,76,137,0.4);
    background-color: #fff;
    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
   }
   
+  
+  
+  
+  
+  
+  
   </style>
+  

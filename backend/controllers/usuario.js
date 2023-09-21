@@ -36,22 +36,18 @@ const httpUsuario = {
           return res.status(500).json({ message: "Ocurrió un error durante el inicio de sesión" });
         }
       },
-    
+  //listar los usuarios 
     getUsuario: async (req, res) => {
-        try {
-            const Usuarios = await Usuario.find();
-            res.json(Usuarios);
-        } catch (error) {
-            res.status(500).json({ mensaje: "Error al obtener los Usuarios" });
-        }
-    },
+        const usuarios = await Usuario.find();
+        res.json({ usuarios });
+      },
 
-    //   mirar para crear un adiminstrador por nombre y apellido
+    //crear un nuevo Usuario
 
     postUsuario: async (req, res) => {
-        const { cc, nombre, apellidos, password,direccion,email,perfilProfecional,curriculum,rol,telefono, estado  } = req.body;
+        const { cc, nombre, apellidos, password,direccion,email,perfilProfesional,curriculum,rol,telefono, estado  } = req.body;
         try {
-            const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfecional,curriculum,rol,telefono,estado};
+            const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado};
             const salt=bcryptjs.genSaltSync()
             nuevoUsuario.password =  bcryptjs.hashSync(req.body.password,salt)
 
@@ -62,41 +58,39 @@ const httpUsuario = {
             res.status(500).json({ mensaje: "Error al crear el Usuario" });
         }
     },
-//     postAdministrador: async (req, res) => {
-//         const { cc, nombre, apellidos, password,direccion,email, telefono, estado  } = req.body;
-//         try {
-//             const nuevoAdministrador = {cc,nombre,apellidos,password,direccion,email,telefono,estado
-//             };     
-//             const salt=bcryptjs.genSaltSync()
-//             nuevoAdministrador.password =  bcryptjs.hashSync(req.body.password,salt)
-//            Administrador.create(nuevoAdministrador)
-//             res.status(201).json(nuevoAdministrador);
-//         } catch (error) {
-//             res.status(500).json({ mensaje: "Error al crear el administrador" });
-//         }
-//     },
-
-    putUsuario: async (req, res) => {
-        const { id } = req.params;
-        const { nombre, apellidos,direccion,perfilProfecional,curriculum,telefono,estado } = req.body;
-
-        try {
-            const usuarioActualizado = await Usuario.findByIdAndUpdate(
-                id,
-                {nombre,apellidos,direccion,perfilProfecional,curriculum,telefono,estado },
-                { new: true }
-            );
-
-            if (usuarioActualizado) {
-                res.json(usuarioActualizado);
-            } else {
-                res.status(404).json({ mensaje: "usuario no encontrado" });
+        // editar usuario 
+        putUsuario: async (req, res) => {
+            const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
+            const {nombre, apellidos,direccion,perfilProfesional,curriculum,telefono,estado } = req.body;
+        
+            try {
+              // Buscar el usuario por id
+              const usuario = await Usuario.findById(id);
+        
+              if (!usuario) {
+                return res.status(404).json({ error: "usuario no encontrado" });
+              }
+        
+            // Actualizar los campos del usuario con los valores nuevos
+            usuario.apellidos = apellidos;
+            usuario.nombre = nombre;
+            usuario.direccion = direccion;
+            usuario.perfilProfesional = perfilProfesional;
+            usuario.curriculum = curriculum;
+            usuario.telefono = telefono;
+            usuario.estado = estado;
+        
+              // Guardar los cambios en la base de datos
+              await usuario.save();
+        
+              res.json({ usuario });
+            } catch (error) {
+              res.status(500).json({ error: "Error en el servidor" });
             }
-        } catch (error) {
-            res.status(500).json({ mensaje: "Error al actualizar el usuario" });
-        }
-    },
-    actualizarestado: async (req, res) => {
+          },
+
+          // editar el estado 
+        actualizarestado: async (req, res) => {
         const id = req.params.id;
         console.log(`estado actualizado ${id}`);
 

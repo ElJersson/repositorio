@@ -1,7 +1,7 @@
 import Investigacion from "../modules/investigacion.js";
 
 const httpInvestigacion = {
-  // Obtener todos los tiquetes
+  // Obtener todos los Investigacion
   getInvestigacion: async (req, res) => {
     try {
       const investigacionList = await Investigacion.find();

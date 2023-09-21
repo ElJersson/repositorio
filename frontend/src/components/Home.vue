@@ -3,20 +3,20 @@
     <header class="header">
 		<div class="container">
 		<div class="btn-menu">
-			<label for="btn-menu" ><i class="fa-solid fa-bars fa-xl" style="color: #000000;"></i></label>
+			<label for="btn-menu" ><i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></label>
 		</div>
 			<div class="logo">
 			</div>
 			<nav class="menu">
-				<a href="#">Inicio</a>
-				<a href="#">Nosotros</a>
-				<a href="#">Contacto</a>
-        <i class="fa-solid fa-right-from-bracket fa-lg" style="color: #050505;"></i>
+				<a href="#" style="color: #ffffff;">Inicio</a>
+				<a href="#" style="color: #ffffff;">Nosotros</a>
+				<a href="#" style="color: #ffffff;">Contacto</a>
+        <i class="fa-solid fa-right-from-bracket fa-lg" style="color: rgb(255, 255, 255);"></i>
 			</nav>
 		</div>
 	</header>
-	<div class="capa">
-   <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./senna.jpg" alt="">
+	<div class="container-main">
+   <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./logosena.png" alt="">
    <router-view></router-view>
   </div>
 <!--	--------------->
@@ -24,15 +24,27 @@
 <div class="container-menu">
 	<div class="cont-menu">
 		<nav>
-		<router-link to="/redesconocimiento" @click="closeMenu">Redes de conocimiento</router-link>
-			<router-link to="/instructor" @click="closeMenu">Instructores</router-link>
-			<a >Centros de formacion</a>
-			<a>Ambientes de formacion</a>
-			<a >Materiales de formacion</a>
-			<a >Uusarios</a>
+			<div class="image-preview">
+                    <img src="./logosena.png"  class="preview-image">
+        </div>
+			<router-link  to="/redesconocimiento" @click="closeMenu">Redes de conocimiento</router-link>
+			<router-link  to="/usuario" @click="closeMenu">usuarios</router-link>
+			<router-link  to="/rolesusuario" @click="closeMenu">Roles de usuario</router-link>
+			<router-link  to="/nivelformacion" @click="closeMenu" >Ambientes de formacion</router-link>
+			<router-link   to="/centrosFormacion" @click="closeMenu">Centros de formacion</router-link>			
+			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
+			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
+			<a>Materiales de formacion</a>
+			<a>Desarrollo curricular</a>
+			<a>Materiales de formacion</a>
+			<a>Proyectos</a>
+			<a>Retroalimentacion de red</a>
+			<a>Investigacion</a>
+			<a>Registro calificado</a>
+			
       <a >Configuracion</a>
 		</nav>
-		<label for="btn-menu">✖️</label>
+		<label  style="position: fixed;" for="btn-menu">✖️</label>
 	</div>
 </div>
 </div>
@@ -46,6 +58,20 @@
 </script>
 
 <style >
+
+.container-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Espacio interior opcional */
+}
+
+@media (max-width: 768px) {
+  .container-main {
+    padding: 10px; /* Espacio interior reducido en dispositivos móviles */
+  }
+}
 .btn2{
   width: 350px;
   height: 50px;
@@ -71,8 +97,8 @@ transform: scale(1.1);
   border: none;
   padding: 13px 21px;
   font-size: 15px;
-  background-color: rgb(68, 204, 63);
-  color: #080707f3;
+  background-color:  rgb(25, 103, 42);
+  color: #fffffff3;
   border-radius: 10px;
   box-shadow: 10px  10px 10px rgba(13, 14, 16, 0.741);
   cursor: pointer;
@@ -113,7 +139,7 @@ transform: scale(1.1);
 		height: 100px;
 		position: fixed;
 		top: 0;left: 0;
-    background-color: #26b502;
+    background-color: rgb(26, 98, 46);
   
 	}
 	.container{
@@ -163,7 +189,7 @@ transform: scale(1.1);
 	}
 	.container-menu{
 		position: absolute;
-		background: rgb(157, 155, 155);
+
 		width: 100%;
 		height: 100vh;
 		top: 0;left: 0;
@@ -175,20 +201,22 @@ transform: scale(1.1);
 		opacity: 1;
 		visibility: visible;
 	}
-	.cont-menu{
-		width: 100%;
-		max-width: 250px;
-		background: #3ebd1e;
-		height: 100vh;
-		position: relative;
-		transition: all 500ms ease;
-		transform: translateX(-100%);
-	}
+	.cont-menu {
+  width: 100%;
+  max-width: 250px;
+  background: rgb(26, 98, 46);
+  max-height: 100vh; /* Establece una altura máxima */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+  position: relative;
+  transition: all 500ms ease;
+  transform: translateX(-100%);
+}
+
 	#btn-menu:checked ~ .container-menu .cont-menu{
 		transform: translateX(0%);
 	}
 	.cont-menu nav{
-		transform: translateY(15%);
+		padding: 10px; /* Ajusta el valor según tus necesidades */
 	}
 	.cont-menu nav a{
 		display: block;
@@ -201,6 +229,7 @@ transform: scale(1.1);
 	.cont-menu nav a:hover{
 		border-left: 5px solid #000000;
 		background: #ffffff;
+		color: #000000;
     
 	}
 	.cont-menu label{

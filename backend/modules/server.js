@@ -5,7 +5,9 @@ import redConocimiento from "../routes/redConocimiento.js"
 import ambienteFormacion from "../routes/ambienteFormacion.js"
 import desarolloCurricular from "../routes/desarolloCurricular.js"
 import usuario from "../routes/usuario.js"
+import ciudad from "../routes/ciudad.js"
 import programaFormacion from "../routes/programaFormacion.js"
+import centrosFormacion from "../routes/centrosFormacion.js"
 
 
 class Server{
@@ -27,6 +29,10 @@ class Server{
         this.app.use('/desarolloCurricular',desarolloCurricular)
         this.app.use('/usuario',usuario)
         this.app.use('/programaFormacion',programaFormacion)
+        this.app.use('/centrosFormacion',centrosFormacion)
+        this.app.use('/ciudad',ciudad)
+
+
     }
 
     middlewares(){
