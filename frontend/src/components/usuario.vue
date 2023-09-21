@@ -56,7 +56,7 @@
                             <!-- input identificacion -->
                             <input v-model="cc" type="number" class="form-control" placeholder="Numero de identificacion" :class="{'is-invalid': !cc}" /><br>
                             <!-- input direccion  -->
-                            <input v-model="direccion" type="text" class="form-control" placeholder="direccion" :class="{'is-invalid': !direccion}" /><br>
+                            <input v-model="direccion" type="text" class="form-control" placeholder="Direccion" :class="{'is-invalid': !direccion}" /><br>
                            
                             <!-- input redes de conocimiento -->
                             <!-- <select :class="{'is-invalid': !rolSeleccionado}" class="form-select" id="red-conocimiento" v-model="redConocimientoSeleccionada">
@@ -79,12 +79,14 @@
                    
                    </div>
                    <label>  <h6>Curriculum</h6>
-                            <input  type="file" class="form-control" id="archivo" :class="{'is-invalid': !curriculum}" /></label>
+                            <input type="file" class="form-control" id="archivo"  /></label>
                    <label> Rol:
                     <!-- boton rol -->
-                    <select :class="{'is-invalid': !rolSeleccionado}" class="form-select" id="red-conocimiento" v-model="redConocimientoSeleccionada">
-                        <option v-for="red in redesConocimiento" :key="red.id" :value="red">{{ red.nombre }}</option>
-                    </select> </label>
+<select :class="{'is-invalid': !rol}" class="form-select" id="rol" v-model="rol">
+    <option value="1">Instructor</option>
+    <option value="2">Gestor</option>
+    <option value="3">Invitado</option>
+</select> </label>
                  
                 </div>  <br><!-- boton guardar -->
                    <button @click="guardar()" type="button" class="btn" style="width: 100px;  ">
@@ -105,9 +107,8 @@
             </div>
             <div class="modal-body">
                 <div class="card-body ">
-                  <div class="image-preview">
-          <img :src="imageUrl" class="preview-image" style="background-color: #767e74;">
-        </div>
+                <div class="image-preview">
+                    <img :src="imageUrl || 'users.png'" class="preview-image"></div>
                    <!-- Input para cargar imagen -->
           
 <div class="file-input-container">
@@ -234,7 +235,7 @@ let email = ref("");
 let perfilProfesional = ref("");
 let curriculum = ref("");
 let rol = ref(0);
-let telefono = ref(0);
+let telefono = ref('');
 let estado = ref(true);
 
 let usuarioSeleccionado = ref(null);
@@ -261,7 +262,6 @@ async function guardar() {
     !direccion.value ||
     !email.value ||
     !perfilProfesional.value ||
-    !curriculum.value ||
     !rol.value ||
     !telefono.value ||
     !estado.value 
@@ -283,7 +283,6 @@ async function guardar() {
     direccion: direccion.value,
     email: email.value,
     perfilProfesional: perfilProfesional.value,
-    curriculum: curriculum.value,
     rol: rol.value,
     telefono: telefono.value,
     estado: estado.value,

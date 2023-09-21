@@ -31,7 +31,7 @@
 			<router-link  to="/usuario" @click="closeMenu">usuarios</router-link>
 			<router-link  to="/rolesusuario" @click="closeMenu">Roles de usuario</router-link>
 			<router-link  to="/nivelformacion" @click="closeMenu" >Ambientes de formacion</router-link>
-			<router-link   to="/centrosFormacion" @click="closeMenu">Centros de formacion</router-link>			
+			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
 			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
 			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
 			<a>Materiales de formacion</a>
@@ -44,7 +44,7 @@
 			
       <a >Configuracion</a>
 		</nav>
-		<label  style="position: fixed;" for="btn-menu">✖️</label>
+		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>
 </div>
 </div>

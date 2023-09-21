@@ -1,6 +1,6 @@
 <template>
  <div class="d-md-flex half">
-    <img class="bg" src="./Sena-.jpg" style="width: 1000px; ">
+    <div class="bg" style="background-image: url('./Sena-.jpg');width: 1000px; "></div>
     <div class="contents">
 
       <div class="container">
@@ -28,9 +28,11 @@
                   </label>
                   <span class="ml-auto"><a href="#" class="forgot-pass">Contraseña</a></span> 
                 </div>
-                <div v-if="loading" class="loading"></div>
+                <div v-if="loading" class="loading-spinner" style="position: relative;">
+      <!-- Agrega aquí tu indicador de carga, por ejemplo, un spinner -->
+      Cargando
+    </div>
                 <button class="btn" @click="login" :disabled="loading">INGRESAR</button>
-                <div v-if="error" class="error" style="color: rgb(255, 255, 255);">{{ error }}</div>
 
               </form>
             </div>
@@ -100,6 +102,30 @@ onMounted(async () => {
 body {
   font-family: "Roboto", sans-serif;
   background-color: #fff; }
+  .loading-spinner {
+  /* Estilo y posicionamiento del spinner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; /* Ajusta la altura según tus necesidades */
+}
+
+.loading-spinner:after {
+  /* Estilo del spinner */
+  content: "";
+  border: 4px solid rgba(255, 255, 255, 0.3); /* Colores y tamaño del spinner */
+  border-top: 4px solid #56a961;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite; /* Animación de giro */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 p {
   color: #b3b3b3;
@@ -254,4 +280,3 @@ h2 {
   background-color: #7e0cf5;
   opacity: .2; }
   </style>
-  

@@ -280,6 +280,28 @@ onMounted(async () => {
 </script>
   
 <style>
+/* Estilos para el contenedor del botón personalizado */
+.file-input-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 50px;
+  background-color: rgb(26, 98, 46);
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+/* Estilos para ocultar el input de archivos */
+.file-input {
+  display: none;
+}
+
+/* Estilos para el ícono de "más" */
+.custom-file-input-label i {
+  margin-right: 5px;
+}
+
    .preview-image {
   width: 100px;
   height: 100px;
@@ -318,7 +340,7 @@ onMounted(async () => {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #ffffff;
     transform: translateX(-30px);
     border-radius: 20px;
     transition: .3s;
@@ -350,7 +372,7 @@ onMounted(async () => {
       position: relative;
       display: flex;
       align-items: center;
-      width: 250px; /* Ajusta el ancho según tu diseño */
+      width: 500px; /* Ajusta el ancho según tu diseño */
       margin-left: 800px; /* Ajusta el margen izquierdo para el espacio deseado */
     }
   
@@ -372,7 +394,7 @@ onMounted(async () => {
   .input:focus, input:hover {
    outline: none;
    border-color: rgba(234,76,137,0.4);
-   background-color: #fff;
+   background-color: #fff9f9;
    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
   }
 
