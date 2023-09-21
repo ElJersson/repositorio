@@ -1,6 +1,6 @@
 <template>
  <div class="d-md-flex half">
-    <div class="bg" style="background-image: url('./Sena-.jpg');width: 1000px; "></div>
+    <img class="bg" src="./Sena-.jpg" style="width: 1000px; ">
     <div class="contents">
 
       <div class="container">

@@ -6,7 +6,7 @@ export const useUsuarioStore =defineStore(
          // lista de usuario
         const getUsuario= async () => {
               try {
-                 let res = await axios.get("http://localhost:4500/usuario");
+                 let res = await axios.get("https://repositorio.onrender.com/usuario");
                   console.log(res);
                   return res.data.usuarios; 
                } catch (error) {
@@ -17,7 +17,7 @@ export const useUsuarioStore =defineStore(
         // agregar usuario
         const addUsuario = async(info)=>{
             try {
-                let res = await axios.post("http://localhost:4500/usuario/crearUsuario",info)
+                let res = await axios.post("https://repositorio.onrender.com/usuario/crearUsuario",info)
                 return res
             } catch (error) {
                 console.log(error);
@@ -27,7 +27,7 @@ export const useUsuarioStore =defineStore(
         // editar usuario
         const updateUsuario = async (id, info) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/editUsuario/${id}`, info);
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/editUsuario/${id}`, info);
             return res;
           } catch (error) {
             console.log(error);
@@ -37,7 +37,7 @@ export const useUsuarioStore =defineStore(
         // editar estado usuario 
         const putUsuarioEstado = async (id, estado) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/estado/${id}`, {estado:estado});
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/estado/${id}`, {estado:estado});
             return res;
           } catch (error) {
             console.log(error);
