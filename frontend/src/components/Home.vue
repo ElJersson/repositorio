@@ -17,6 +17,10 @@
 	</header>
 	<div class="container-main">
    <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./logosena.png" alt="">
+      <div v-if="isLoading" class="loading-indicator">
+      <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #000;"></i>
+      <p>Cargando...</p>
+    </div>
    <router-view></router-view>
   </div>
 <!--	--------------->
@@ -25,12 +29,12 @@
 	<div class="cont-menu">
 		<nav>
 			<div class="image-preview">
-                    <img src="./logosena.png"  class="preview-image">
+                    <img src="./logosena.png"  class="preview-image" style="background-color: #ffffff;">
         </div>
-			<router-link  to="/redesconocimiento" @click="closeMenu">Redes de conocimiento</router-link>
-			<router-link  to="/usuario" @click="closeMenu">usuarios</router-link>
-			<router-link  to="/rolesusuario" @click="closeMenu">Roles de usuario</router-link>
-			<router-link  to="/nivelformacion" @click="closeMenu" >Ambientes de formacion</router-link>
+			<router-link  to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" >Redes de conocimiento</router-link>
+			<router-link  to="/usuario" @click="handleRouterLinkClick('/usuario')">usuarios</router-link>
+			<router-link  to="/rolUsuario" @click="closeMenu">Roles de usuario</router-link>
+			<router-link  to="/ambienteformacion" @click="closeMenu" >Ambientes de formacion</router-link>
 			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
 			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
 			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
@@ -52,12 +56,58 @@
 </template>
 
 <script setup>
-  const closeMenu = () => {
-    document.getElementById('btn-menu').checked = false;
-  };
+import { onBeforeRouteUpdate } from 'vue-router';
+import { ref, onMounted } from 'vue'; 
+
+let isLoading = ref(true); 
+
+  const closeMenu = () => {document.getElementById('btn-menu').checked = false; };
+const handleRouterLinkClick = (to) => {
+  isLoading.value = true; 
+  closeMenu(); 
+};
+
+onBeforeRouteUpdate((to, from, next) => {
+  setTimeout(() => {
+    isLoading.value = false; 
+    next(); 
+  }, 1000); 
+});
+
+onMounted(() => {
+  isLoading.value = false;
+});
+
+
+
 </script>
 
 <style >
+
+.loading-indicator {
+  position: fixed; /* Fija la posición en la ventana del navegador */
+  z-index: 9999; /* Asegura que esté en la capa superior */
+  top: 0; /* Lo coloca en la parte superior de la ventana */
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa todo el alto */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-indicator i {
+  font-size: 3em;
+  color: #000;
+}
+
+.loading-indicator p {
+  font-size: 1.5em;
+  color: #000;
+  margin-top: 10px;
+}
 
 .container-main {
   display: flex;
@@ -71,24 +121,6 @@
   .container-main {
     padding: 10px; /* Espacio interior reducido en dispositivos móviles */
   }
-}
-.btn2{
-  width: 350px;
-  height: 50px;
-  border-radius: 10px;
-  box-shadow: 10px  10px 10px rgba(13, 14, 16, 0.741);
-
-}
-.btn2:hover{
-background-color: #3ebd1e;
-color: #fff;
-transition: 0.5s all;
-transform: scale(1.1);
-
-}
-.btn2:active{
-  transform: scale(1.1);
-  /* Scaling button to 0.98 to its original size */
 }
 
 

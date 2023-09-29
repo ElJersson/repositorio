@@ -1,5 +1,6 @@
 <template >
 
+
    <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
     /* Lowering the shadow */">
   
@@ -16,7 +17,13 @@
       </button>
   
       <div class="input-container">
-        <input placeholder="Buscar..." type="search" class="input">
+        <input
+  placeholder="Buscar..."
+  type="search"
+  class="input"
+  v-model="searchTerm" 
+/>
+
           <!-- Tu código SVG para el icono de búsqueda -->
       </div>
     </div><br>
@@ -83,6 +90,7 @@
                    <label> Rol:
                     <!-- boton rol -->
 <select :class="{'is-invalid': !rol}" class="form-select" id="rol" v-model="rol">
+    <option value="" disabled selected>Seleccione El Rol</option>
     <option value="1">Instructor</option>
     <option value="2">Gestor</option>
     <option value="3">Invitado</option>
@@ -151,7 +159,7 @@
                     <h6>Rol</h6>
                     <input v-model="editRol" type="number" class="form-control" placeholder="Rol de usuario" :class="{'is-invalid': !editRol}" /><br>
                      <!-- boton guardar -->
-                     <button @click="actualizarUsuarioEditado(editUsuario._id)" type="button" class="btn2" style="width: 100px;  ">
+                     <button @click="actualizarUsuarioEditado(editUsuario._id)" type="button" class="btn" style="width: 100px;  ">
                         Editar
                     </button>
                    </div>
@@ -161,51 +169,63 @@
         </div>
     </div>
 </div>
-          <table class="table table-striped table-success table-hover"  >
-            <thead>
-              <tr>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Rol</th>
-                <!-- <th>Red de conocimiento</th> -->
-                <th>Estado</th>
-                <th>Editar/Usuario</th>
-                <th>Editar/Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="usuario in usuariosActivos" :key="usuario.id && usuario.id">
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellidos }}</td>
-                <td> 
-                  <span v-if="usuario.rol === 1">Instructor</span>
-                  <span v-else-if="usuario.rol === 2">Gestor</span>
-                  <span v-else-if="usuario.rol === 3">Invitado</span></td>
-                <!-- <td>{{ usuario.redconocimiento }}</td> -->
-                <td>
-                  <span v-if="usuario.estado" style="color: green">Activo</span>
-                  <span v-else style="color: red">Inactivo</span>
-                </td>
-                <td>
-                  <!-- boton  modal editar bus -->
-                
-                  <i  data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"   @click="editarUsuario(usuario)" class="fa-solid fa-pen fa-lg" style="color: #000000;"></i>
-                 
-                </td><td>
-                  <label class="switch">
-                     <input @click="editEstados(usuario)" v-model="usuario.estado" :checked="usuario.estado"  type="checkbox" class="checkbox">
-                     <div class="slider"></div>
-                  </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<table class="table table-striped table-success table-hover">
+  <thead>
+    <tr>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Rol</th>
+      <!-- <th>Red de conocimiento</th> -->
+      <th>Estado</th>
+      <th>Editar/Usuario</th>
+      <th>Editar/Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="usuario in filteredUsuarios" :key="usuario.id && usuario.id">
+      <td>{{ usuario.nombre }}</td>
+      <td>{{ usuario.apellidos }}</td>
+      <td>
+        <span v-if="usuario.rol === 1">Instructor</span>
+        <span v-else-if="usuario.rol === 2">Gestor</span>
+        <span v-else-if="usuario.rol === 3">Invitado</span>
+      </td>
+      <!-- <td>{{ usuario.redconocimiento }}</td> -->
+      <td>
+        <span v-if="usuario.estado" style="color: green">Activo</span>
+        <span v-else style="color: red">Inactivo</span>
+      </td>
+      <td>
+        <!-- boton modal editar usuario -->
+        <i
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          @click="editarUsuario(usuario)"
+          class="fa-solid fa-pen fa-lg"
+          style="color: #000000;"
+        ></i>
+      </td>
+      <td>
+        <label class="switch">
+          <input
+            @click="editEstados(usuario)"
+            v-model="usuario.estado"
+            :checked="usuario.estado"
+            type="checkbox"
+            class="checkbox"
+          />
+          <div class="slider"></div>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
     </div>
 </template>
   
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useUsuarioStore } from "../almacenaje/usuario.js";
 
@@ -223,7 +243,7 @@ const handleImageUpload = (event) => {
   }
 };
 
-
+let searchTerm = ref(""); // Agrega esta línea
 
 
 //variable store usuario
@@ -256,6 +276,19 @@ let editRol= ref(0)
 
 let usuariosActivos = ref([]);
 
+const filteredUsuarios = computed(() => {
+  return usuariosActivos.value.filter((usuario) => {
+    // Realiza la búsqueda en nombre y apellidos
+    const searchTermLowerCase = searchTerm.value.toLowerCase();
+    const nombreLowerCase = usuario.nombre.toLowerCase();
+    const apellidosLowerCase = usuario.apellidos.toLowerCase();
+
+    return (
+      nombreLowerCase.includes(searchTermLowerCase) ||
+      apellidosLowerCase.includes(searchTermLowerCase)
+    );
+  });
+});
 
 async function guardar() {
   // Realizar validaciones
@@ -486,7 +519,7 @@ onMounted(async () => {
   }
   
   .checkbox:checked ~ .slider {
-    background-color: #2196F3;
+    background-color: #1d9b1d;
   }
   
   .checkbox:active ~ .slider::before {
@@ -505,30 +538,28 @@ onMounted(async () => {
       position: relative;
       display: flex;
       align-items: center;
-      width: 500px; /* Ajusta el ancho según tu diseño */
-      margin-left: 800px; /* Ajusta el margen izquierdo para el espacio deseado */
+      width: 250px; /* Ajusta el ancho según tu diseño */
+      margin-left: 100px; /* Ajusta el margen izquierdo para el espacio deseado */
     }
   
     .input {
+      border-color:#000000;
       height: 50px;
       padding: 0 1rem;
       padding-left: 2.5rem;
       border: 2px solid transparent;
       border-radius: 8px;
       outline: none;
-      background-color: #f3f3f4;
       color: #0d0c22;
       transition: .3s ease;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
     }
-  .input::placeholder {
-   color: #9e9ea7;
-  }
+
   
   .input:focus, input:hover {
    outline: none;
-   border-color: rgba(234,76,137,0.4);
-   background-color: #fff9f9;
+   border-color: rgba(0, 252, 0, 0.4);
+   background-color: #fff;
    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
-  }
-
+   }
 </style>

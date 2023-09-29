@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/", hhtpAmbienteFormacion.getAmbienteFormacion);
 
- router.get("/:numAmbiente", hhtpAmbienteFormacion.getAmbienteFormacionNumAmbiente);
+router.get("/:numAmbiente", hhtpAmbienteFormacion.getAmbienteFormacionNumAmbiente);
 
 router.post("/", hhtpAmbienteFormacion.postAmbienteFormacion);
 

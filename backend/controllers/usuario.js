@@ -1,119 +1,151 @@
 import Usuario from "../modules/usuario.js";
-import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
-
-
-function generartoken(id) {
-    return jwt.sign({ id: id }, process.env.CLAVE);
-}
-
+import { generarJWT } from "../middlewares/validar-jwt.js";
 
 const httpUsuario = {
-    iniciarSesion: async (req, res) => {
-        const { email, password } = req.body;
-    
-        try {
-          const usuario = await Usuario.findOne({ email });
-          
-          if (!usuario) {
-            return res.status(401).json({ message: "Correo incorrectos" });
-          }
-         let id = usuario._id
-         console.log(id);
+  iniciarSesion: async (req, res) => {
+    const { email, password } = req.body;
 
-         const compContraseña = bcryptjs.compareSync(password, usuario.password);
-         console.log('compContraseña:', compContraseña);
-          if (!compContraseña) {
-            return res.status(401).json({ message: "contraseña incorrectos" });
-          }
-          let token= generartoken(id)
-          return res.json({ message: "Inicio de sesión exitoso",
-                            token: token 
-                          });
-          
-        } catch (error) {
-          console.error("Error de inicio de sesión:", error);
-          return res.status(500).json({ message: "Ocurrió un error durante el inicio de sesión" });
-        }
-      },
-  //listar los usuarios 
-    getUsuario: async (req, res) => {
-        const usuarios = await Usuario.find();
-        res.json({ usuarios });
-      },
+    try {
+      const usuario = await Usuario.findOne({ email });
 
-    //crear un nuevo Usuario
+      if (!usuario) {
+        return res.status(401).json({ message: "Correo incorrectos" });
+      }
 
-    postUsuario: async (req, res) => {
-        const { cc, nombre, apellidos, password,direccion,email,perfilProfesional,curriculum,rol,telefono, estado  } = req.body;
-        try {
-            const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado};
-            const salt=bcryptjs.genSaltSync()
-            nuevoUsuario.password =  bcryptjs.hashSync(req.body.password,salt)
+      if (usuario.estado === false) {
+        return res.status(400).json({
+          message: "Usuario inactivo",
+        });
+      }
 
-            Usuario.create(nuevoUsuario)
+      let idUsuario = usuario._id;
+      //console.log(id);
 
-            res.status(201).json(nuevoUsuario);
-        } catch (error) {
-            res.status(500).json({ mensaje: "Error al crear el Usuario" });
-        }
-    },
-        // editar usuario 
-        putUsuario: async (req, res) => {
-            const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
-            const {nombre, apellidos,direccion,perfilProfesional,curriculum,telefono,estado } = req.body;
-        
-            try {
-              // Buscar el usuario por id
-              const usuario = await Usuario.findById(id);
-        
-              if (!usuario) {
-                return res.status(404).json({ error: "usuario no encontrado" });
-              }
-        
-            // Actualizar los campos del usuario con los valores nuevos
-            usuario.apellidos = apellidos;
-            usuario.nombre = nombre;
-            usuario.direccion = direccion;
-            usuario.perfilProfesional = perfilProfesional;
-            usuario.curriculum = curriculum;
-            usuario.telefono = telefono;
-            usuario.estado = estado;
-        
-              // Guardar los cambios en la base de datos
-              await usuario.save();
-        
-              res.json({ usuario });
-            } catch (error) {
-              res.status(500).json({ error: "Error en el servidor" });
-            }
-          },
+      const compContraseña = bcryptjs.compareSync(password, usuario.password);
+      console.log("compContraseña:", compContraseña);
+      if (!compContraseña) {
+        return res.status(401).json({ message: "contraseña incorrectos" });
+      }
+      let token = await generarJWT(idUsuario);
+      return res.json({ message: "Inicio de sesión exitoso", token, usuario });
+    } catch (error) {
+      console.error("Error de inicio de sesión:", error);
+      return res
+        .status(500)
+        .json({ message: "Ocurrió un error durante el inicio de sesión" });
+    }
+  },
+  //listar los usuarios
+  getUsuario: async (req, res) => {
+    const usuarios = await Usuario.find();
+    res.json({ usuarios });
+  },
 
-          // editar el estado 
-        actualizarestado: async (req, res) => {
-        const id = req.params.id;
-        console.log(`estado actualizado ${id}`);
+  //crear un nuevo Usuario
 
-        const actualizado = {
-            estado: req.body.estado,
-        };
+  postUsuario: async (req, res) => {
+    const {
+      cc,
+      nombre,
+      apellidos,
+      password,
+      direccion,
+      email,
+      perfilProfesional,
+      curriculum,
+      rol,
+      telefono,
+      estado,
+    } = req.body;
+    try {
+      const nuevoUsuario = {
+        cc,
+        nombre,
+        apellidos,
+        password,
+        direccion,
+        email,
+        perfilProfesional,
+        curriculum,
+        rol,
+        telefono,
+        estado,
+      };
+      const salt = bcryptjs.genSaltSync();
+      nuevoUsuario.password = bcryptjs.hashSync(req.body.password, salt);
 
-        try {
+      Usuario.create(nuevoUsuario);
 
-            const administradorActualizado = await Usuario.findByIdAndUpdate(id, actualizado);
+      res.status(201).json(nuevoUsuario);
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al crear el Usuario" });
+    }
+  },
+  // editar usuario
+  putUsuario: async (req, res) => {
+    const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
+    const {
+      nombre,
+      apellidos,
+      direccion,
+      perfilProfesional,
+      curriculum,
+      telefono,
+      estado,
+    } = req.body;
 
-            if (administradorActualizado) {
-                console.log(administradorActualizado);
-                res.status(200).json(administradorActualizado)
-            } else {
-                res.status(400).json({error: 'administrador no encontrado'})
-            }
+    try {
+      // Buscar el usuario por id
+      const usuario = await Usuario.findById(id);
 
-        } catch (error) {
-            res.status(500).json({error: 'no se pudo actualizar el administrador'})
-        }
-  }
+      if (!usuario) {
+        return res.status(404).json({ error: "usuario no encontrado" });
+      }
 
+      // Actualizar los campos del usuario con los valores nuevos
+      usuario.apellidos = apellidos;
+      usuario.nombre = nombre;
+      usuario.direccion = direccion;
+      usuario.perfilProfesional = perfilProfesional;
+      usuario.curriculum = curriculum;
+      usuario.telefono = telefono;
+      usuario.estado = estado;
+
+      // Guardar los cambios en la base de datos
+      await usuario.save();
+
+      res.json({ usuario });
+    } catch (error) {
+      res.status(500).json({ error: "Error en el servidor" });
+    }
+  },
+
+  // editar el estado
+  actualizarestado: async (req, res) => {
+    const id = req.params.id;
+    console.log(`estado actualizado ${id}`);
+
+    const actualizado = {
+      estado: req.body.estado,
+    };
+
+    try {
+      const administradorActualizado = await Usuario.findByIdAndUpdate(
+        id,
+        actualizado
+      );
+
+      if (administradorActualizado) {
+        console.log(administradorActualizado);
+        res.status(200).json(administradorActualizado);
+      } else {
+        res.status(400).json({ error: "administrador no encontrado" });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "no se pudo actualizar el administrador" });
+    }
+  },
 };
 
 export default httpUsuario;

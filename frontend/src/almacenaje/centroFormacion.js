@@ -8,7 +8,7 @@ export const useCentroFormacionStore =defineStore(
             try {
                let res = await axios.get("http://localhost:4500/centrosFormacion");
                 console.log(res);
-                return res.data.usuarios; 
+                return res.data.centrosFormacion; 
              } catch (error) {
                 console.log(error);
                 return error;
@@ -27,7 +27,7 @@ export const useCentroFormacionStore =defineStore(
       // editar centro de formación
       const updateCentrosFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`http://localhost:4500/centrosFormacion/${id}`, info);
+          let res = await axios.put(`http://localhost:4500/centrosFormacion/editCentroFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);

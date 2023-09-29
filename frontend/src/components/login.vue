@@ -1,6 +1,6 @@
 <template>
  <div class="d-md-flex half">
-    <img class="bg" src="./Sena-.jpg" style="width: 1000px; ">
+    <img class="bg" src="./Sena-.jpg" style="width: 800px; ">
     <div class="contents">
 
       <div class="container">
@@ -48,7 +48,6 @@
       Cargando
     </div>
                 <button class="btn" @click="login" :disabled="loading">INGRESAR</button>
-                <div v-if="error" class="error" style="color: rgb(255, 255, 255);">{{ error }}</div>
 
               </form>
             </div>

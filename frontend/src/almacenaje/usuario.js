@@ -60,6 +60,6 @@ export const useUsuarioStore =defineStore(
             getUsuario,
             putUsuarioEstado,
             deleteUsuario
-        }
-    }
+          }
+        }
 )

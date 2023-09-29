@@ -2,10 +2,11 @@
 import AmbienteFormacion from "../modules/ambientesFormacion.js"
 
 const hhtpAmbienteFormacion = {
-
+//    listar ambientes de formación:
     getAmbienteFormacion: async (req, res) => {
         try {
             const ambienteFormacion = await AmbienteFormacion.find()
+            .populate("centroFormacion")
             res.json({ ambienteFormacion });
         } catch (error) {
             res.status(500).json({ mensaje: "error al obtener los ambientes de formacion" })
@@ -26,24 +27,23 @@ const hhtpAmbienteFormacion = {
             res.status(500).json({ mensaje: "error al obtener el ambiente de formacion" })
         }
     },
+//    Agregar ambientes de formación:
 
     postAmbienteFormacion: async (req, res) => {
-        const { numAmbiente, centroFormacion, ciudad, departamento } = req.body;
-        if (!numAmbiente || !centroFormacion || !ciudad || !departamento) {
-            return res.status(400).json({ mensaje: "todos los campos son requeridos" })
-        }
+        const { numAmbiente, centroFormacion, tipo, descripcion,estado } = req.body;
         try {
-
-            const newAmbienteFormacion = await AmbienteFormacion.create({ numAmbiente, centroFormacion, ciudad, departamento })
-            res.status(201).json({
-                mensaje: "¡se inserto 1 registro",
-                AmbienteFormacion: newAmbienteFormacion
-            })
-        }
-        catch (error) {
-            console.error(error);
-            res.status(500).json({ mensaje: "error al insertarel ambinete de formacion" })
-
+            // Crear un nuevo centro de formación y esperar la promesa
+            const nuevoAmbienteFormacion = await AmbienteFormacion.create({
+                numAmbiente,
+                centroFormacion,
+                tipo,
+                descripcion,
+                estado
+            });
+    
+            res.status(201).json(nuevoAmbienteFormacion);
+        } catch (error) {
+            res.status(500).json({ mensaje: "Error al crear el Ambiente de formación" });
         }
     },
 

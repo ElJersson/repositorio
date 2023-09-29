@@ -4,49 +4,56 @@ const httpCentroFormacion = {
     //listar los CentroFormacion 
     getCentroFormacion: async (req, res) => {
         const centrosFormacion = await CentroFormacion.find()
-        .populate("ciudad")
+        .populate("idCiudad")
         res.json({ centrosFormacion });
       },
       
    //crear un CentroFormacion
    postCentroFormacion: async (req, res) => {
-    const { nombre, codigo, direccion} = req.body;
+    const { nombre, codigo, direccion, idCiudad } = req.body;
     try {
-        const nuevoCentroFormacion = {nombre, codigo, direccion};
-
-        CentroFormacion.create(nuevoCentroFormacion)
+        // Crear un nuevo centro de formación y esperar la promesa
+        const nuevoCentroFormacion = await CentroFormacion.create({
+            nombre,
+            codigo,
+            direccion,
+            idCiudad,
+        });
 
         res.status(201).json(nuevoCentroFormacion);
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al crear el Usuario" });
+        res.status(500).json({ mensaje: "Error al crear el centro de formación" });
     }
 },
        // editar usuario 
        putCentroFormacion: async (req, res) => {
-        const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
-        const {nombre, codigo, direccion } = req.body;
+        const { id } = req.params;
+        const { nombre, codigo, direccion, idCiudad } = req.body;
     
         try {
-          // Buscar el usuario por id
-          const centroFormacion = await CentroFormacion.findById(id);
+            // Buscar el centro de formación por id
+            const centroFormacion = await CentroFormacion.findById(id);
     
-          if (!centroFormacion) {
-            return res.status(404).json({ error: "centroFormacion no encontrado" });
-          }
+            if (!centroFormacion) {
+                return res.status(404).json({ error: "Centro de formación no encontrado" });
+            }
     
-        // Actualizar los campos del centroFormacion con los valores nuevos
-        centroFormacion.codigo = codigo;
-        centroFormacion.nombre = nombre;
-        centroFormacion.direccion = direccion;
-
-          // Guardar los cambios en la base de datos
-          await centroFormacion.save();
+            // Actualizar los campos del centro de formación con los valores nuevos
+            centroFormacion.codigo = codigo;
+            centroFormacion.nombre = nombre;
+            centroFormacion.direccion = direccion;
+            centroFormacion.idCiudad = idCiudad;
     
-          res.json({ CentroFormacion });
+            // Guardar los cambios en la base de datos y esperar la promesa
+            const centroFormacionActualizado = await centroFormacion.save();
+    
+            // Responder con el centro de formación actualizado
+            res.json({ centroFormacion: centroFormacionActualizado });
         } catch (error) {
-          res.status(500).json({ error: "Error en el servidor" });
+            // Manejar errores de validación y otros errores
+            res.status(500).json({ error: "Error en el servidor a la hora de editar el centro de fromación" });
         }
-      }
+    }
 };
 
 

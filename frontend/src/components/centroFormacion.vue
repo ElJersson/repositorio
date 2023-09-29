@@ -1,7 +1,7 @@
 <template >
 
 <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
-    /* Lowering the shadow */">
+    /* Lowering the shadow */">
   
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
@@ -34,9 +34,11 @@
       
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- input codigo -->
+                             Nombre
+                            <!-- input nombre -->
                             <input v-model="nombre" type="text" class="form-control" :class="{'is-invalid': !nombre}" placeholder="Nombres" /><br>
-                            <!-- input ciudad -->
+                            Codigo
+                            <!-- input codigo -->
                             <input v-model="codigo" type="text" class="form-control" placeholder="Codigo" :class="{'is-invalid': !codigo}" /><br>
                   
                             <!-- input redes de conocimiento -->
@@ -45,10 +47,15 @@
                             </select>  -->
                             </div>
                             <div class="col-md-6">
-                            <!-- input denominacion -->
-                            <input v-model="idCiudad" type="text" class="form-control" placeholder="Correo electronico" :class="{'is-invalid': !idCiudad}" /><br>
+                            Ciudad
+                            <!-- input ciudad -->
+                            <select :class="{'is-invalid': !idCiudad}" class="form-select" id="red-conocimiento" v-model="idCiudad">
+                            <option value="" disabled selected>Seleccione la ciudad</option>
+                            <option v-for="ciudad in ciudadActivos" :key="ciudad.id" :value="ciudad">{{ ciudad.nombre }}</option>
+                            </select><br>
+                            Dirección
                             <!-- input Direccion -->
-                            <input v-model="password" type="text" class="form-control" placeholder="Contraseña" :class="{'is-invalid': !password}" /><br>
+                            <input v-model="direccion" type="text" class="form-control" placeholder="Direccion" :class="{'is-invalid': !direccion}" /><br>
 
                      <!-- boton guardar -->
                      <button @click="guardar()" type="button" class="btn2" style="width: 100px;  ">
@@ -77,16 +84,20 @@
       
                     <div class="row">
                         <div class="col-md-6">
+                           <!-- input nombre -->
+                            <input v-model="editNombre" type="text" class="form-control" :class="{'is-invalid': !nombre}" placeholder="Nombres" /><br>
                             <!-- input codigo -->
-                            <input v-model="nombre" type="text" class="form-control" :class="{'is-invalid': !nombre}" placeholder="Nombres" /><br>
-                            <!-- input ciudad -->
-                            <input v-model="apellidos" type="text" class="form-control" placeholder="Apellidos" :class="{'is-invalid': !apellidos}" /><br>
+                            <input v-model="editCodigo" type="text" class="form-control" placeholder="Codigo" :class="{'is-invalid': !codigo}" /><br>
+                  
                             </div>
                             <div class="col-md-6">
-                            <!-- input denominacion -->
-                            <input v-model="idCiudad" type="text" class="form-control" placeholder="Correo electronico" :class="{'is-invalid': !idCiudad}" /><br>
+                            <!-- input ciudad -->
+                            <select :class="{'is-invalid': !idCiudad}" class="form-select" id="red-conocimiento" v-model="editCiudad">
+                            <option value="" disabled selected>Seleccione la ciudad</option>
+                            <option v-for="ciudad in ciudadActivos" :key="ciudad.id" :value="ciudad">{{ ciudad.nombre }}</option>
+                            </select><br>
                             <!-- input Direccion -->
-                            <input v-model="password" type="text" class="form-control" placeholder="Contraseña" :class="{'is-invalid': !password}" /><br>
+                            <input v-model="editDireccion" type="text" class="form-control" placeholder="Direccion" :class="{'is-invalid': !direccion}" /><br>
 
                      <!-- boton guardar -->
                      <button @click="actualizarCentroFormacionEditado(editCentroFormacion._id)" type="button" class="btn2" style="width: 100px;  ">
@@ -113,7 +124,8 @@
               <tr v-for="centroFormacion in centroFormacionActivos" :key="centroFormacion.id && centroFormacion.id">
                 <td>{{ centroFormacion.codigo }}</td>
                 <td>{{ centroFormacion.nombre }}</td>
-                <td>{{ centroFormacion.idCiudad }}</td>
+                <td>{{ centroFormacion.idCiudad.nombre }}</td>
+                <td>{{ centroFormacion.direccion }}</td>
                 <!-- <td>{{ centroFormacion.redconocimiento }}</td> -->
 
                 <td>
@@ -132,14 +144,16 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
-import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
 import { useCiudadStore } from "../almacenaje/ciudad.js";
+import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
 
 
 
+//variable store ciudad 
+const  useCiudad = useCiudadStore();
 //variable store centro Formacion
 const useCentroFormacion = useCentroFormacionStore();
-const  useCiudad = useCiudadStore();
+
 //variables modal agregar
 let nombre = ref("");
 let codigo = ref("");
@@ -275,6 +289,7 @@ function limpiarInputs() {
 
 onMounted(async () => {
   await lisCentroFormacion();
+  await lisCiudad();
 }); 
 
 </script>
@@ -317,85 +332,7 @@ onMounted(async () => {
   margin-top: 20px;
 }
     
-    .checkbox {
-    display: none;
-  }
-  
-  .slider {
-    width: 60px;
-    height: 30px;
-    background-color: lightgray;
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    border: 4px solid transparent;
-    transition: .3s;
-    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
-    cursor: pointer;
-  }
-  
-  .slider::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    transform: translateX(-30px);
-    border-radius: 20px;
-    transition: .3s;
-    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
-  }
-  
-  .checkbox:checked ~ .slider::before {
-    transform: translateX(30px);
-    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
-  }
-  
-  .checkbox:checked ~ .slider {
-    background-color: #2196F3;
-  }
-  
-  .checkbox:active ~ .slider::before {
-    transform: translate(0);
-  }
-  
-  .group {
-   display: flex;
-   line-height: 28px;
-   align-items: center;
-   position: relative;
-   max-width: 190px;
-  }
-  
-  .input-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 500px; /* Ajusta el ancho según tu diseño */
-      margin-left: 800px; /* Ajusta el margen izquierdo para el espacio deseado */
-    }
-  
-    .input {
-      height: 50px;
-      padding: 0 1rem;
-      padding-left: 2.5rem;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      outline: none;
-      background-color: #f3f3f4;
-      color: #0d0c22;
-      transition: .3s ease;
-    }
-  .input::placeholder {
-   color: #9e9ea7;
-  }
-  
-  .input:focus, input:hover {
-   outline: none;
-   border-color: rgba(234,76,137,0.4);
-   background-color: #fff9f9;
-   box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
-  }
+
+
 
 </style>

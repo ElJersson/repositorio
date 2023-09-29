@@ -8,7 +8,7 @@ export const useCiudadStore =defineStore(
             try {
                let res = await axios.get("http://localhost:4500/ciudad");
                 console.log(res);
-                return res.data.ciudadList; 
+                return res.data.ciudades; 
              } catch (error) {
                 console.log(error);
                 return error;
