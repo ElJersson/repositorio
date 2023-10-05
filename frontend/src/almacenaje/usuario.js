@@ -7,7 +7,6 @@ export const useUsuarioStore =defineStore(
         const getUsuario= async () => {
               try {
                  let res = await axios.get("https://repositorio.onrender.com/usuario");
-                  console.log(res);
                   return res.data.usuarios; 
                } catch (error) {
                   console.log(error);

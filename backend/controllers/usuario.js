@@ -38,7 +38,8 @@ const httpUsuario = {
   },
   //listar los usuarios
   getUsuario: async (req, res) => {
-    const usuarios = await Usuario.find();
+    const usuarios = await Usuario.find()
+    .populate("rol")
     res.json({ usuarios });
   },
 

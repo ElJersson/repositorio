@@ -89,12 +89,11 @@
                             <input type="file" class="form-control" id="archivo"  /></label>
                    <label> Rol:
                     <!-- boton rol -->
-<select :class="{'is-invalid': !rol}" class="form-select" id="rol" v-model="rol">
-    <option value="" disabled selected>Seleccione El Rol</option>
-    <option value="1">Instructor</option>
-    <option value="2">Gestor</option>
-    <option value="3">Invitado</option>
-</select> </label>
+                            <!-- input rolusuario -->
+                            <select :class="{'is-invalid': !rol}" class="form-select" id="red-conocimiento" v-model="rol">
+                            <option value="" disabled selected>Seleccione El Rol</option>
+                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
+                            </select><br></label>
                  
                 </div>  <br><!-- boton guardar -->
                    <button @click="guardar()" type="button" class="btn" style="width: 100px;  ">
@@ -157,8 +156,11 @@
                    
                     <!-- boton rol -->
                     <h6>Rol</h6>
-                    <input v-model="editRol" type="number" class="form-control" placeholder="Rol de usuario" :class="{'is-invalid': !editRol}" /><br>
-                     <!-- boton guardar -->
+                            <!-- input rolusuario -->
+                            <select :class="{'is-invalid': !editRol}" class="form-select" id="red-conocimiento" v-model="editRol">
+                            <option value="" disabled selected>Seleccione El Rol</option>
+                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
+                            </select><br>                     <!-- boton guardar -->
                      <button @click="actualizarUsuarioEditado(editUsuario._id)" type="button" class="btn" style="width: 100px;  ">
                         Editar
                     </button>
@@ -182,14 +184,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="usuario in filteredUsuarios" :key="usuario.id && usuario.id">
+    <tr v-for="usuario in usuariosActivos" :key="usuario.id && usuario.id">
       <td>{{ usuario.nombre }}</td>
       <td>{{ usuario.apellidos }}</td>
-      <td>
-        <span v-if="usuario.rol === 1">Instructor</span>
-        <span v-else-if="usuario.rol === 2">Gestor</span>
-        <span v-else-if="usuario.rol === 3">Invitado</span>
-      </td>
+      <td>{{ usuario.rol }}</td>
       <!-- <td>{{ usuario.redconocimiento }}</td> -->
       <td>
         <span v-if="usuario.estado" style="color: green">Activo</span>
@@ -228,6 +226,7 @@
 import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useUsuarioStore } from "../almacenaje/usuario.js";
+import { useRolUsuarioStore } from "../almacenaje/rolUsuario.js";
 
 const imageUrl = ref('');
 
@@ -248,6 +247,8 @@ let searchTerm = ref(""); // Agrega esta línea
 
 //variable store usuario
 const useUsuario = useUsuarioStore();
+//variable store rolUsuario
+const useRolUsuario = useRolUsuarioStore();
 
 //variables modal agregar
 let cc = ref("");
@@ -258,7 +259,7 @@ let direccion = ref("");
 let email = ref("");
 let perfilProfesional = ref("");
 let curriculum = ref("");
-let rol = ref(0);
+let rol = ref("");
 let telefono = ref('');
 let estado = ref(true);
 
@@ -272,9 +273,12 @@ let editperfilProfesional = ref("");
 let editCurriculum = ref("");
 let editTelefono = ref(0);
 let editEstado = ref(true);
-let editRol= ref(0)
+let editRol= ref("")
 
+// aray con todos los usuario
 let usuariosActivos = ref([]);
+// aray con todos los Roles de Usuario
+let RolusuariosActivos = ref([]);
 
 const filteredUsuarios = computed(() => {
   return usuariosActivos.value.filter((usuario) => {
@@ -301,7 +305,7 @@ async function guardar() {
     !email.value ||
     !perfilProfesional.value ||
     !rol.value ||
-    !telefono.value ||
+    !telefono.value ||   
     !estado.value 
   ) {
     // Mostrar una alerta temporal de error en caso de campos vacíos
@@ -361,9 +365,15 @@ function editarUsuario(usuario) {
   editRol.value = usuario.rol
 }
 
+// listar Usuarios 
 const lisUsuario = async()=>{
  usuariosActivos.value =await useUsuario.getUsuario();
- console.log(usuariosActivos.value);
+}
+
+// listar Rol Usurio
+const lisRolUsuario = async()=>{
+ RolusuariosActivos.value =await useRolUsuario.getRolUsuario();
+ console.log(RolusuariosActivos.value);
 }
 
 
@@ -441,6 +451,7 @@ function limpiarInputs() {
 
 onMounted(async () => {
   await lisUsuario();
+  await lisRolUsuario();
 }); 
 
 </script>

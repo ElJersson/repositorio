@@ -1,15 +1,14 @@
+import bcryptjs from "bcryptjs";
+import { generarJWT } from "../middlewares/validar-jwt.js";
 import RedConocimiento from "../modules/redConocimiento.js";
 
 const hhtpRedConocimiento = {
-    getRedesConocimiento: async (req, res) => {
-        try {
-            const redesConocimiento = await RedConocimiento.find();
-            res.json(redesConocimiento);
-        } catch (error) {
-            res.status(500).json({ mensaje: "Error al obtener las redes de conocimiento" });
-        }
-    },
 
+    //listar los usuarios
+    getRedesConocimiento: async (req, res) => {
+        const redesConocimientos = await RedConocimiento.find();
+        res.json({ redesConocimientos });
+    },
 
     getRedesConocimientoNombre: async (req, res) => {
 
@@ -73,25 +72,25 @@ const hhtpRedConocimiento = {
     },
 
     actualizarestado: async (req, res) => {
-        const id = req.params;
+        const id = req.params.id;
         console.log(`estado actualizado ${id}`);
 
         const actualizado = {
-            estado : req.body.estado,
-        
+            estado: req.body.estado,
+
         }
         try {
-           
-            const redConocimientoActualizada = await redConocimientoActualizada.findByIdAndUpdate(id, actualizado)
-        
-            if(redConocimientoActualizada) {
+
+            const redConocimientoActualizada = await RedConocimiento.findByIdAndUpdate(id, actualizado)
+
+            if (redConocimientoActualizada) {
                 console.log(redConocimientoActualizada);
                 res.status(200).json(redConocimientoActualizada)
             } else {
-                res.status(404).json({error: 'red de conomiento no encontrada'})
+                res.status(404).json({ error: 'red de conocimiento no encontrada' })
             }
         } catch (error) {
-            res.status(500).json({error: 'no se pudo actualizar la red de conocimiento'})
+            res.status(500).json({ error: 'no se pudo actualizar el estado de la red de conocimiento' })
         }
     }
 

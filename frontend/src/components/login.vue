@@ -8,9 +8,10 @@
           <div class="col-md-12">
             <div class="form-block mx-auto">
               <div class="text-center mb-5">
-              <h3>INICIAR SESION <br> <strong>sena</strong></h3>
+                <div class="logo-title-container">
+             <img src="./logosena.png" style="width: 20%;"> <h3>INICIAR SESION </h3>
               <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
-              </div>
+              </div></div>
               <form action="#" method="post">
                 <div class="form-group first">
                   <label for="username">Usuario</label>
@@ -128,6 +129,14 @@ body {
   justify-content: center;
   height: 50px; /* Ajusta la altura según tus necesidades */
 }
+/* Estilo para alinear el logo y el título */
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Ajusta el margen según sea necesario */
+}
+
 
 .password-input-container {
   position: relative;
@@ -324,4 +333,4 @@ h2 {
 .control--checkbox input:disabled:checked ~ .control__indicator {
   background-color: #7e0cf5;
   opacity: .2;}
-  </style>
+</style>

@@ -12,7 +12,7 @@ router.get("/:nombre", httpRedConocimiento.getRedesConocimientoNombre);
 
 router.post("/", httpRedConocimiento.postRedesConocimiento);
 
-router.put("/RedConocimiento/:id", httpRedConocimiento.putRedConocimiento);
+router.put("/editRedConocimiento/:id", httpRedConocimiento.putRedConocimiento);
 
 router.put("/estado/:id", httpRedConocimiento.actualizarestado)
 
