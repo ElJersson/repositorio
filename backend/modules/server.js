@@ -9,6 +9,7 @@ import ciudad from "../routes/ciudad.js"
 import rolUsuario from "../routes/rolUsuario.js"
 import programaFormacion from "../routes/programaFormacion.js"
 import centrosFormacion from "../routes/centrosFormacion.js"
+import materialFormacion from "../routes/materialFormacion.js"
 
 
 class Server{
@@ -32,6 +33,7 @@ class Server{
         this.app.use('/programaFormacion',programaFormacion)
         this.app.use('/centrosFormacion',centrosFormacion)
         this.app.use('/ciudad',ciudad)
+        this.app.use('/materialFormacion',materialFormacion)
         this.app.use('/rolUsuario',rolUsuario)
 
 

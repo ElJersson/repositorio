@@ -172,25 +172,22 @@
 <table class="table table-striped table-success table-hover">
   <thead>
     <tr>
-      <th>Nombres</th>
+      <th></th>
+      <th>Instructor</th>
       <th>Apellidos</th>
-      <th>Rol</th>
-      <!-- <th>Red de conocimiento</th> -->
       <th>Estado</th>
       <th>Editar/Usuario</th>
       <th>Editar/Estado</th>
     </tr>
-  </thead>
-  <tbody>
+</thead>
+<tbody>
     <tr v-for="usuario in filteredUsuarios" :key="usuario.id && usuario.id">
+      <td>
+        <img :src="usuario.imageUrl || 'users.png'" class="preview-image">
+      </td>
       <td>{{ usuario.nombre }}</td>
       <td>{{ usuario.apellidos }}</td>
-      <td>
-        <span v-if="usuario.rol === 1">Instructor</span>
-        <span v-else-if="usuario.rol === 2">Gestor</span>
-        <span v-else-if="usuario.rol === 3">Invitado</span>
-      </td>
-      <!-- <td>{{ usuario.redconocimiento }}</td> -->
+
       <td>
         <span v-if="usuario.estado" style="color: green">Activo</span>
         <span v-else style="color: red">Inactivo</span>
@@ -218,7 +215,7 @@
         </label>
       </td>
     </tr>
-  </tbody>
+</tbody>
 </table>
 
     </div>

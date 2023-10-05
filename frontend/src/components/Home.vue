@@ -38,6 +38,7 @@
 			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
 			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
 			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
+			<router-link to="/materialFormacion" @click="closeMenu">Materiales de formacion</router-link>
 			<a>Materiales de formacion</a>
 			<a>Desarrollo curricular</a>
 			<a>Materiales de formacion</a>

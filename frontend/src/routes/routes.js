@@ -6,6 +6,7 @@ import redesconocimiento from "../components/redesconocimiento.vue";
 import centroFormacion from "../components/centroFormacion.vue";
 import programas_formacion from "../components/programas_formacion.vue";
 import instructores from "../components/instructores.vue";
+import materialFormacion from "../components/materialFormacion.vue";
 import rolUsuario from "../components/rolUsuario.vue";
 
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -21,6 +22,8 @@ const routes = [
        {path:"/centroFormacion" , component:centroFormacion},
        {path:"/programas_formacion" , component:programas_formacion},
        {path:"/instructores" , component:instructores},
+       {path:"/materialFormacion" , component:materialFormacion},
+
       ]
     }
 ]
