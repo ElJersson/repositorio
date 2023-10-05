@@ -187,7 +187,7 @@
     <tr v-for="usuario in usuariosActivos" :key="usuario.id && usuario.id">
       <td>{{ usuario.nombre }}</td>
       <td>{{ usuario.apellidos }}</td>
-      <td>{{ usuario.rol }}</td>
+      <td>{{ usuario.rol.denominacion }}</td>
       <!-- <td>{{ usuario.redconocimiento }}</td> -->
       <td>
         <span v-if="usuario.estado" style="color: green">Activo</span>
