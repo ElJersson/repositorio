@@ -1,5 +1,5 @@
 <template >
-  <div class="container" style="background-color: #ffffff; border-radius: 10px; box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px; position: absolute; overflow: auto;">
+  <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;; overflow: auto;">
 
 
     <br>
@@ -85,7 +85,7 @@
       </div>
     </div>
    <!-- tabla de red de conocimiento -->
-   <div style="max-height: 400px; overflow-y: auto;">
+   <div style="max-height: 300px; overflow-y: auto;">
       <table class="table table-striped table-success table-hover">
         <!-- Encabezados de la tabla -->
         <thead>

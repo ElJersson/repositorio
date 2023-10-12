@@ -45,46 +45,41 @@
             <div class="modal-body">
               <div>
                 <div class="card-body">
-              <!-- input tipo del ambiente de formación -->
+              <!-- input nombre material de formación -->
                 <input
-                  v-model="tipo"
+                  v-model="nombre"
                   type="text"
                   class="form-control"
-                  :class="{'is-invalid' : !tipo}"
+                  :class="{'is-invalid' : !nombre}"
                   placeholder="Tipo De Ambiente"
                 /><br>
             
-              <!-- input numAmbiente -->
-                <input
-                  v-model="numAmbiente"
-                  type="number"
-                  class="form-control"
-                 placeholder="Numero De Ambiente"
-                  :class="{'is-invalid': !numAmbiente}"
-                /><br>
-              
-  
-   <!-- input Centro Formacion -->
-<select :class="{'is-invalid': !centroFormacion}" class="form-select" id="red-conocimiento" v-model="centroFormacion">
-<option value="" disabled selected>Seleccione Centro Formación</option>
-<option v-for="centroformacion in centroFormacionActivos" :key="centroformacion.id" :value="centroformacion">{{ centroformacion.nombre }}</option>
-</select><br>
-              
-  
-              <!-- input Descripcion -->
+              <!-- input descripcion -->
                 <input
                   v-model="descripcion"
                   type="text"
                   class="form-control"
-                 placeholder="Descripcion"
+                 placeholder="Numero De Ambiente"
                   :class="{'is-invalid': !descripcion}"
+                /><br>
+              
+  
+              <!-- input Tipo -->
+                <input
+                  v-model="tipo"
+                  type="text"
+                  class="form-control"
+                 placeholder="Descripcion"
+                  :class="{'is-invalid': !tipo}"
                 /><br>
               
               <!-- input Documento -->
                 <input
-                  type="file"
+                  v-model="documento"
+                  type="text"
                   class="form-control"
-                 placeholder="Archivos"
+                 placeholder="Descripcion"
+                  :class="{'is-invalid': !documento}"
                 /><br>
 
               <!-- boton guardar -->
@@ -126,43 +121,42 @@
               ></button>
             </div>
             <div class="modal-body">
-              <!-- input editar numero de ambiente -->
-              <h5>Numero Ambiente</h5>
+             <!-- input editar nombre material de formación -->
                 <input
-                  v-model="editNumAmbiente"
-                  type="number"
-                  class="form-control"
-                 placeholder="numero de Ambiente"
-                  
-                /><br>
-              
-
-<!-- input Centro Formacion -->
- <h5>Centro Formación</h5>
-           <select :class="{'is-invalid': !centroFormacion}" class="form-select" id="red-conocimiento" v-model="editCentroFormacion">
-           <option value="" disabled selected>Seleccione la ciudad</option>
-           <option v-for="centro_formacion in centroFormacionActivos" :key="centro_formacion.id" :value="centro_formacion">{{ centro_formacion.nombre }}</option>
-           </select><br>
-  
-              <!-- input editar tipo  -->
-          <h5>Tipo</h5>
-                <input
-                  v-model="editTipo"
+                  v-model="editNombre"
                   type="text"
                   class="form-control"
-                 placeholder="Tipo"
+                  :class="{'is-invalid' : !editNombre}"
+                  placeholder="Tipo De Ambiente"
                 /><br>
-              
-  
+            
               <!-- input editar descripcion -->
-              <h5>Descripción</h5>
                 <input
                   v-model="editDescripcion"
                   type="text"
                   class="form-control"
-                 placeholder="Descripción"
-                />
+                 placeholder="Numero De Ambiente"
+                  :class="{'is-invalid': !editDescripcion}"
+                /><br>
               
+  
+              <!-- input editar Tipo -->
+                <input
+                  v-model="editTipo"
+                  type="text"
+                  class="form-control"
+                 placeholder="Descripcion"
+                  :class="{'is-invalid': !editTipo}"
+                /><br>
+              
+              <!-- input editar Documento -->
+                <input
+                  v-model="editDocumento"
+                  type="text"
+                  class="form-control"
+                 placeholder="Descripcion"
+                  :class="{'is-invalid': !editDocumento}"
+                /><br>
           
               
             </div>
@@ -217,11 +211,9 @@
 import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useAmbienteFormacionStore } from "../almacenaje/ambienteformacion.js";
-import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
 
 
-//variable store Centro formacion
-const useCentroFormacion = useCentroFormacionStore();
+
 
 //variable store Ambiente
 const useAmbienteFormacion = useAmbienteFormacionStore();
@@ -340,11 +332,7 @@ const lisAmbiente = async()=>{
  console.log(ambienteformacionActivos.value);
 }
 
-// listar los Centro Formación 
-const lisCentroformacion = async()=>{
- centroFormacionActivos.value =await useCentroFormacion.getCentrosFormacion();
- console.log(centroFormacionActivos.value);
-}
+
 
 
 // Función para editar el conductor seleccionado

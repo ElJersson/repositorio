@@ -9,7 +9,7 @@
         type="button"
         class="btn"
         data-bs-toggle="modal"
-        data-bs-target="#agregarBus"
+        data-bs-target="#agregarAmbiente"
         style="width: 220px; height: 50px; background-color: rgb(35, 120, 51); display: flex; align-items: center; justify-content: center; color: #ffffff;"
       >
         <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;"></i>
@@ -23,7 +23,7 @@
     </div><br>
       <div
         class="modal fade"
-        id="agregarBus"
+        id="agregarAmbiente"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -65,7 +65,7 @@
               
   
    <!-- input Centro Formacion -->
-<select :class="{'is-invalid': !centroFormacion}" class="form-select" id="red-conocimiento" v-model="centroFormacion">
+<select :class="{'is-invalid': !centroFormaciones}" class="form-select" id="red-conocimiento" v-model="centroFormaciones">
 <option value="" disabled selected>Seleccione Centro Formación</option>
 <option v-for="centroformacion in centroFormacionActivos" :key="centroformacion.id" :value="centroformacion">{{ centroformacion.nombre }}</option>
 </select><br>
@@ -116,7 +116,7 @@
         <div class="modal-dialog">
           <div class="modal-content" style="background-color:  #fdfdfd; border-radius: 10px">
             <div class="modal-header">
-              <h2>Editar</h2>
+              <h2>Editar Ambiente De formación</h2>
               <button
                 type="button"
                 class="btn-close"
@@ -126,43 +126,42 @@
               ></button>
             </div>
             <div class="modal-body">
-              <!-- input editar numero de ambiente -->
-              <h5>Numero Ambiente</h5>
-                <input
-                  v-model="editNumAmbiente"
-                  type="number"
-                  class="form-control"
-                 placeholder="numero de Ambiente"
-                  
-                /><br>
-              
-
-<!-- input Centro Formacion -->
- <h5>Centro Formación</h5>
-           <select :class="{'is-invalid': !centroFormacion}" class="form-select" id="red-conocimiento" v-model="editCentroFormacion">
-           <option value="" disabled selected>Seleccione la ciudad</option>
-           <option v-for="centro_formacion in centroFormacionActivos" :key="centro_formacion.id" :value="centro_formacion">{{ centro_formacion.nombre }}</option>
-           </select><br>
-  
-              <!-- input editar tipo  -->
-          <h5>Tipo</h5>
+               <!-- input tipo del ambiente de formación -->
                 <input
                   v-model="editTipo"
                   type="text"
                   class="form-control"
-                 placeholder="Tipo"
+                  :class="{'is-invalid' : !editTipo}"
+                  placeholder="Tipo De Ambiente"
+                /><br>
+            
+              <!-- input numAmbiente -->
+                <input
+                  v-model="editNumAmbiente"
+                  type="number"
+                  class="form-control"
+                 placeholder="Numero De Ambiente"
+                  :class="{'is-invalid': !editNumAmbiente}"
                 /><br>
               
   
-              <!-- input editar descripcion -->
-              <h5>Descripción</h5>
+   <!-- input Centro Formacion -->
+<select :class="{'is-invalid': !editCentroFormacion}" class="form-select" id="red-conocimie" v-model="editCentroFormacion">
+<option value="" disabled selected>Seleccione Centro Formación </option>
+<option v-for="centroformacion in centroFormacionActivos" :key="centroformacion.id" :value="centroformacion">{{ centroformacion.nombre }}</option>
+</select><br>
+              
+  
+              <!-- input Descripcion -->
                 <input
                   v-model="editDescripcion"
                   type="text"
                   class="form-control"
-                 placeholder="Descripción"
-                />
+                 placeholder="Descripcion"
+                  :class="{'is-invalid': !editDescripcion}"
+                /><br>
               
+
           
               
             </div>
@@ -180,7 +179,7 @@
       </div>
     
     <div class="accordion" id="accordionExample" style="overflow-y: auto; max-height: 300px;">
-      <div v-for="(ambiente, index) in ambientesFiltrados" :key="ambiente.id && ambiente.id" class="accordion-item">
+      <div v-for="(ambiente, index) in ambienteformacionActivos" :key="ambiente.id && ambiente.id" class="accordion-item">
     <h2 class="accordion-header" :id="'heading' + index">
       <button
         class="accordion-button"
@@ -227,8 +226,8 @@ const useCentroFormacion = useCentroFormacionStore();
 const useAmbienteFormacion = useAmbienteFormacionStore();
 
 //variables modal agregar
-let numAmbiente = ref(0);
-let centroFormacion = ref("");
+let numAmbiente = ref('');
+let centroFormaciones = ref('');
 let tipo = ref("");
 let descripcion = ref("");
 let estado = ref(true);
@@ -251,7 +250,7 @@ const ambientesFiltrados = computed(() => {
 
 //variables modal editar
 let editNumAmbiente = ref('');
-let editCentroFormacion = ref("");
+let editCentroFormacion = ref('');
 let editTipo = ref("");
 let editDescripcion = ref("");
 let editEstado = ref(true);
@@ -280,7 +279,7 @@ async function guardar() {
   // Realizar validaciones
   if (
     !numAmbiente.value ||
-    !centroFormacion.value ||
+    !centroFormaciones.value ||
     !tipo.value ||
     !descripcion.value ||
     !estado.value 
@@ -296,7 +295,7 @@ async function guardar() {
 
   let r = await useAmbienteFormacion.addAmbienteFormacion({
     numAmbiente: numAmbiente.value,
-    centroFormacion: centroFormacion.value,
+    centroFormacion: centroFormaciones.value,
     tipo: tipo.value,
     descripcion: descripcion.value,
     estado: estado.value,
@@ -326,12 +325,14 @@ async function guardar() {
 let editAmbiente = ref(null); // Agrega esta variable en la parte superior de tu código.
 
 function editarAmbiente(ambiente) {
+
+  
   editAmbiente.value = ambiente;
   editNumAmbiente.value = ambiente.numAmbiente;
-  editCentroFormacion.value = ambiente.centroFormacion; 
   editTipo.value = ambiente.tipo;
   editDescripcion.value = ambiente.descripcion;
-  editEstado.value = ambiente.estado;
+  editEstado.value = ambiente.estado;  
+  editCentroFormacion.value = ambiente.centroFormaciones;
 }
 
 // listar los ambientes 
@@ -352,10 +353,10 @@ async function actualizarAmbienteEditado(id) {
   try {
     await useAmbienteFormacion.updateAmbienteFormacion(id, {
       numAmbiente: editNumAmbiente.value,
-      centroFormacion: editCentroFormacion.value,
       tipo: editTipo.value,
       descripcion: editDescripcion.value,
       estado: editEstado.value,
+      centroFormaciones: editCentroFormacion.value,
 
     });
     // Cerrar el modal manualmente
@@ -399,7 +400,7 @@ async function editEstados(ambienteformacionActivos) {
 
 function limpiarInputs() {
   numAmbiente.value = 0;
-  centroFormacion.value = "";
+  centroFormaciones.value = "";
   tipo.value = "";
   descripcion.value = "";
   estado.value = true;

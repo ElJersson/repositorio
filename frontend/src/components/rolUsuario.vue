@@ -1,6 +1,6 @@
 <template >
 
-    <div class="container" style="background-color:  #ffffff; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
+   <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
     /* Lowering the shadow */">
   
   <br>
@@ -144,7 +144,7 @@
             <thead>
               <tr>
                 <th>codigo</th>
-                <th>denominacion</th>
+                <th>Denominacion</th>
                 <th>Estado</th>
                 <th>Editar</th>
                 <th>...</th>
@@ -210,16 +210,24 @@ let rolUsuarioActivos = ref([]);
 
 
 async function guardar() {
-  // Realizar validaciones
-  if (
-    !denominacion.value ||
-    !codigo.value 
-  ) {
+   // Realizar validaciones
+  if (!denominacion.value || !codigo.value) {
     // Mostrar una alerta temporal de error en caso de campos vacíos
     Swal.fire({
       icon: "error",
       title: "Error",
       text: "Por favor, completa todos los campos.",
+    });
+    return;
+  }
+
+  // Verificar si el código de rol de usuario ya existe en la base de datos
+  const existeRolUsuario = rolUsuarioActivos.value.some((rolUsuario) => rolUsuario.codigo === codigo.value);
+  if (existeRolUsuario) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "El código de rol de usuario ya existe. Por favor, utiliza un código único.",
     });
     return;
   }

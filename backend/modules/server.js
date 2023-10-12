@@ -49,6 +49,7 @@ class Server{
             console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
           }) 
     } 
+
 }   
 
 export default Server

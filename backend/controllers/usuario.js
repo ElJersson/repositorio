@@ -46,33 +46,9 @@ const httpUsuario = {
   //crear un nuevo Usuario
 
   postUsuario: async (req, res) => {
-    const {
-      cc,
-      nombre,
-      apellidos,
-      password,
-      direccion,
-      email,
-      perfilProfesional,
-      curriculum,
-      rol,
-      telefono,
-      estado,
-    } = req.body;
+    const {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado,} = req.body;
     try {
-      const nuevoUsuario = {
-        cc,
-        nombre,
-        apellidos,
-        password,
-        direccion,
-        email,
-        perfilProfesional,
-        curriculum,
-        rol,
-        telefono,
-        estado,
-      };
+      const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado,};
       const salt = bcryptjs.genSaltSync();
       nuevoUsuario.password = bcryptjs.hashSync(req.body.password, salt);
 
@@ -86,15 +62,7 @@ const httpUsuario = {
   // editar usuario
   putUsuario: async (req, res) => {
     const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
-    const {
-      nombre,
-      apellidos,
-      direccion,
-      perfilProfesional,
-      curriculum,
-      telefono,
-      estado,
-    } = req.body;
+    const {nombre,apellidos,direccion,perfilProfesional,curriculum,telefono,estado,rol} = req.body;
 
     try {
       // Buscar el usuario por id
@@ -112,6 +80,7 @@ const httpUsuario = {
       usuario.curriculum = curriculum;
       usuario.telefono = telefono;
       usuario.estado = estado;
+      usuario.rol = rol;
 
       // Guardar los cambios en la base de datos
       await usuario.save();

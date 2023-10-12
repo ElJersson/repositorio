@@ -156,7 +156,7 @@
                    
                     <!-- boton rol -->
                     <h6>Rol</h6>
-                            <!-- input rolusuario -->
+                            <!-- input editar rolusuario -->
                             <select :class="{'is-invalid': !editRol}" class="form-select" id="red-conocimiento" v-model="editRol">
                             <option value="" disabled selected>Seleccione El Rol</option>
                             <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
@@ -316,6 +316,47 @@ async function guardar() {
     });
     return;
   }
+// Validar la longitud del numero de identidad (maximo 10 caracteres)
+if (cc.value.length > 10) {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "Numero de identidad invalido.",
+  });
+  return;
+}
+
+
+// Validar la longitud de la contraseña (entre 8 y 10 caracteres)
+if (password.value.length < 8 || password.value.length > 10) {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "La contraseña debe tener entre 8 y 10 caracteres.",
+  });
+  return;
+}
+
+  // Validar el formato del correo electrónico
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor, ingresa un correo electrónico válido.",
+    });
+    return;
+  }
+
+  // Validar la longitud del número de teléfono (entre 7 y 10 caracteres)
+  if (telefono.value.length < 7 || telefono.value.length > 10) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "El número de teléfono debe tener entre 7 y 10 dígitos.",
+    });
+    return;
+  }
 
   let r = await useUsuario.addUsuario({
     cc: cc.value,
@@ -354,6 +395,7 @@ async function guardar() {
 let editUsuario = ref(null); // Agrega esta variable en la parte superior de tu código.
 
 function editarUsuario(usuario) {
+  console.log(usuario);
   editUsuario.value = usuario;
   editNombre.value = usuario.nombre;
   editApellidos.value = usuario.apellidos;
@@ -382,6 +424,35 @@ const lisRolUsuario = async()=>{
 // Función para editar el conductor seleccionado
 async function actualizarUsuarioEditado(id) {
   try {
+
+    // Validar que ningún campo edit esté vacío
+    if (
+      !editNombre.value ||
+      !editApellidos.value ||
+      !editDireccion.value ||
+      !editperfilProfesional.value ||
+      !editTelefono.value ||
+      !editRol.value) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, completa todos los campos.",
+      });
+      return;
+    }
+
+
+        // Validar la longitud del número de teléfono (entre 7 y 10 caracteres)
+    if (editTelefono.value.length < 7 || editTelefono.value.length > 10) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El número de teléfono debe tener entre 7 y 10 dígitos.",
+      });
+      return;
+    }
+
+
     await useUsuario.updateUsuario(id, {
       nombre: editNombre.value,
       apellidos: editApellidos.value,
@@ -389,7 +460,7 @@ async function actualizarUsuarioEditado(id) {
       perfilProfesional: editperfilProfesional.value,
       curriculum: editCurriculum.value,
       telefono: editTelefono.value,
-      rol: editRol.value.value,
+      rol: editRol.value,
       estado: editEstado.value,
 
     });

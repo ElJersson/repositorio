@@ -4,6 +4,7 @@ const CentroFromacionSchema=new mongoose.Schema({
     nombre: { type: String, required: true },
     codigo: { type: String, required: true },
     direccion: { type: String, required: true },
+    disenoCurricular: { type: String, required: true },
     idCiudad: { type: mongoose.Schema.Types.ObjectId, ref: 'Ciudad', required: true }
 })
 

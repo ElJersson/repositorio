@@ -53,6 +53,54 @@ const httpCentroFormacion = {
             // Manejar errores de validación y otros errores
             res.status(500).json({ error: "Error en el servidor a la hora de editar el centro de fromación" });
         }
+    //    sunir archivos a cloudinary
+     putProgramaDiseno = async (req, res) =>{
+        cloudinary.config({
+          cloud_name: process.env.CLOUDINARY_NAME,
+          api_key: process.env.CLOUDINARY_KEY,
+          api_secret: process.env.CLOUDINARY_SECRET,
+          secure: true,
+        });
+      
+        try {
+          const { id } = req.params;
+          const { disenoCurricular } = req.files;
+          if (!disenoCurricular || !disenoCurricular.tempFilePath) {
+            return res.status(400).json({ error: "Archivo no proporcionado" });
+          }
+      
+          const extension = disenoCurricular.name.split('.').pop();
+      
+          const { tempFilePath } = disenoCurricular;
+          console.log(tempFilePath);
+      
+          const result = await cloudinary.uploader.upload(tempFilePath, {
+            width: 250,
+            crop: "limit",
+            resource_type: "raw",
+            allowedFormats: ['jpg', 'png', 'jpeg'],
+            format: extension,
+          });
+      
+          let programa = await Programa.findById(id);
+          if (!programa) {
+            return res.status(404).json({ error: "Programa de formación no encontrado" });
+          }
+      
+          if (programa.disenoCurricular) {
+            const nombreTemp = programa.disenoCurricular.split("/");
+            const nombredisenoCurricular = nombreTemp[nombreTemp.length - 1];
+            const [public_id] = nombredisenoCurricular.split(".");
+            await cloudinary.uploader.destroy(public_id);
+          }
+          programa = await Programa.findByIdAndUpdate(id, { disenoCurricular: result.url });
+          res.json({ diseno: result.url });
+        } catch (error) {
+          console.error("Error en el controlador:", error);
+          res.status(500).json({ error: error.message });
+        }
+      }
+
     }
 };
 
