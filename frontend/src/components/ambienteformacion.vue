@@ -2,7 +2,8 @@
 
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; position: absolute; overflow: hidden;">
   
-  
+    <h1 style="text-align: center; margin-top: 10px; color: #209702;">Ambiente Formación</h1> <!-- Agregamos el letrero aquí -->
+
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
       <button

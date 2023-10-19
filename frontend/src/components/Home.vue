@@ -9,8 +9,6 @@
 			</div>
 			<nav class="menu">
 				<a href="#" style="color: #ffffff;">Inicio</a>
-				<a href="#" style="color: #ffffff;">Nosotros</a>
-				<a href="#" style="color: #ffffff;">Contacto</a>
         <i class="fa-solid fa-right-from-bracket fa-lg" style="color: rgb(255, 255, 255);"></i>
 			</nav>
 		</div>
@@ -39,6 +37,8 @@
 			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
 			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
 			<router-link to="/materialFormacion" @click="closeMenu">Materiales de formacion</router-link>
+			<router-link to="/configuracion" @click="closeMenu">Configuracion</router-link>
+
 			<a>Materiales de formacion</a>
 			<a>Desarrollo curricular</a>
 			<a>Materiales de formacion</a>
