@@ -9,6 +9,8 @@ import instructores from "../components/instructores.vue";
 import materialFormacion from "../components/materialFormacion.vue";
 import rolUsuario from "../components/rolUsuario.vue";
 import configuracion from "../components/configuracion.vue";
+import selectprogramaFormacion from "../components/selectprogramaFormacion.vue";
+
 
 
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -26,6 +28,7 @@ const routes = [
        {path:"/instructores" , component:instructores},
        {path:"/materialFormacion" , component:materialFormacion},
        {path:"/configuracion" , component:configuracion},
+       {path:"/selectprogramaFormacion" , component:selectprogramaFormacion},
 
       ]
     }

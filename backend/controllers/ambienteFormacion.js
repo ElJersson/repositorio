@@ -49,12 +49,12 @@ const hhtpAmbienteFormacion = {
 
     putAmbienteFormacion: async (req, res) => {
         const { id } = req.params;
-        const { numAmbiente, centroFormacion, ciudad, departamento } = req.body;
+        const { numAmbiente, centroFormacion, tipo, descripcion,estado } = req.body;
 
         try {
             const AmbienteFormacionActualizada = await AmbienteFormacion.findByIdAndUpdate(
                 id,
-                { numAmbiente, centroFormacion, ciudad, departamento },
+                { numAmbiente, centroFormacion, tipo, descripcion,estado },
                 { new: true }
             );
             if (AmbienteFormacionActualizada) {

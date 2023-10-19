@@ -2,7 +2,6 @@
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
   <h1 style="text-align: center; margin-top: 10px; color: #209702;">Redes De Conocimiento</h1> <!-- Agregamos el letrero aquí -->
 
-    <br>
     <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
       <button
         type="button"

@@ -34,12 +34,23 @@ export const useAmbienteFormacionStore =defineStore(
           return error;
         }
       };
+         // editar estado ambiente 
+         const putAmbienteEstado = async (id, estado) => {
+          try {
+            let res = await axios.put(`https://repositorio.onrender.com/ambienteFormacion/estado/${id}`, {estado:estado});
+            return res;
+          } catch (error) {
+            console.log(error);
+            return error;
+          }
+        };     
       
 
       return{
           addAmbienteFormacion,
           updateAmbienteFormacion,
-          getAmbienteFormacion
-        }
+          getAmbienteFormacion,
+          putAmbienteEstado
+     }
     }
 )

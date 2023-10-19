@@ -32,12 +32,13 @@
 			<router-link  to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" >Redes de conocimiento</router-link>
 			<router-link  to="/usuario" @click="handleRouterLinkClick('/usuario')">usuarios</router-link>
 			<router-link  to="/rolUsuario" @click="closeMenu">Roles de usuario</router-link>
-			<router-link  to="/ambienteformacion" @click="closeMenu" >Ambientes de formacion</router-link>
+			<router-link  to="/ambienteformacion" @click="closeMenu" >Ambientes de formación</router-link>
 			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
-			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formacion</router-link>
+			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formación</router-link>
 			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
-			<router-link to="/materialFormacion" @click="closeMenu">Materiales de formacion</router-link>
+			<router-link to="/materialFormacion" @click="closeMenu">Materiales de formación</router-link>
 			<router-link to="/configuracion" @click="closeMenu">Configuracion</router-link>
+			<router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>
 
 			<a>Materiales de formacion</a>
 			<a>Desarrollo curricular</a>
@@ -47,7 +48,7 @@
 			<a>Investigacion</a>
 			<a>Registro calificado</a>
 			
-      <a >Configuracion</a>
+      <a >selectprogramaFormacion</a>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>

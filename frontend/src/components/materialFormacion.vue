@@ -191,8 +191,9 @@
       </button>
       <div class="btn-group" role="group">
         <button @click="editarAmbiente(ambiente)" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" ></i> Editar</button>
-        <button @click="eliminarAmbiente(ambiente.id)" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Activo</button>
-      </div>
+<button @click="toggleEstado(ambiente)" type="button" class="btn btn-danger btn-sm">
+  <i class="fas fa-trash-alt"></i> {{ ambiente.estado ? 'Inactivo' : 'Activo' }}
+</button>      </div>
     </h2>
     <div :id="'collapse' + index" class="accordion-collapse collapse" :class="{ show: activeAccordion === index }" :aria-labelledby="'heading' + index" data-bs-parent="#accordionExample">
       <div class="accordion-body">
@@ -368,17 +369,22 @@ async function actualizarAmbienteEditado(id) {
     );
   }
 }
+function toggleEstado(ambiente) {
+  // Cambia el estado al valor inverso
+  ambiente.estado = !ambiente.estado;
 
-async function editEstados(ambienteformacionActivos) {
+  // Llama a una función para actualizar el estado en la base de datos
+  editarEstado(ambiente);
+}
+
+async function editarEstado(ambiente) {
   try {
-    if (ambienteformacionActivos.estado === true) {
-      await useAmbienteFormacion.putUsuarioEstado(ambienteformacionActivos._id , false)
-    } else {
-      await useAmbienteFormacion.putUsuarioEstado(ambienteformacionActivos._id , true)
-    }
-    
+    await useAmbienteFormacion.putUsuarioEstado(ambiente._id, ambiente.estado);
+    // Refresca la lista de ambientes después de la actualización
+    await lisAmbiente();
   } catch (error) {
-    console.error('error en editar estado',error);
+    console.error('Error al editar el estado', error);
+    // Puedes manejar errores aquí, como mostrar un mensaje de error.
   }
 }
 
