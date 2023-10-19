@@ -1,6 +1,5 @@
 <template >
- <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">
-  
+<div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
   <h1 style="text-align: center; margin-top: 10px; color: #209702;">Redes De Conocimiento</h1> <!-- Agregamos el letrero aquí -->
 
     <br>
@@ -9,7 +8,7 @@
         type="button"
         class="btn"
         data-bs-toggle="modal"
-        data-bs-target="#agregarUsuario"
+        data-bs-target="#agregarRedConocimiento"
         style="width: 220px; height: 50px; background-color: rgb(26, 98, 46); display: flex; align-items: center; justify-content: center;"
       >
         <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;" ></i>
@@ -26,7 +25,7 @@
       <div class="modal-dialog">
         <div class="modal-content" style="background-color:  #ffffff; border-radius: 10px">
           <div class="modal-header">
-            <h2>nueva red de conocimiento</h2>
+            <h2>Nueva Red De Conocimiento</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -55,7 +54,7 @@
       <div class="modal-dialog">
         <div class="modal-content" style="background-color: #ffffff; border-radius: 10px">
           <div class="modal-header">
-            <h4>Editar red de conocimiento</h4>
+            <h2>Editar Red De Conocimiento</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -64,12 +63,12 @@
               <div class="row">
                 <div class="col-md-12">
                   <!-- input red conocimiento -->
-                  <h2>nombre de red</h2>
+                  <h5>Nombre De Red:</h5>
                   <input v-model="Editnombre" type="text" class="form-control" placeholder="red conocimiento"
                     :class="{ 'is-invalid': !Editnombre }" /><br>
 
                   <!-- input codigo -->
-                  <h2>codigo de red</h2>
+                  <h5>codigo De Red:</h5>
                   <input v-model="Editcodigo" type="text" class="form-control" placeholder="codigo"
                     :class="{ 'is-invalid': !Editcodigo }" /><br>
 
@@ -78,7 +77,7 @@
                 </div>
 
                 <!-- boton guardar -->
-                <button @click="actualizarRedEditado(editRed._id)" type="button" class="btn2" style="width: 100px;  ">
+                <button @click="actualizarRedEditado(editRed._id)" type="button" class="centrar; btn btn-success" style="width: 100px;  ">
                   Editar
                 </button>
 

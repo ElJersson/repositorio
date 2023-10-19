@@ -1,6 +1,5 @@
 <template>
-  <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">
-        <h1 style="color: #008a35;">Informacion personal</h1> <br>
+<div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">        <h1 style="color: #008a35;">Informacion personal</h1> <br>
 
         <h1 style="color: #008a35;">Datos personales:</h1> <br>
         <a>Nombres:</a> <br> 

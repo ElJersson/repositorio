@@ -1,7 +1,6 @@
 <template >
 
-<div class="container" style="background-color: #f6f6f6; border-radius: 10px; box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; position: absolute; overflow: hidden;">
-  
+<div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
     <h1 style="text-align: center; margin-top: 10px; color: #209702;">Ambiente Formación</h1> <!-- Agregamos el letrero aquí -->
 
   <br>
@@ -169,7 +168,7 @@
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-primary"
+                class="centrar; btn btn-success"
                 @click="actualizarAmbienteEditado(editAmbiente._id)"
               >
                 Editar
@@ -191,13 +190,14 @@
         @click="toggleAccordion(index)"
       >
         <tr>
-          <th>codigo: {{ ambiente.numAmbiente }}</th><br>
           <th>Ambiente: {{ ambiente.numAmbiente }}</th><br>
+          <strong>Tipo: {{ ambiente.tipo }}</strong><br>
+
         </tr>
       </button>
       <div class="btn-group" role="group">
         <button @click="editarAmbiente(ambiente)" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" ></i> Editar</button>
-        <button @click="eliminarAmbiente(ambiente.id)" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+        <button @click="eliminarAmbiente(ambiente.id)" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Activo</button>
       </div>
     </h2>
     <div :id="'collapse' + index" class="accordion-collapse collapse" :class="{ show: activeAccordion === index }" :aria-labelledby="'heading' + index" data-bs-parent="#accordionExample">

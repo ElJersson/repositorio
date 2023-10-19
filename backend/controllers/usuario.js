@@ -117,42 +117,42 @@ const httpUsuario = {
     }
   },
   
-  putUsuarioCurriculum: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { curriculum } = req.files;
-      if (!curriculum || !curriculum.tempFilePath) {
-        return res.status(400).json({ error: "Archivo no proporcionado" });
-      }
+ // putUsuarioCurriculum: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const { curriculum } = req.files;
+  //     if (!curriculum || !curriculum.tempFilePath) {
+  //       return res.status(400).json({ error: "Archivo no proporcionado" });
+  //     }
   
-      const extension = curriculum.name.split('.').pop();
-      const { tempFilePath } = curriculum;
+  //     const extension = curriculum.name.split('.').pop();
+  //     const { tempFilePath } = curriculum;
   
-      const result = await cloudinary.v2.uploader.upload(tempFilePath, {
-        width: 250,
-        crop: "limit",
-        resource_type: "raw",
-        format: extension,
-      });
+  //     const result = await cloudinary.v2.uploader.upload(tempFilePath, {
+  //       width: 250,
+  //       crop: "limit",
+  //       resource_type: "raw",
+  //       format: extension,
+  //     });
   
-      let usuario = await Usuario.findById(id);
-      if (!usuario) {
-        return res.status(404).json({ error: "Usuario no encontrado" });
-      }
+  //     let usuario = await Usuario.findById(id);
+  //     if (!usuario) {
+  //       return res.status(404).json({ error: "Usuario no encontrado" });
+  //     }
   
-      if (usuario.curriculum) {
-        const nombreTemp = usuario.curriculum.split("/");
-        const nombreCurriculum = nombreTemp[nombreTemp.length - 1];
-        const [public_id] = nombreCurriculum.split(".");
-        await cloudinary.v2.uploader.destroy(public_id);
-      }
-      usuario = await Usuario.findByIdAndUpdate(id, { curriculum: result.secure_url });
-      res.json({ curriculum: result.secure_url });
-    } catch (error) {
-      console.error("Error en el controlador:", error);
-      res.status(500).json({ error: error.message });
-    }
-  },
+  //     if (usuario.curriculum) {
+  //       const nombreTemp = usuario.curriculum.split("/");
+  //       const nombreCurriculum = nombreTemp[nombreTemp.length - 1];
+  //       const [public_id] = nombreCurriculum.split(".");
+  //       await cloudinary.v2.uploader.destroy(public_id);
+  //     }
+  //     usuario = await Usuario.findByIdAndUpdate(id, { curriculum: result.secure_url });
+  //     res.json({ curriculum: result.secure_url });
+  //   } catch (error) {
+  //     console.error("Error en el controlador:", error);
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // },
    
 
 };
