@@ -6,7 +6,7 @@ export const useAdministradorStore =defineStore(
         // lista de administrativos
         const getAdministrador = async () => {
             try {
-              let res = await axios.get("http://localhost:4500/usuario");
+              let res = await axios.get("https://repositorio.onrender.com/usuario");
               return res.data.administradores; 
             } catch (error) {
               console.log(error);
@@ -18,7 +18,7 @@ export const useAdministradorStore =defineStore(
 
           const iniciarSesion = async (email, password) => {
             try {
-              const response = await axios.post("http://localhost:4500/usuario/inicio-sesion", { email, password });
+              const response = await axios.post("https://repositorio.onrender.com/usuario/inicio-sesion", { email, password });
               return response.data; // Puedes ajustar lo que quieres devolver aquí
             } catch (error) {
               throw new Error(error.response?.data?.message || "Error en el inicio de sesión");

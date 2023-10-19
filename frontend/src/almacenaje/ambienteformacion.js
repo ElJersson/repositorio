@@ -6,7 +6,7 @@ export const useAmbienteFormacionStore =defineStore(
          // lista de ambiente de formación
          const getAmbienteFormacion= async () => {
             try {
-               let res = await axios.get("http://localhost:4500/ambienteFormacion");
+               let res = await axios.get("https://repositorio.onrender.com/ambienteFormacion");
                 console.log(res);
                 return res.data.ambienteFormacion; 
              } catch (error) {
@@ -17,7 +17,7 @@ export const useAmbienteFormacionStore =defineStore(
       // agregar ambiente de formación
       const addAmbienteFormacion = async(info)=>{
           try {
-              let res = await axios.post("http://localhost:4500/ambienteFormacion/",info)
+              let res = await axios.post("https://repositorio.onrender.com/ambienteFormacion/",info)
               return res
           } catch (error) {
               console.log(error);
@@ -27,7 +27,7 @@ export const useAmbienteFormacionStore =defineStore(
       // editar ambiente de formación
       const updateAmbienteFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`http://localhost:4500/ambienteFormacion/AmbienteFormacion/${id}`, info);
+          let res = await axios.put(`https://repositorio.onrender.com/ambienteFormacion/AmbienteFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);

@@ -6,7 +6,7 @@ export const useMaterialFormacionStore =defineStore(
          // lista de material de formación
          const getMaterialFormacion= async () => {
             try {
-               let res = await axios.get("http://localhost:4500/materialFormacion");
+               let res = await axios.get("https://repositorio.onrender.com/materialFormacion");
                 console.log(res);
                 return res.data.materialFormacion; 
              } catch (error) {
@@ -17,7 +17,7 @@ export const useMaterialFormacionStore =defineStore(
       // agregar material de formación
       const addMaterialFormacion = async(info)=>{
           try {
-              let res = await axios.post("http://localhost:4500/materialFormacion/",info)
+              let res = await axios.post("https://repositorio.onrender.com/materialFormacion/",info)
               return res
           } catch (error) {
               console.log(error);
@@ -27,7 +27,7 @@ export const useMaterialFormacionStore =defineStore(
       // editar material de formación
       const updateMaterialFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`http://localhost:4500/materialFormacion/editMaterialFormacion/${id}`, info);
+          let res = await axios.put(`https://repositorio.onrender.com/materialFormacion/editMaterialFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);

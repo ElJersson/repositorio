@@ -1,17 +1,16 @@
 <template >
-  <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;; overflow: auto;">
-
+  <div class="container" style="background-color:  #209702; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px; left: 150px;position: absolute;
+  /* Lowering the shadow */">
 
     <br>
     <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
       <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agregarRedConocimiento"
         style="width: 220px; height: 60px;background-color: rgb(255, 255, 255);">
-        <i class="fa-solid fa-plus fa-xl" style="color: #000000;"></i> 
+        <i class="fa-solid fa-plus fa-xl" style="color: #000000;"></i> agregar
       </button>
 
       <div class="input-container">
-        <input v-model="busqueda" type="search" class="input" @input="filtrarRedesConocimiento" />
-
+        <input placeholder="Buscar..." type="search" class="input">
         <!-- Tu código SVG para el icono de búsqueda -->
       </div>
     </div><br>
@@ -84,54 +83,54 @@
         </div>
       </div>
     </div>
-   <!-- tabla de red de conocimiento -->
-   <div style="max-height: 300px; overflow-y: auto;">
-      <table class="table table-striped table-success table-hover">
-        <!-- Encabezados de la tabla -->
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Codigo</th>
-            <th>Estado</th>
-            <th>Editar</th>
-            <th>...</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Filas de la tabla -->
-          <tr v-for="RedConocimiento in redConocimientoFiltradas" :key="RedConocimiento.id && RedConocimiento.id">
-            <td>{{ RedConocimiento.nombre }}</td>
-            <td>{{ RedConocimiento.codigo }}</td>
-            <td>
-              <span v-if="RedConocimiento.estado" style="color: #209702;">Activo</span>
-              <span v-else style="color: red;">Inactivo</span>
-            </td>
-            <td>
-              <i data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="editarRedConocimiento(RedConocimiento)"
-                class="fa-solid fa-pen fa-lg" style="color: #000000;"></i>
-            </td>
-            <td>
-              <label class="switch">
-                <input @click="editEstados(RedConocimiento)" v-model="RedConocimiento.estado"
-                  :checked="RedConocimiento.estado" type="checkbox" class="checkbox">
-                <div class="slider"></div>
-              </label>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <!-- tabla de red de conocimiento -->
+
+    <table class="table table-striped table-success table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Codigo</th>
+          <th>Estado</th>
+          <th>Editar</th>
+          <th>...</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="RedConocimiento in redConocimientoActivas" :key="RedConocimiento.id && RedConocimiento.id">
+          <td>{{ RedConocimiento.nombre }}</td>
+          <td>{{ RedConocimiento.codigo }}</td>
+          <td>
+            <span v-if="RedConocimiento.estado" style="color: #209702;">Activo</span>
+            <span v-else style="color: red;">Inactivo</span>
+          </td>
+          <td>
+            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="editarRedConocimiento(RedConocimiento)"
+              class="fa-solid fa-pen fa-lg" style="color: #000000;"></i>
+          </td>
+          <td>
+            <label class="switch">
+              <input @click="editEstados(RedConocimiento)" v-model="RedConocimiento.estado"
+                :checked="RedConocimiento.estado" type="checkbox" class="checkbox">
+              <div class="slider"></div>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+
+
+    </table>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted , computed } from "vue";
+import { ref, onMounted } from "vue";
 import Swal from "sweetalert2/"
 import { useRedConocimientoStore } from "../almacenaje/redConocimiento.js"
 
 
-
-
+// Definir RedActivos como una referencia
+const RedActivos = ref([]);
 
 //variable store usuario
 const useRedConocimiento = useRedConocimientoStore()
@@ -150,23 +149,6 @@ let editEstado = ref(true)
 
 let redConocimientoActivas = ref([])
 
-// Nueva variable para almacenar el término de búsqueda
-let busqueda = ref("");
-
-function filtrarRedesConocimiento() {
-  // Actualizar automáticamente la lista de redes de conocimiento filtradas
-}
-
-
-// Computed property para filtrar las filas en función de la búsqueda
-const redConocimientoFiltradas = computed(() => {
-  return redConocimientoActivas.value.filter((RedConocimiento) => {
-    const termino = busqueda.value.toLowerCase();
-    const nombre = RedConocimiento.nombre.toLowerCase();
-    const codigo = RedConocimiento.codigo.toLowerCase();
-    return nombre.includes(termino) || codigo.includes(termino);
-  });
-});
 async function guardar() {
   // Realizar validaciones
   if (
@@ -183,13 +165,13 @@ async function guardar() {
     return;
   }
 
-  let r = await useRedConocimiento.getRedConocimiento({
+  let r = await useRedConocimiento.addRedConocimiento({
     nombre: nombre.value,
     codigo: codigo.value,
     estado : estado.value
 
   });
-  await lisRedConocimiento()
+  await lisRedConocimiento();
   // Mostrar una alerta temporal de éxito
   Swal.fire({
     icon: "sucess",
@@ -197,7 +179,7 @@ async function guardar() {
     text: "los datos se agregaron con exito",
   }).then((result) => {
     if (result.isConfirmed) {
-      const agregarRedConocimientoModal = document.getElementById("agregarRedConocmiento")
+      const agregarRedConocimientoModal = document.getElementById("agregarRedConocimiento")
       const modalRedconocmientoInstance = bootstrap.Modal.getInstance(agregarRedConocimientoModal)
       modalRedconocmientoInstance.hide()
     }
@@ -277,10 +259,91 @@ onMounted(async () => {
   await lisRedConocimiento()
 
 })
-
 </script>
 
 <style>
+.checkbox {
+  display: none;
+}
 
+.slider {
+  width: 60px;
+  height: 30px;
+  background-color: lightgray;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border: 4px solid transparent;
+  transition: .3s;
+  box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+  cursor: pointer;
+}
 
+.slider::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transform: translateX(-30px);
+  border-radius: 20px;
+  transition: .3s;
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked~.slider::before {
+  transform: translateX(30px);
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked~.slider {
+  background-color: #2196F3;
+}
+
+.checkbox:active~.slider::before {
+  transform: translate(0);
+}
+
+.group {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 190px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 250px;
+  /* Ajusta el ancho según tu diseño */
+  margin-left: 800px;
+  /* Ajusta el margen izquierdo para el espacio deseado */
+}
+
+.input {
+  height: 50px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: .3s ease;
+}
+
+.input::placeholder {
+  color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+  outline: none;
+  border-color: rgba(234, 76, 137, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
 </style>

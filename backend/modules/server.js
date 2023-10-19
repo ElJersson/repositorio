@@ -10,6 +10,7 @@ import rolUsuario from "../routes/rolUsuario.js"
 import programaFormacion from "../routes/programaFormacion.js"
 import centrosFormacion from "../routes/centrosFormacion.js"
 import materialFormacion from "../routes/materialFormacion.js"
+import fileUpload from 'express-fileupload';
 
 
 class Server{
@@ -40,6 +41,11 @@ class Server{
     }
 
     middlewares(){
+
+        this.app.use(fileUpload({
+                useTempFiles:true,
+                tempFileDir:'/tmp/',
+                createParentPath:true}));
         this.app.use(express.json())
         this.app.use(cors())
         this.app.use(express.static('public'))

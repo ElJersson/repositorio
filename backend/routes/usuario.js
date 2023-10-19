@@ -15,8 +15,10 @@ router.post("/crearUsuario", httpUsuario.postUsuario);
 
 router.put("/editUsuario/:id", httpUsuario.putUsuario);
 
+router.put("/subir-curriculum/:id", httpUsuario.putUsuarioCurriculum);
+
 router.put("/estado/:id", httpUsuario.actualizarestado)
 
   
   
-  export default router
+export default router

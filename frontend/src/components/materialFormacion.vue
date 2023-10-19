@@ -191,7 +191,7 @@
       </button>
       <div class="btn-group" role="group">
         <button @click="editarAmbiente(ambiente)" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" ></i> Editar</button>
-        <button @click="eliminarAmbiente(ambiente.id)" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+        <button @click="eliminarAmbiente(ambiente.id)" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Activo</button>
       </div>
     </h2>
     <div :id="'collapse' + index" class="accordion-collapse collapse" :class="{ show: activeAccordion === index }" :aria-labelledby="'heading' + index" data-bs-parent="#accordionExample">

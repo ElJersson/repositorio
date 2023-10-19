@@ -2,7 +2,7 @@
 
 
    <div class="container" style="background-color:  #f6f6f6; border-radius: 10px ;  box-shadow: 3px 2px 22px 1px rgb(11, 12, 11); top: 200px;position: absolute;
-    /* Lowering the shadow */">
+    /* Lowering the shadow */">
   
   <br>
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
@@ -86,7 +86,7 @@
                    
                    </div>
                    <label>  <h6>Curriculum</h6>
-                            <input type="file" class="form-control" id="archivo"  /></label>
+                            <input type="file" class="form-control" id="archivo"  @change="subirArchivo" /></label>
                    <label> Rol:
                     <!-- boton rol -->
                             <!-- input rolusuario -->
@@ -498,9 +498,7 @@ async function editEstados(usuariosActivos) {
   } catch (error) {
     console.error('error en editar estado',error);
   }
-}
-
-
+};
 
 
 function limpiarInputs() {

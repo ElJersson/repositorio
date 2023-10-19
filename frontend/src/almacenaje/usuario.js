@@ -6,7 +6,7 @@ export const useUsuarioStore =defineStore(
          // lista de usuario
         const getUsuario= async () => {
               try {
-                 let res = await axios.get("http://localhost:4500/usuario");
+                 let res = await axios.get("https://repositorio.onrender.com/usuario");
                   return res.data.usuarios; 
                } catch (error) {
                   console.log(error);
@@ -16,7 +16,7 @@ export const useUsuarioStore =defineStore(
         // agregar usuario
         const addUsuario = async(info)=>{
             try {
-                let res = await axios.post("http://localhost:4500/usuario/crearUsuario",info)
+                let res = await axios.post("https://repositorio.onrender.com/usuario/crearUsuario",info)
                 return res
             } catch (error) {
                 console.log(error);
@@ -26,7 +26,7 @@ export const useUsuarioStore =defineStore(
         // editar usuario
         const updateUsuario = async (id, info) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/editUsuario/${id}`, info);
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/editUsuario/${id}`, info);
             return res;
           } catch (error) {
             console.log(error);
@@ -36,29 +36,35 @@ export const useUsuarioStore =defineStore(
         // editar estado usuario 
         const putUsuarioEstado = async (id, estado) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/estado/${id}`, {estado:estado});
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/estado/${id}`, {estado:estado});
             return res;
           } catch (error) {
             console.log(error);
             return error;
           }
-        };          
-        // eliminart usuario 
-        const deleteUsuario= async (id, info) => {
+        }; 
+        const subirCurriculum = async (id, archivo) => {
           try {
-            let res = await axios.delete(`http://localhost:4500/usuario/${id}`, info);
-            return res;
+            const formData = new FormData();
+            formData.append('archivo', archivo);
+      
+            // Hacer la solicitud al backend para subir el archivo a Cloudinary
+            const response = await axios.put(`https://repositorio.onrender.com/usuario/subir-curriculum/${id}`, formData);
+      
+            return response.data;
           } catch (error) {
-            console.log(error);
+            console.error(error);
             return error;
           }
         };
+
+        
         return{
             addUsuario,
             updateUsuario,
             getUsuario,
             putUsuarioEstado,
-            deleteUsuario
+            subirCurriculum
           }
         }
 )
