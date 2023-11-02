@@ -199,7 +199,7 @@ async function guardar() {
 
   // Mostrar una alerta temporal de éxito
   Swal.fire({
-    icon: "success",
+    icon: "sucess",
     title: "Éxito",
     text: "Los datos se agregaron con éxito.",
   }).then((result) => {
@@ -260,7 +260,7 @@ async function actualizarCentroFormacionEditado(id) {
 
     // Mostrar un mensaje de éxito.
     Swal.fire({
-      icon: "success",
+      icon: "sucess",
       title: "Éxito",
       text: "Los datos se editaron con éxito.",
     });

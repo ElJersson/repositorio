@@ -93,10 +93,14 @@
                             <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
                             </select><br></label>
                  
-                </div>  <br><!-- boton guardar -->
-                   <button @click="guardar()" type="button" class="btn" style="width: 100px;  ">
-                        Guardar
-                    </button> </div>
+                </div>  <br>
+                <div v-if="loading" class="loading-spinner" style="position: relative;">
+      <!-- Agrega aquí tu indicador de carga, por ejemplo, un spinner -->
+      Cargando</div>
+                <!-- boton guardar -->
+<button @click="guardar" type="button" class="btn" style="width: 100px;" :disabled="loading">
+  {{ loading ? 'Cargando...' : 'Guardar' }}
+</button> </div>
             </div>
         </div>
     </div>
@@ -225,6 +229,10 @@ import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useUsuarioStore } from "../almacenaje/usuario.js";
 import { useRolUsuarioStore } from "../almacenaje/rolUsuario.js";
+import { useAdministradorStore} from "../almacenaje/login.js";
+
+
+
 
 const imageUrl = ref('');
 
@@ -232,17 +240,30 @@ const imageUrl = ref('');
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imageUrl.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imageUrl.value = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Mostrar una alerta si el archivo no es una imagen
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, selecciona una imagen válida.',
+      });
+      // Restablecer el valor del input de archivo para eliminar el archivo no válido
+      event.target.value = '';
+   }
+ }
 };
 
 let searchTerm = ref(""); // Agrega esta línea
 
 
+//variable store login
+const useAdministrador = useAdministradorStore();
 //variable store usuario
 const useUsuario = useUsuarioStore();
 //variable store rolUsuario
@@ -273,6 +294,9 @@ let editTelefono = ref(0);
 let editEstado = ref(true);
 let editRol= ref("")
 
+//constantes loding
+const loading= ref(false)
+const error= ref(null)
 // aray con todos los usuario
 let usuariosActivos = ref([]);
 // aray con todos los Roles de Usuario
@@ -293,6 +317,7 @@ const filteredUsuarios = computed(() => {
 });
 
 async function guardar() {
+
   // Realizar validaciones
   if (
     !cc.value ||
@@ -386,7 +411,9 @@ if (password.value.length < 8) {
 
   // Limpiar los campos después de agregar los datos
   limpiarInputs();
-}
+
+};
+
 
 
 
@@ -405,9 +432,11 @@ function editarUsuario(usuario) {
   editRol.value = usuario.rol
 }
 
-// listar Usuarios 
-const lisUsuario = async()=>{
- usuariosActivos.value =await useUsuario.getUsuario();
+// Función para listar usuarios
+async function lisUsuario() {
+  console.log(useAdministrador.token);
+  usuariosActivos.value = await useUsuario.getUsuario(useAdministrador.token);
+    console.log(usuariosActivos);
 }
 
 // listar Rol Usurio
@@ -524,7 +553,6 @@ onMounted(async () => {
 </script>
   
 <style>
-/* Estilos para el contenedor del botón personalizado */
 .file-input-container {
   position: relative;
   display: inline-block;
@@ -536,12 +564,10 @@ onMounted(async () => {
   padding: 10px 20px;
 }
 
-/* Estilos para ocultar el input de archivos */
 .file-input {
   display: none;
 }
 
-/* Estilos para el ícono de "más" */
 .custom-file-input-label i {
   margin-right: 5px;
 }

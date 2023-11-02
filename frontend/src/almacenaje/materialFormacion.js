@@ -34,12 +34,21 @@ export const useMaterialFormacionStore =defineStore(
           return error;
         }
       };
-      
-
+      // editar estado Materia Formacion 
+         const putMaterialEstado = async (id, estado) => {
+          try {
+            let res = await axios.put(`https://repositorio.onrender.com/materialFormacion/estado/${id}`, {estado:estado});
+            return res;
+          } catch (error) {
+            console.log(error);
+            return error;
+          }
+        };
       return{
           addMaterialFormacion,
           updateMaterialFormacion,
-          getMaterialFormacion
+          getMaterialFormacion,
+          putMaterialEstado
       }
   }
 )

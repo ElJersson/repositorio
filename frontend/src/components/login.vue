@@ -97,20 +97,7 @@ const login = async () => {
   }
 };
 
-//vector con todos los administradores
-const administradoresActivos = ref([]);
-console.log(administradoresActivos);
-
-
-
-async function lisAdministrador() {
-  let res = await useAdministrador.getAdministrador();
-  administradoresActivos.value = res;
-}
-
-onMounted(async () => {
-  lisAdministrador()
-});   
+ 
 </script>
 
 
@@ -122,6 +109,26 @@ onMounted(async () => {
 body {
   font-family: "Roboto", sans-serif;
   background-color: #fff; }
+  @media (max-width: 767.98px) {
+  .swal2-popup {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .swal2-title {
+    font-size: 20px;
+  }
+
+  .swal2-content {
+    font-size: 16px;
+  }
+
+  .swal2-actions {
+    font-size: 14px;
+  }
+}
+
+
   .loading-spinner {
   /* Estilo y posicionamiento del spinner */
   display: flex;

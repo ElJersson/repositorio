@@ -5,7 +5,9 @@ const materialFromacionSchema=new mongoose.Schema({
     descripcion: { type: String, required: true },
     tipo: { type: String, required: true },
     codigo: { type: String, required: true },
-    documento: { type: String, required: true },
+    documento: { type: String},
+    estado: { type: Boolean, default: true }, // Cambiado el tipo de String a Boolean y establecido un valor por defecto
+
 
 })
 

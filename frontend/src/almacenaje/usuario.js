@@ -1,18 +1,24 @@
 import {defineStore} from 'pinia'
 import axios from "axios"
+import { ref } from 'vue';
+
 export const useUsuarioStore =defineStore(
     "usuario",()=>{
 
-         // lista de usuario
-        const getUsuario= async () => {
-              try {
-                 let res = await axios.get("https://repositorio.onrender.com/usuario");
-                  return res.data.usuarios; 
-               } catch (error) {
-                  console.log(error);
-                  return error;
-               }
-              };
+      const getUsuario = async () => {
+        try {
+          // Crea un objeto de cabecera con el token
+          // let header = {headers:{"x-token":token}}
+          // Realiza la solicitud al servidor con el token en las cabeceras
+          const res = await axios.get('https://repositorio.onrender.com/usuario');
+          // Retorna los datos de usuarios
+          return res.data.usuarios;
+        } catch (error) {
+          console.log("hay un error en el get");
+          return error;
+        }
+      };
+
         // agregar usuario
         const addUsuario = async(info)=>{
             try {

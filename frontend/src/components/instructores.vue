@@ -1,8 +1,6 @@
 <template >
-
-
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">
-   <h1 style="text-align: center; margin-top: 10px; color: #209702;">Instructores</h1> <!-- Agregamos el letrero aquí -->
+     <h1 style="text-align: center; margin-top: 10px; color: #209702;">Instructores</h1> <!-- Agregamos el letrero aquí -->
 
  <br>
  <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
@@ -15,7 +13,6 @@
      >
        <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;" ></i>
      </button>
- 
      <div class="input-container">
        <input
  placeholder="Buscar..."
@@ -179,44 +176,51 @@
      <th>Rol</th>
      <!-- <th>Red de conocimiento</th> -->
      <th>Estado</th>
-     <th>Editar/Usuario</th>
+     <th>Editar</th>
      <th>Editar/Estado</th>
    </tr>
  </thead>
  <tbody>
   <tr v-for="usuario in filteredUsuarios" :key="usuario.id && usuario.id">
-    <!-- Verificar si el rol del usuario contiene la palabra "Instructor" -->
-    <template v-if="usuario.rol.denominacion.toLowerCase().includes('instructor')">
-      <td>{{ usuario.nombre }}</td>
-      <td>{{ usuario.apellidos }}</td>
-      <td>{{ usuario.rol.denominacion }}</td>
-      <td>
-        <span v-if="usuario.estado" style="color: green">Activo</span>
-        <span v-else style="color: red">Inactivo</span>
-      </td>
-      <td>
-        <i
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          @click="editarUsuario(usuario)"
-          class="fa-solid fa-pen fa-lg"
-          style="color: #000000;"
-        ></i>
-      </td>
-      <td>
-        <label class="switch">
-          <input
-            @click="editEstados(usuario)"
-            v-model="usuario.estado"
-            :checked="usuario.estado"
-            type="checkbox"
-            class="checkbox"
-          />
-          <div class="slider"></div>
-        </label>
-      </td>
-    </template>
-  </tr>
+  <!-- Verificar si el rol del usuario contiene la palabra "Instructor" -->
+  <template v-if="usuario.rol.denominacion.toLowerCase().includes('instructor')">
+    <td>
+      <!-- Agregar un div para el círculo de la imagen -->
+      <div class="instructor-circle">
+        <img :src="imageUrl || 'users.png'" class="preview-image" />
+      </div>
+      {{ usuario.nombre }}
+    </td>
+    <td>{{ usuario.apellidos }}</td>
+    <td>{{ usuario.rol.denominacion }}</td>
+    <td>
+      <span v-if="usuario.estado" style="color: green">Activo</span>
+      <span v-else style="color: red">Inactivo</span>
+    </td>
+    <td>
+      <i
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        @click="editarUsuario(usuario)"
+        class="fa-solid fa-pen fa-lg"
+        style="color: #000000;"
+      ></i>
+    </td>
+    <td>
+      <label class="switch">
+        <input
+          @click="editEstados(usuario)"
+          v-model="usuario.estado"
+          :checked="usuario.estado"
+          type="checkbox"
+          class="checkbox"
+        />
+        <div class="slider"></div>
+      </label>
+    </td>
+  </template>
+</tr>
+
 </tbody>
 
 

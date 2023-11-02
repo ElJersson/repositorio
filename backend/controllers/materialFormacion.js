@@ -54,6 +54,28 @@ const httpMaterialFormacion = {
             // Manejar errores de validación y otros errores
             res.status(500).json({ error: "Error en el servidor a la hora de editar el centro de fromación" });
         }
+    },
+    actualizarestado: async (req, res) => {
+        const id = req.params.id;
+        console.log(`estado actualizado ${id}`);
+
+        const actualizado = {
+            estado: req.body.estado,
+        };
+
+        try {
+            const MaterialFormacionActualizada = await MaterialFormacion.findByIdAndUpdate(id, actualizado);
+
+            if (MaterialFormacionActualizada) {
+                console.log(MaterialFormacionActualizada);
+                res.status(200).json(MaterialFormacionActualizada)
+            } else {
+                res.status(404).json({ error: 'Material de formacion no encotrado' });
+
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'no se pudo actualizar el Material de formacion', error })
+        }
     }
 };
 

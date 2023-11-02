@@ -16,42 +16,23 @@ const generarJWT = (uid) => {
         })
     })
 }
+const validarJWT = async (req, res, next)=>{
+    const token = req.header("x-token")
 
-const validarJWT = async (req, res, next) => {
-    const token = req.header("x-token");
-    if (!token) {
-        return res.status(401).json({
-            msg: "No hay token en la peticion"
-        })
+    if(!token){
+        return res.status(401).json({message:"No hay token"})
     }
-
     try {
-        const { uid } = jwt.verify(token, process.env.CLAVE_SECRETA)
-
-        let usuario = await Usuario.findById(uid);
-
-        if (!usuario) {
-            return res.status(401).json({
-                msg: "Token no válido "//- usuario no existe DB
-            })
-        }
-
-
-        if (usuario.estado == false) {
-            return res.status(401).json({
-                msg: "Token no válido " //- usuario con estado: false
-            })
-        }
-        req.holder=usuario
-
-        next();
-
+        const payload = jwt.verify(token, process.env.CLAVE)
+        const usuario = await Usuario.findById(payload.userId)
+        req.usuario= usuario
+        next()
     } catch (error) {
-        res.status(401).json({
-            msg: "Token no valido"
-        })
+        console.log(error);
+        return res.status(401).json({message:"Token no valido"})
     }
 }
 
 
-export { generarJWT, validarJWT }
+
+export { generarJWT, validarJWT }

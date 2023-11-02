@@ -10,6 +10,8 @@ import rolUsuario from "../routes/rolUsuario.js"
 import programaFormacion from "../routes/programaFormacion.js"
 import centrosFormacion from "../routes/centrosFormacion.js"
 import materialFormacion from "../routes/materialFormacion.js"
+import nivelFormacion from "../routes/nivelFormacion.js"
+
 import fileUpload from 'express-fileupload';
 
 
@@ -36,6 +38,7 @@ class Server{
         this.app.use('/ciudad',ciudad)
         this.app.use('/materialFormacion',materialFormacion)
         this.app.use('/rolUsuario',rolUsuario)
+        this.app.use('/nivelFormacion',nivelFormacion)
 
 
     }

@@ -8,26 +8,21 @@ const httpUsuario = {
 
     try {
       const usuario = await Usuario.findOne({ email });
-
       if (!usuario) {
         return res.status(401).json({ message: "Correo incorrectos" });
       }
-
       if (usuario.estado === false) {
         return res.status(400).json({
           message: "Usuario inactivo",
         });
       }
-
       let idUsuario = usuario._id;
-      //console.log(id);
-
       const compContraseña = bcryptjs.compareSync(password, usuario.password);
       console.log("compContraseña:", compContraseña);
       if (!compContraseña) {
         return res.status(401).json({ message: "contraseña incorrectos" });
       }
-      let token = await generarJWT(idUsuario);
+      let token = await generarJWT(idUsuario); 
       return res.json({ message: "Inicio de sesión exitoso", token, usuario });
     } catch (error) {
       console.error("Error de inicio de sesión:", error);

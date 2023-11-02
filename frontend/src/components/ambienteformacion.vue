@@ -146,8 +146,8 @@
               
   
    <!-- input Centro Formacion -->
-<select :class="{'is-invalid': !editCentroFormacion}" class="form-select" id="red-conocimie" v-model="editCentroFormacion">
-<option value="" disabled selected>Seleccione Centro Formación </option>
+<select :class="{'is-invalid': !editCentroFormacion}" class="form-select" id="red-conocimienn" v-model="editCentroFormacion">
+<option value="" disabled selected>Seleccione Centro Formación... </option>
 <option v-for="centroformacion in centroFormacionActivos" :key="centroformacion.id" :value="centroformacion">{{ centroformacion.nombre }}</option>
 </select><br>
               
@@ -225,6 +225,7 @@ import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useAmbienteFormacionStore } from "../almacenaje/ambienteformacion.js";
 import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
+import { useAdministradorStore } from "../almacenaje/login.js";
 
 
 //variable store Centro formacion
@@ -343,10 +344,11 @@ function editarAmbiente(ambiente) {
   editCentroFormacion.value = ambiente.centroFormaciones;
 }
 
-// listar los ambientes 
-const lisAmbiente = async()=>{
- ambienteformacionActivos.value =await useAmbienteFormacion.getAmbienteFormacion();
- console.log(ambienteformacionActivos.value);
+
+// Función para listar usuarios
+async function lisAmbiente() {
+  ambienteformacionActivos.value = await useAmbienteFormacion.getAmbienteFormacion();
+  console.log(ambienteformacionActivos.value);
 }
 
 // listar los Centro Formación 

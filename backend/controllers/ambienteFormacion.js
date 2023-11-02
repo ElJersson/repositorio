@@ -1,7 +1,7 @@
 
 import AmbienteFormacion from "../modules/ambientesFormacion.js"
 
-const hhtpAmbienteFormacion = {
+const htpAmbienteFormacion = {
 //    listar ambientes de formación:
     getAmbienteFormacion: async (req, res) => {
         try {
@@ -99,7 +99,7 @@ const hhtpAmbienteFormacion = {
 
 
 
-export default hhtpAmbienteFormacion
+export default htpAmbienteFormacion
 
 
 

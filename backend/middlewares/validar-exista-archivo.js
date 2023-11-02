@@ -19,5 +19,9 @@ const validarExistaArchivo =(req,res,next)=>{
     }
     next();
 }
+const validarCedula =(req,res)=>{
+  
+  
 
+}
 export default validarExistaArchivo

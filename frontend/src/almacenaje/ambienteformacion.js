@@ -6,6 +6,7 @@ export const useAmbienteFormacionStore =defineStore(
          // lista de ambiente de formación
          const getAmbienteFormacion= async () => {
             try {
+
                let res = await axios.get("https://repositorio.onrender.com/ambienteFormacion");
                 console.log(res);
                 return res.data.ambienteFormacion; 
@@ -52,5 +53,5 @@ export const useAmbienteFormacionStore =defineStore(
           getAmbienteFormacion,
           putAmbienteEstado
      }
-    }
+  }
 )

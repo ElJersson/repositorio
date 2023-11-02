@@ -1,7 +1,7 @@
 <template>
   <div>
-    <header class="header">
-		<div class="container">
+    <header class="header" >
+		<div class="container" >
 		<div class="btn-menu">
 			<label for="btn-menu" ><i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></label>
 		</div>
@@ -9,21 +9,25 @@
 			</div>
 			<nav class="menu">
 				<a href="#" style="color: #ffffff;">Inicio</a>
-        <i class="fa-solid fa-right-from-bracket fa-lg" style="color: rgb(255, 255, 255);"></i>
+		
+       <i class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);"></i>
+
 			</nav>
 		</div>
 	</header>
-	<div class="container-main">
+	<div class="container-main"  @click="closeMenuOnClickOutside">
    <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./logosena.png" alt="">
       <div v-if="isLoading" class="loading-indicator">
       <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #000;"></i>
       <p>Cargando...</p>
     </div>
+
+	
    <router-view></router-view>
   </div>
 <!--	--------------->
 <input type="checkbox" id="btn-menu">
-<div class="container-menu">
+<div class="container-menu" id="menu">
 	<div class="cont-menu">
 		<nav>
 			<div class="image-preview">
@@ -32,26 +36,41 @@
 			<router-link  to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" >Redes de conocimiento</router-link>
 			<router-link  to="/usuario" @click="handleRouterLinkClick('/usuario')">usuarios</router-link>
 			<router-link  to="/rolUsuario" @click="closeMenu">Roles de usuario</router-link>
-			<router-link  to="/ambienteformacion" @click="closeMenu" >Ambientes de formación</router-link>
+			<router-link  to="/ambienteformacion" @click="handleRouterLinkClick('/ambienteformacion')" >Ambientes de formacion</router-link>
 			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
-			<router-link  to="/programas_formacion" @click="closeMenu">Progrmas de formación</router-link>
-			<router-link to="/instructores" @click="closeMenu">Instructores</router-link>
-			<router-link to="/materialFormacion" @click="closeMenu">Materiales de formación</router-link>
-			<router-link to="/configuracion" @click="closeMenu">Configuracion</router-link>
-			<router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>
+			<router-link  to="/programas_formacion" @click="closeMenu">Programas de formacion</router-link>
+			<router-link to="/instructores" @click="handleRouterLinkClick('/instructores')">Instructores</router-link>
+      <router-link to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')">Materiales de formación</router-link>
+      <router-link to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')">Desarrollo Curricular</router-link>
+      <router-link to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')">Nivel De Formación</router-link>
 
-			<a>Materiales de formacion</a>
-			<a>Desarrollo curricular</a>
-			<a>Materiales de formacion</a>
-			<a>Proyectos</a>
-			<a>Retroalimentacion de red</a>
-			<a>Investigacion</a>
-			<a>Registro calificado</a>
-			
-      <a >selectprogramaFormacion</a>
+      <router-link to="/registro_calificado" @click="closeMenu">Registro Calificado</router-link>			
+      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>			
+			<router-link to="/configuracion" @click="handleRouterLinkClick('/configuracion')">Configuracion</router-link>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<label for="colorPicker">Seleccione un color de fondo:</label>
+		<input type="color" id="colorPicker" @change="handleColorChange">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -62,6 +81,31 @@ import { onBeforeRouteUpdate } from 'vue-router';
 import { ref, onMounted } from 'vue'; 
 
 let isLoading = ref(true); 
+
+const closeMenuOnClickOutside = () => {
+  const menu = document.getElementById('menu'); // Obtén el elemento container-menu por su ID
+
+  if (menu && !menu.contains(event.target)) {
+    // Cierra el menú si se hace clic fuera de él
+    closeMenu();
+  }
+};
+const handleColorChange = () => {
+    const colorPicker = document.getElementById('colorPicker');
+    const selectedColor = colorPicker.value;
+
+    // Cambia el color de fondo del cont-menu y del header
+    const contMenu = document.querySelector('.cont-menu');
+    const header = document.querySelector('.header');
+
+    if (contMenu) {
+      contMenu.style.backgroundColor = selectedColor;
+    }
+
+    if (header) {
+      header.style.backgroundColor = selectedColor;
+    }
+  };
 
   const closeMenu = () => {document.getElementById('btn-menu').checked = false; };
 const handleRouterLinkClick = (to) => {
@@ -167,19 +211,21 @@ onMounted(() => {
   background: rgb(255, 255, 255);
   z-index: -1;
 }
-	/*Estilos para el encabezado*/
-	.header{
-		width: 100%;
-		height: 100px;
-		position: fixed;
-		top: 0;left: 0;
-    background-color: rgb(26, 98, 46);
-  
-	}
+	.header {
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(26, 98, 46);
+  z-index: 100; /* Asegura que esté en la capa superior */
+}
+
 	.container{
 		width: 90%;
 		max-width: 1200px;
 		margin: auto;
+		
 	}
 	.container .btn-menu, .logo{
 		float: left;
@@ -199,6 +245,7 @@ onMounted(() => {
 	.container .menu{
 		float: right;
 		line-height: 100px;
+		z-index: 1000;
 	}
 	.container .menu a{
 		display: inline-block;
@@ -215,40 +262,42 @@ onMounted(() => {
 		border-bottom: 2px solid #c7c7c7;
 		padding-bottom: 5px;
 	}
-	/*Fin de Estilos para el encabezado*/
 
-	/*Menù lateral*/
 	#btn-menu{
 		display: none;
 	}
-	.container-menu{
-		position: absolute;
+.container-menu {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: all 500ms ease;
+  opacity: 0;
+  visibility: hidden;
+}
 
-		width: 100%;
-		height: 100vh;
-		top: 0;left: 0;
-		transition: all 500ms ease;
-		opacity: 0;
-		visibility: hidden;
-	}
-	#btn-menu:checked ~ .container-menu{
-		opacity: 1;
-		visibility: visible;
-	}
-	.cont-menu {
+#btn-menu:checked ~ .container-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cont-menu {
+  position: fixed;
   width: 100%;
   max-width: 250px;
   background: rgb(26, 98, 46);
-  max-height: 100vh; /* Establece una altura máxima */
-  overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
-  position: relative;
+  left: 0;
+  top: 0;
   transition: all 500ms ease;
   transform: translateX(-100%);
+  height: 100%; /* Añade esta propiedad para ocupar toda la altura */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
 }
 
-	#btn-menu:checked ~ .container-menu .cont-menu{
-		transform: translateX(0%);
-	}
+#btn-menu:checked ~ .container-menu .cont-menu {
+  transform: translateX(0%);
+}
 	.cont-menu nav{
 		padding: 10px; /* Ajusta el valor según tus necesidades */
 	}
@@ -259,6 +308,7 @@ onMounted(() => {
 		color: #fffcfc;
 		border-left: 5px solid transparent;
 		transition: all 400ms ease;
+		
 	}
 	.cont-menu nav a:hover{
 		border-left: 5px solid #000000;
@@ -273,7 +323,7 @@ onMounted(() => {
 		color: #fff;
 		cursor: pointer;
 		font-size: 18px;
+		
 	}
-	/*Fin de Menù lateral*/
 
 </style>

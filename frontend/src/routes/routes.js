@@ -10,6 +10,9 @@ import materialFormacion from "../components/materialFormacion.vue";
 import rolUsuario from "../components/rolUsuario.vue";
 import configuracion from "../components/configuracion.vue";
 import selectprogramaFormacion from "../components/selectprogramaFormacion.vue";
+import registro_calificado from "../components/registro_calificado.vue";
+import desarrollocurricular from "../components/desarrollocurricular.vue";
+import nivelFormacion from "../components/nivelFormacion.vue";
 
 
 
@@ -29,6 +32,9 @@ const routes = [
        {path:"/materialFormacion" , component:materialFormacion},
        {path:"/configuracion" , component:configuracion},
        {path:"/selectprogramaFormacion" , component:selectprogramaFormacion},
+       {path:"/registro_calificado" , component:registro_calificado},
+       {path:"/desarrollocurricular" , component:desarrollocurricular},
+       {path:"/nivelFormacion" , component:nivelFormacion},
 
       ]
     }

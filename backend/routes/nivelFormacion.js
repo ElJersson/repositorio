@@ -1,27 +1,28 @@
 import { check } from "express-validator";
-import hhtpRolUsuario from "../controllers/rolUsuario.js";
+import httpNivelFormacion from "../controllers/nivelFormacion.js";
 import { Router } from "express";
-import { validarCampos } from "../middlewares/validar-campos.js";
 // import { validarJWT } from "../middlewares/validar-jwt.js";
-
+import { validarCampos } from "../middlewares/validar-campos.js";
 
 const router = Router();
 
 router.get("/",
 // [validarJWT],
- hhtpRolUsuario.getRolUsuario);
+ httpNivelFormacion.getNivelDeFormacion);
+
+router.get("/:codigo", httpNivelFormacion.getNivelFormacionCodigo);
 
 router.post("/", [
     // validarJWT,
     check("codigo", "El código es requerido").not().isEmpty(),
     check("denominacion", "La denominación es requerida").not().isEmpty(),
-], validarCampos, hhtpRolUsuario.postRolUsuario);
+], validarCampos, httpNivelFormacion.postNivelFormacion);
 
-router.put("/editRolUsuario/:id", [
+router.put("/administrador/:id", [
     check("codigo", "El código es requerido").not().isEmpty(),
     check("denominacion", "La denominación es requerida").not().isEmpty(),
-], validarCampos, hhtpRolUsuario.putRolUsuario);
+], validarCampos, httpNivelFormacion.putNivelFormacion);
 
-router.put("/estado/:id", hhtpRolUsuario.actualizarestado);
+router.put("/estado/:id", httpNivelFormacion.actualizarestado);
 
 export default router;
