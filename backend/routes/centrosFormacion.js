@@ -2,15 +2,15 @@ import { check } from "express-validator";
 import httpCentroFormacion from "../controllers/centrosFormacion.js";
 import { Router } from "express";
 import { validarCampos } from "../middlewares/validar-campos.js";
-// import { validarJWT } from "../middlewares/validar-jwt.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 const router = Router();
 
 router.get("/",
-// [validarJWT],
+[validarJWT],
  httpCentroFormacion.getCentroFormacion);
 
 router.post("/", [
-    // validarJWT,
+    validarJWT,
     check("nombre", "El nombre es requerido").not().isEmpty(),
     check("codigo", "El código es requerido").not().isEmpty(),
     check("direccion", "La dirección es requerida").not().isEmpty(),

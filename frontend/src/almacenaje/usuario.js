@@ -5,10 +5,10 @@ import { ref } from 'vue';
 export const useUsuarioStore =defineStore(
     "usuario",()=>{
 
-      const getUsuario = async () => {
+      const getUsuario = async (token) => {
         try {
           // Crea un objeto de cabecera con el token
-          // let header = {headers:{"x-token":token}}
+          let header = {headers:{"x-token":token}}
           // Realiza la solicitud al servidor con el token en las cabeceras
           const res = await axios.get('https://repositorio.onrender.com/usuario');
           // Retorna los datos de usuarios

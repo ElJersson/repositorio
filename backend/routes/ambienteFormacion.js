@@ -2,11 +2,11 @@ import { check } from "express-validator";
 import htpAmbienteFormacion from "../controllers/ambienteFormacion.js";
 import { Router } from "express";
 import { validarCampos } from "../middlewares/validar-campos.js";
-// import { validarJWT } from "../middlewares/validar-jwt.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 const router = Router();
 
 router.get("/",
-// [validarJWT],
+[validarJWT],
  htpAmbienteFormacion.getAmbienteFormacion);
 
 router.get("/:numAmbiente", htpAmbienteFormacion.getAmbienteFormacionNumAmbiente);
