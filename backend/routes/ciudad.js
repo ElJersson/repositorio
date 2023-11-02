@@ -2,12 +2,12 @@ import { check } from "express-validator";
 import httpCiudad from "../controllers/ciudad.js";
 import { Router } from "express";
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { validarJWT } from "../middlewares/validar-jwt.js";
+// import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
 router.get("/",
-[validarJWT], 
+// [validarJWT], 
 httpCiudad.getCiudad);
 
 router.post("/", [

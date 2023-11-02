@@ -3,17 +3,17 @@ import httpUsuario from "../controllers/usuario.js";
 import { Router } from "express";
 import { validarCedula } from "../helper/db_validator.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { validarJWT } from "../middlewares/validar-jwt.js"
+// import { validarJWT } from "../middlewares/validar-jwt.js"
 
 const router = Router();
 
 router.get("/",
-[validarJWT], 
+// [validarJWT], 
 httpUsuario.getUsuario);
 router.post('/inicio-sesion', httpUsuario.iniciarSesion);
 
 router.post("/crearUsuario", [
-    validarJWT,
+    // validarJWT,
     check("cc").custom(cc => validarCedula(cc)).withMessage("La cédula no es válida"),
     check("nombre", "Nombre está vacío").not().isEmpty(),
     check("apellidos", "Apellidos están vacíos").not().isEmpty(),
