@@ -20,9 +20,7 @@
       <div v-if="isLoading" class="loading-indicator">
       <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #000;"></i>
       <p>Cargando...</p>
-    </div>
-
-	
+    </div>	
    <router-view></router-view>
   </div>
 <!--	--------------->
@@ -45,7 +43,8 @@
       <router-link to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')">Nivel De Formación</router-link>
 
       <router-link to="/registro_calificado" @click="closeMenu">Registro Calificado</router-link>			
-      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>			
+      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>
+      <a data-bs-toggle="modal" data-bs-target="#exampleModal">Configuracion</a>
 			<router-link to="/configuracion" @click="handleRouterLinkClick('/configuracion')">Configuracion</router-link>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
@@ -66,8 +65,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">guardar</button>
+     
       </div>
     </div>
   </div>
