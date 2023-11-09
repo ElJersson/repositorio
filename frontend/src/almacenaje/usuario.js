@@ -10,7 +10,7 @@ export const useUsuarioStore =defineStore(
           // Crea un objeto de cabecera con el token
           let header = {headers:{"x-token":token}}
           // Realiza la solicitud al servidor con el token en las cabeceras
-          const res = await axios.get('http://localhost:4500/usuario',header);
+          const res = await axios.get('https://repositorio.onrender.com/usuario',header);
           // Retorna los datos de usuarios
           return res
         } catch (error) {
@@ -22,7 +22,7 @@ export const useUsuarioStore =defineStore(
         // agregar usuario
         const addUsuario = async(info)=>{
             try {
-                let res = await axios.post("http://localhost:4500/usuario/crearUsuario",info)
+                let res = await axios.post("https://repositorio.onrender.com/usuario/crearUsuario",info)
                 return res
             } catch (error) {
                 console.log(error);
@@ -32,7 +32,7 @@ export const useUsuarioStore =defineStore(
         // editar usuario
         const updateUsuario = async (id, info) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/editUsuario/${id}`, info);
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/editUsuario/${id}`, info);
             return res;
           } catch (error) {
             console.log(error);
@@ -42,7 +42,7 @@ export const useUsuarioStore =defineStore(
         // editar estado usuario 
         const putUsuarioEstado = async (id, estado) => {
           try {
-            let res = await axios.put(`http://localhost:4500/usuario/estado/${id}`, {estado:estado});
+            let res = await axios.put(`https://repositorio.onrender.com/usuario/estado/${id}`, {estado:estado});
             return res;
           } catch (error) {
             console.log(error);
@@ -55,7 +55,7 @@ export const useUsuarioStore =defineStore(
             formData.append('archivo', archivo);
       
             // Hacer la solicitud al backend para subir el archivo a Cloudinary
-            const response = await axios.put(`http://localhost:4500/usuario/subir-curriculum/${id}`, formData);
+            const response = await axios.put(`https://repositorio.onrender.com/usuario/subir-curriculum/${id}`, formData);
       
             return response.data;
           } catch (error) {

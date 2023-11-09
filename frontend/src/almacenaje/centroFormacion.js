@@ -8,7 +8,7 @@ export const useCentroFormacionStore =defineStore(
             try {
               // Crea un objeto de cabecera con el token
               let header = {headers:{"x-token":token}}
-               let res = await axios.get("http://localhost:4500/centrosFormacion",header);
+               let res = await axios.get("https://repositorio.onrender.com/centrosFormacion",header);
                 console.log(res);
                 return res
              } catch (error) {
@@ -19,7 +19,7 @@ export const useCentroFormacionStore =defineStore(
       // agregar centro de formación
       const addCentrosFormacion = async(info)=>{
           try {
-              let res = await axios.post("http://localhost:4500/centrosFormacion/",info)
+              let res = await axios.post("https://repositorio.onrender.com/centrosFormacion/",info)
               return res
           } catch (error) {
               console.log(error);
@@ -29,7 +29,7 @@ export const useCentroFormacionStore =defineStore(
       // editar centro de formación
       const updateCentrosFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`http://localhost:4500/centrosFormacion/editCentroFormacion/${id}`, info);
+          let res = await axios.put(`https://repositorio.onrender.com/centrosFormacion/editCentroFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);

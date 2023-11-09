@@ -13,7 +13,7 @@ export const useAdministradorStore = defineStore("logi", () => {
   // iniciar sesion con email y contraseña
   const iniciarSesion = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:4500/usuario/inicio-sesion/",{ email, password });
+      const response = await axios.post("https://repositorio.onrender.com/usuario/inicio-sesion/",{ email, password });
       token.value = response.data.token;
       rol.value= "Gestor"
       return response;
