@@ -1,6 +1,6 @@
 <template>
-<div class="d-md-flex half">
-    <img class="bg d-none d-md-block" src="./Sena-.jpg" style="width: 100%; max-width: 900px;">
+ <div class="d-md-flex half">
+    <img class="bg" src="./Sena-.jpg" style="width: 100%; max-width: 900px;">
     <div class="contents">
 
       <div class="container">
@@ -36,7 +36,10 @@
       </button>
     </div>
   </div>
-                
+  <div class="form-group">
+  <label  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-link" style="width: 200px; height: 30px; border-radius: 10px; background-color: rgb(255, 255, 255);" @click="openModal">Recuperar contraseña</label>
+
+</div>    
                 <div class="d-sm-flex mb-5 align-items-center">
                   <label class="control control--checkbox mb-3 mb-sm-0"><span class="caption">Recordar mi</span>
                     <input type="checkbox" checked="checked"/>
@@ -45,17 +48,38 @@
                   <span class="ml-auto"><a href="#" class="forgot-pass">Contraseña</a></span> 
                 </div>
                 <div v-if="loading" class="loading-spinner" style="position: relative;">
-      <!-- Agrega aquí tu indicador de carga, por ejemplo, un spinner -->
-      Cargando
+
     </div>
-                <button class="btn" @click="login" :disabled="loading">INGRESAR</button>
+                <button style="width: 300px;" class="btn" @click="login" :disabled="loading">INGRESAR</button>
 
               </form>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: rgb(35, 137, 42);">Restablecer contraseña</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2>Ingresa el correo electronico: </h2>
+        <input   class="form-control"  placeholder="Correo electronico">
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
 </template>
 
@@ -109,26 +133,6 @@ const login = async () => {
 body {
   font-family: "Roboto", sans-serif;
   background-color: #fff; }
-  @media (max-width: 767.98px) {
-  .swal2-popup {
-    width: 90%;
-    max-width: 300px;
-  }
-
-  .swal2-title {
-    font-size: 20px;
-  }
-
-  .swal2-content {
-    font-size: 16px;
-  }
-
-  .swal2-actions {
-    font-size: 14px;
-  }
-}
-
-
   .loading-spinner {
   /* Estilo y posicionamiento del spinner */
   display: flex;
@@ -226,8 +230,19 @@ h2 {
 .half .contents {
   width: 75%; }
   @media (max-width: 767.98px) {
-    .half .contents {
-      width: 100%; } }
+  .half .bg {
+    display: none;  // Hide the image on mobile devices
+  }
+
+  .half .contents {
+    width: 100%;
+  }
+
+  .form-block {
+    max-width: none;  // Adjust the max-width for the form block on mobile
+  }
+}
+
 
 .half .contents .form-control, .half .bg .form-control {
   border: none;

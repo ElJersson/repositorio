@@ -3,14 +3,15 @@
     <header class="header" >
 		<div class="container" >
 		<div class="btn-menu">
-			<label for="btn-menu" ><i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></label>
+			<label for="btn-menu" >
+        <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></label>
 		</div>
 			<div class="logo">
 			</div>
 			<nav class="menu">
 				<a href="#" style="color: #ffffff;">Inicio</a>
 		
-       <i class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);"></i>
+       <i class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);" @click="useAdministrador.logout"></i>
 
 			</nav>
 		</div>
@@ -20,7 +21,10 @@
       <div v-if="isLoading" class="loading-indicator">
       <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #000;"></i>
       <p>Cargando...</p>
-    </div>	
+    </div>
+
+    <h1 v-if="showWelcomeMessage">¡BIENVENIDO!</h1>
+
    <router-view></router-view>
   </div>
 <!--	--------------->
@@ -41,35 +45,12 @@
       <router-link to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')">Materiales de formación</router-link>
       <router-link to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')">Desarrollo Curricular</router-link>
       <router-link to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')">Nivel De Formación</router-link>
-
       <router-link to="/registro_calificado" @click="closeMenu">Registro Calificado</router-link>			
-      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>
-      <a data-bs-toggle="modal" data-bs-target="#exampleModal">Configuracion</a>
+      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>			
 			<router-link to="/configuracion" @click="handleRouterLinkClick('/configuracion')">Configuracion</router-link>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-		<label for="colorPicker">Seleccione un color de fondo:</label>
-		<input type="color" id="colorPicker" @change="handleColorChange">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">guardar</button>
-     
-      </div>
-    </div>
-  </div>
 </div>
 </div>
 
@@ -78,8 +59,13 @@
 <script setup>
 import { onBeforeRouteUpdate } from 'vue-router';
 import { ref, onMounted } from 'vue'; 
+import { useAdministradorStore } from "../almacenaje/login.js";
+
+const useAdministrador = useAdministradorStore();
+
 
 let isLoading = ref(true); 
+let showWelcomeMessage = ref(true);
 
 const closeMenuOnClickOutside = () => {
   const menu = document.getElementById('menu'); // Obtén el elemento container-menu por su ID
@@ -89,27 +75,13 @@ const closeMenuOnClickOutside = () => {
     closeMenu();
   }
 };
-const handleColorChange = () => {
-    const colorPicker = document.getElementById('colorPicker');
-    const selectedColor = colorPicker.value;
 
-    // Cambia el color de fondo del cont-menu y del header
-    const contMenu = document.querySelector('.cont-menu');
-    const header = document.querySelector('.header');
-
-    if (contMenu) {
-      contMenu.style.backgroundColor = selectedColor;
-    }
-
-    if (header) {
-      header.style.backgroundColor = selectedColor;
-    }
-  };
 
   const closeMenu = () => {document.getElementById('btn-menu').checked = false; };
 const handleRouterLinkClick = (to) => {
   isLoading.value = true; 
   closeMenu(); 
+  showWelcomeMessage.value = false; // Oculta el letrero
 };
 
 onBeforeRouteUpdate((to, from, next) => {
@@ -136,7 +108,7 @@ onMounted(() => {
   left: 0;
   width: 100%; /* Ocupa todo el ancho */
   height: 100%; /* Ocupa todo el alto */
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  background-color: rgba(255, 255, 255, 0.29); /* Fondo semitransparente */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -284,7 +256,7 @@ onMounted(() => {
 .cont-menu {
   position: fixed;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   background: rgb(26, 98, 46);
   left: 0;
   top: 0;
@@ -310,9 +282,9 @@ onMounted(() => {
 		
 	}
 	.cont-menu nav a:hover{
-		border-left: 5px solid #000000;
-		background: #ffffff;
-		color: #000000;
+		border-left: 5px solid #ffffff;
+		background: #000000;
+		color: #f9f9f9;
     
 	}
 	.cont-menu label{

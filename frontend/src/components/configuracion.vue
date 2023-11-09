@@ -16,13 +16,29 @@
         <hr>
         <h1 style="color: #008a35;">Configuracion de interfas</h1> <br>
     <a>Modificar el color de interfas de usuario</a>
-    <input type="color" id="colorPicker" onchange="cambiarColor()">
+    <input type="color" id="colorPicker" @change="handleColorChange">
 
     </div>
 </template>
-<script>
+<script setup>
 
 
+const handleColorChange = () => {
+    const colorPicker = document.getElementById('colorPicker');
+    const selectedColor = colorPicker.value;
+
+    // Cambia el color de fondo del cont-menu y del header
+    const contMenu = document.querySelector('.cont-menu');
+    const header = document.querySelector('.header');
+
+    if (contMenu) {
+      contMenu.style.backgroundColor = selectedColor;
+    }
+
+    if (header) {
+      header.style.backgroundColor = selectedColor;
+    }
+  };
 </script>
 <style scoped>
 

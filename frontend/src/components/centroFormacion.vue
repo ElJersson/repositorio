@@ -145,9 +145,11 @@ import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
 import { useCiudadStore } from "../almacenaje/ciudad.js";
 import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
+import { useAdministradorStore} from "../almacenaje/login.js";
 
 
-
+//variable store login
+const useAdministrador = useAdministradorStore();
 //variable store ciudad 
 const  useCiudad = useCiudadStore();
 //variable store centro Formacion
@@ -226,11 +228,14 @@ function editarCentrosFormacion(centroFormacion) {
   editCiudad.value = centroFormacion.idCiudad;
 }
 
+
+// listar los centro de formacion
 const lisCentroFormacion = async()=>{
- centroFormacionActivos.value =await useCentroFormacion.getCentrosFormacion();
+  console.log(useAdministrador.token);
+ let centroFormacio =await useCentroFormacion.getCentrosFormacion(useAdministrador.token);
+ centroFormacionActivos.value=centroFormacio.data.centrosFormacion
  console.log(centroFormacionActivos.value);
 }
-
 
 const lisCiudad = async()=>{
  ciudadActivos.value =await useCiudad.getCiudad();

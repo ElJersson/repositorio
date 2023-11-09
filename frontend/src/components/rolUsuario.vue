@@ -188,10 +188,11 @@
 import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
 import { useRolUsuarioStore } from "../almacenaje/rolUsuario.js";
+import { useAdministradorStore} from "../almacenaje/login.js";
 
 
-
-
+//variable store login
+const useAdministrador = useAdministradorStore();
 //variable store rol Usuario
 const useRolUsuario = useRolUsuarioStore();
 
@@ -258,7 +259,7 @@ async function guardar() {
 
 
 let editRolUsuario = ref(null); // Agrega esta variable en la parte superior de tu código.
-
+//editar rol de usuario 
 function editarRolUsuario(rolUsuario) {
   editRolUsuario.value = rolUsuario;
   editDenominacion.value = rolUsuario.denominacion;
@@ -267,13 +268,24 @@ function editarRolUsuario(rolUsuario) {
 
 // listar los roles de usuarios
 const lisRolUsuario = async()=>{
- rolUsuarioActivos.value =await useRolUsuario.getRolUsuario();
+  console.log(useAdministrador.token);
+ let rolusuari =await useRolUsuario.getRolUsuario(useAdministrador.token);
+ rolUsuarioActivos.value=rolusuari.data.rolUsuario
  console.log(rolUsuarioActivos.value);
 }
 
 // Función para editar el rol del usuario seleccionado
 async function actualizarRolUsuarioEditado(id) {
   try {
+    //     if (!editDenominacion.value.trim() || !editCodigo.value.trim()) {
+    //   // Mostrar un mensaje de error si alguno de los campos está vacío o contiene solo espacios en blanco
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "Por favor, completa todos los campos de edición con datos válidos.",
+    //   });
+    //   return;
+    // }
     await useRolUsuario.updateRolUsuario(id, {
       denominacion: editDenominacion.value,
       codigo: editCodigo.value,

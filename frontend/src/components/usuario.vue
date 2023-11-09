@@ -236,6 +236,24 @@ import { useAdministradorStore} from "../almacenaje/login.js";
 
 const imageUrl = ref('');
 
+const upload = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    if (file.type !== 'application/pdf') {
+      // Mostrar una alerta si el archivo no es un PDF
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, selecciona un archivo PDF válido como currículum.',
+      });
+      event.target.value = ''; // Restablecer el valor del input de archivo para eliminar el archivo no válido
+    } else {
+      // Aquí puedes realizar la carga del archivo utilizando una solicitud HTTP a tu servidor
+      // Asegúrate de enviar el archivo al servidor para su almacenamiento con Multer
+   }
+  }
+};
+
 // Función para manejar la carga de la imagen
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
@@ -435,13 +453,16 @@ function editarUsuario(usuario) {
 // Función para listar usuarios
 async function lisUsuario() {
   console.log(useAdministrador.token);
-  usuariosActivos.value = await useUsuario.getUsuario(useAdministrador.token);
-    console.log(usuariosActivos);
+  let usuario = await useUsuario.getUsuario(useAdministrador.token);
+  usuariosActivos.value = usuario.data.usuarios;
+  console.log(usuariosActivos.value);
 }
 
-// listar Rol Usurio
+// listar los roles de usuarios
 const lisRolUsuario = async()=>{
- RolusuariosActivos.value =await useRolUsuario.getRolUsuario();
+ console.log(useAdministrador.token);
+ let rolusuari =await useRolUsuario.getRolUsuario(useAdministrador.token);
+ RolusuariosActivos.value=rolusuari.data.rolUsuario
  console.log(RolusuariosActivos.value);
 }
 

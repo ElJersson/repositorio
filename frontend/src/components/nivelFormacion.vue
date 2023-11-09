@@ -120,8 +120,14 @@
 import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
 import { useNivelFormacionStore } from "../almacenaje/nivelFormacion.js";
+import { useAdministradorStore} from "../almacenaje/login.js";
+
+
+//variable store login
+const useAdministrador = useAdministradorStore();
 
 const RedActivos = ref([])
+
 
 // Variables para agregar nivel de formación
 let codigo = ref("");
@@ -143,9 +149,12 @@ const useNivelFormacion = useNivelFormacionStore();
 
 // Obtener y mostrar los niveles de formación
  const lisnivelFormacion = async () => {
-    nivelFormacionActivas.value = await useNivelFormacion.getNivelFormacion()
+    console.log(useAdministrador.token);
+   let nivelFormacio= await useNivelFormacion.getNivelFormacion(useAdministrador.token) 
+   nivelFormacionActivas.value =nivelFormacio.data.nivelDeFormacion;
     console.log(nivelFormacionActivas.value);
  }
+
 
 // Guardar un nuevo nivel de formación
 async function guardar() {

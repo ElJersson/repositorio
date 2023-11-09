@@ -231,10 +231,12 @@
 import { ref, onMounted , computed } from "vue";
 import Swal from "sweetalert2";
 import { useMaterialFormacionStore } from "../almacenaje/materialFormacion.js";
+import { useAdministradorStore } from "../almacenaje/login.js";
 
 
 
-
+//variable store login
+const useAdministrador = useAdministradorStore();
 //variable store Ambiente
 const useMaterialFormacion = useMaterialFormacionStore();
 
@@ -352,12 +354,20 @@ function editarMaterialFormacion(material) {
 
 // listar los ambientes 
 const lisMaterialFormacion = async()=>{
-  console.log(useMaterialFormacion.token);
- materialFormacionActivos.value =await useMaterialFormacion.getMaterialFormacion(useMaterialFormacion.token);
+  console.log(useAdministrador.token);
+  let materialFormacio=await useMaterialFormacion.getMaterialFormacion(useAdministrador.token);
+  materialFormacionActivos.value=materialFormacio.data.ambienteFormacion;
  console.log(materialFormacionActivos.value);
 }
 
 
+// Función para listar material Formacion
+async function lisAmbiente() {
+  console.log(useAdministrador.token);
+  let ambienteFormacio = await useAmbienteFormacion.getAmbienteFormacion(useAdministrador.token);
+  ambienteformacionActivos.value 
+  console.log(ambienteformacionActivos.value);
+}
 
 
 // Función para editar el conductor seleccionado

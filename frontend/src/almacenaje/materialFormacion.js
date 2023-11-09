@@ -4,11 +4,14 @@ export const useMaterialFormacionStore =defineStore(
     "MaterialFormaciones",()=>{
 
          // lista de material de formación
-         const getMaterialFormacion= async () => {
+         const getMaterialFormacion= async (token) => {
             try {
-               let res = await axios.get("https://repositorio.onrender.com/materialFormacion");
+          // Crea un objeto de cabecera con el token
+          let header = {headers:{"x-token":token}}
+          // Realiza la solicitud al servidor con el token en las cabeceras
+               let res = await axios.get("http://localhost:4500/materialFormacion",header);
                 console.log(res);
-                return res.data.materialFormacion; 
+                return res
              } catch (error) {
                 console.log(error);
                 return error;
@@ -17,7 +20,7 @@ export const useMaterialFormacionStore =defineStore(
       // agregar material de formación
       const addMaterialFormacion = async(info)=>{
           try {
-              let res = await axios.post("https://repositorio.onrender.com/materialFormacion/",info)
+              let res = await axios.post("http://localhost:4500/materialFormacion/",info)
               return res
           } catch (error) {
               console.log(error);
@@ -27,7 +30,7 @@ export const useMaterialFormacionStore =defineStore(
       // editar material de formación
       const updateMaterialFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`https://repositorio.onrender.com/materialFormacion/editMaterialFormacion/${id}`, info);
+          let res = await axios.put(`http://localhost:4500/materialFormacion/editMaterialFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);
@@ -37,7 +40,7 @@ export const useMaterialFormacionStore =defineStore(
       // editar estado Materia Formacion 
          const putMaterialEstado = async (id, estado) => {
           try {
-            let res = await axios.put(`https://repositorio.onrender.com/materialFormacion/estado/${id}`, {estado:estado});
+            let res = await axios.put(`http://localhost:4500/materialFormacion/estado/${id}`, {estado:estado});
             return res;
           } catch (error) {
             console.log(error);

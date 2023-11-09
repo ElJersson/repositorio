@@ -1,20 +1,20 @@
 import { check } from "express-validator";
 import httpNivelFormacion from "../controllers/nivelFormacion.js";
 import { Router } from "express";
-// import { validarJWT } from "../middlewares/validar-jwt.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 
 
 const router = Router();
 
 router.get("/",
-// [validarJWT],
+[validarJWT],
  httpNivelFormacion.getNivelDeFormacion);
 
 router.get("/:codigo", httpNivelFormacion.getNivelFormacionCodigo);
 
 router.post("/", [
-    // validarJWT,
+    validarJWT,
     check("codigo", "El código es requerido").not().isEmpty(),
     check("denominacion", "La denominación es requerida").not().isEmpty(),
 ], validarCampos, httpNivelFormacion.postNivelFormacion);

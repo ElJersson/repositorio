@@ -227,10 +227,10 @@ import { useAmbienteFormacionStore } from "../almacenaje/ambienteformacion.js";
 import { useCentroFormacionStore } from "../almacenaje/centroFormacion.js";
 import { useAdministradorStore } from "../almacenaje/login.js";
 
-
+//variable store login
+const useAdministrador = useAdministradorStore();
 //variable store Centro formacion
 const useCentroFormacion = useCentroFormacionStore();
-
 //variable store Ambiente
 const useAmbienteFormacion = useAmbienteFormacionStore();
 
@@ -345,15 +345,21 @@ function editarAmbiente(ambiente) {
 }
 
 
-// Función para listar usuarios
+
+
+// Función para listar ambiente Formacion
 async function lisAmbiente() {
-  ambienteformacionActivos.value = await useAmbienteFormacion.getAmbienteFormacion();
+  console.log(useAdministrador.token);
+  let ambienteFormacio = await useAmbienteFormacion.getAmbienteFormacion(useAdministrador.token);
+  ambienteformacionActivos.value = ambienteFormacio.data.ambienteFormacion; 
   console.log(ambienteformacionActivos.value);
 }
 
-// listar los Centro Formación 
-const lisCentroformacion = async()=>{
- centroFormacionActivos.value =await useCentroFormacion.getCentrosFormacion();
+// listar los centro de formacion
+const lisCentroFormacion = async()=>{
+  console.log(useAdministrador.token);
+ let centroFormacio =await useCentroFormacion.getCentrosFormacion(useAdministrador.token);
+ centroFormacionActivos.value=centroFormacio.data.centrosFormacion
  console.log(centroFormacionActivos.value);
 }
 

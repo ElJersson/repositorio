@@ -2,17 +2,17 @@ import { check } from "express-validator";
 import hhtpRolUsuario from "../controllers/rolUsuario.js";
 import { Router } from "express";
 import { validarCampos } from "../middlewares/validar-campos.js";
-// import { validarJWT } from "../middlewares/validar-jwt.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 
 const router = Router();
 
 router.get("/",
-// [validarJWT],
+[validarJWT],
  hhtpRolUsuario.getRolUsuario);
 
 router.post("/", [
-    // validarJWT,
+    validarJWT,
     check("codigo", "El código es requerido").not().isEmpty(),
     check("denominacion", "La denominación es requerida").not().isEmpty(),
 ], validarCampos, hhtpRolUsuario.postRolUsuario);
