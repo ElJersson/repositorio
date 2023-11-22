@@ -8,10 +8,11 @@ const UsuarioSchema=new mongoose.Schema({
     direccion: { type: String, required: true },
     email: { type: String, required: true,},
     perfilProfesional: { type: String},
-    curriculum: { type: String},
     rol: { type: mongoose.Schema.Types.ObjectId, ref: 'RolUsuario', required: true },
     telefono: { type: Number, minlength: 7, maxlength: 10, required: true },
     estado:  { type: Boolean, default: true },
     createdAt: { type: Date, default: Date.now },
+    curriculum: { type: String},
+
 })
 export default mongoose.model('Usuario',UsuarioSchema)
