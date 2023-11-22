@@ -6,7 +6,8 @@ const InvestigacionSchema=new mongoose.Schema({
     descripcion: {type:String, required: true},
     fecha: {type:Date, required: true},
     documento: {type:String, required: true},
-    programaFormacion: { type: mongoose.Schema.Types.ObjectId, ref: 'programaFormacion' ,require:true},    
+    programaFormacion: { type: mongoose.Schema.Types.ObjectId, ref: 'programaFormacion' ,require:true}, 
+    estado: { type: Boolean, default: true },
 })
 
 export default mongoose.model('Investigacion',InvestigacionSchema)

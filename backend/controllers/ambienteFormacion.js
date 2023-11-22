@@ -1,4 +1,3 @@
-
 import AmbienteFormacion from "../modules/ambientesFormacion.js"
 
 const htpAmbienteFormacion = {
@@ -27,8 +26,7 @@ const htpAmbienteFormacion = {
             res.status(500).json({ mensaje: "error al obtener el ambiente de formacion" })
         }
     },
-//    Agregar ambientes de formación:
-
+//    Agregar ambientes de formación :
     postAmbienteFormacion: async (req, res) => {
         const { numAmbiente, centroFormacion, tipo, descripcion,estado } = req.body;
         try {
@@ -40,7 +38,6 @@ const htpAmbienteFormacion = {
                 descripcion,
                 estado
             });
-    
             res.status(201).json(nuevoAmbienteFormacion);
         } catch (error) {
             res.status(500).json({ mensaje: "Error al crear el Ambiente de formación" });

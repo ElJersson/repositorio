@@ -1,5 +1,4 @@
-import bcryptjs from "bcryptjs";
-import { generarJWT } from "../middlewares/validar-jwt.js";
+
 import RedConocimiento from "../modules/redConocimiento.js";
 
 const hhtpRedConocimiento = {

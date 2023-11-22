@@ -137,10 +137,10 @@ import { useAdministradorStore} from "../almacenaje/login.js";
 // Definir RedActivos como una referencia
 const RedActivos = ref([]);
 
-//variable store login
-const useAdministrador = useAdministradorStore();
 //variable store usuario
 const useRedConocimiento = useRedConocimientoStore()
+//variable store login
+const useAdministrador = useAdministradorStore();
 
 //variables modal agregar
 let nombre = ref("");
@@ -211,24 +211,14 @@ function editarRedConocimiento(redConocimiento) {
 // Función para listar red de conocimiento
 async function lisRedConocimiento() {
   console.log(useAdministrador.token);
-  let redConocimient = await useRedConocimiento.getRedConocimiento(useAdministrador.token);
-  redConocimientoActivas.value = redConocimient.data.redesConocimientos;
+  let redConocimiento = await useRedConocimiento.getRedConocimiento(useAdministrador.token);
+  redConocimientoActivas.value = redConocimiento.data.redesConocimientos;
   console.log(redConocimientoActivas.value);
 }
 
 // Función para editar el conductor seleccionado
 async function actualizarRedEditado(id) {
   try {
-    // Validar si los campos están vacíos o contienen solo espacios en blanco
-    if (!Editnombre.value.trim() || !Editcodigo.value.trim()) {
-      // Mostrar un mensaje de error si algún campo está vacío o contiene solo espacios en blanco
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Por favor, completa todos los campos de edición con datos válidos.",
-      });
-      return;
-    }
     await useRedConocimiento.updateRedConocimiento(id, {
       nombre: Editnombre.value,
       codigo: Editcodigo.value,

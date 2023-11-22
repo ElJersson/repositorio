@@ -1,12 +1,13 @@
 import {defineStore} from 'pinia'
 import axios from "axios"
+import {URL} from "../routes/url.js"
 export const useCiudadStore =defineStore(
     "ciudadess",()=>{
-
+const url=URL
          // lista de ciudades 
          const getCiudad= async () => {
             try {
-               let res = await axios.get("https://repositorio.onrender.com/ciudad");
+               let res = await axios.get(`${url}/ciudad`);
                 console.log(res);
                 return res.data.ciudades; 
              } catch (error) {
@@ -17,7 +18,7 @@ export const useCiudadStore =defineStore(
       // agregar ciudades 
       const addCiudad = async(info)=>{
           try {
-              let res = await axios.post("https://repositorio.onrender.com/ciudad/",info)
+              let res = await axios.post(`${url}/ciudad/`,info)
               return res
           } catch (error) {
               console.log(error);

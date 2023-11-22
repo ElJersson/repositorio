@@ -11,6 +11,10 @@ import programaFormacion from "../routes/programaFormacion.js"
 import centrosFormacion from "../routes/centrosFormacion.js"
 import materialFormacion from "../routes/materialFormacion.js"
 import nivelFormacion from "../routes/nivelFormacion.js"
+import proyecto from "../routes/proyecto.js"
+import retroAlimentacionRed from "../routes/retroAlimentacionRed.js"
+import investigacion from "../routes/investigacion.js"
+
 
 import fileUpload from 'express-fileupload';
 
@@ -39,6 +43,9 @@ class Server{
         this.app.use('/materialFormacion',materialFormacion)
         this.app.use('/rolUsuario',rolUsuario)
         this.app.use('/nivelFormacion',nivelFormacion)
+        this.app.use('/proyecto',proyecto)
+        this.app.use('/investigacion',investigacion)
+        this.app.use('/retroAlimentacionRed',retroAlimentacionRed)
 
 
     }

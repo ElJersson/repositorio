@@ -57,7 +57,7 @@
                             <input v-model="direccion" type="text" class="form-control" placeholder="Direccion" :class="{'is-invalid': !direccion}" /><br>
 
                      <!-- boton guardar -->
-                     <button @click="guardar()" type="button" class="btn2" style="width: 100px;  ">
+                     <button @click="guardar()" type="button" class="btn" style="width: 100px;">
                         Guardar
                     </button>
                    </div>
@@ -84,22 +84,26 @@
                     <div class="row">
                         <div class="col-md-6">
                            <!-- input nombre -->
+                           Nombre:
                             <input v-model="editNombre" type="text" class="form-control" :class="{'is-invalid': !nombre}" placeholder="Nombres" /><br>
                             <!-- input codigo -->
+                            Codigo:
                             <input v-model="editCodigo" type="text" class="form-control" placeholder="Codigo" :class="{'is-invalid': !codigo}" /><br>
                   
                             </div>
                             <div class="col-md-6">
                             <!-- input ciudad -->
+                            Ciudad:
                             <select :class="{'is-invalid': !idCiudad}" class="form-select" id="red-conocimiento" v-model="editCiudad">
                             <option value="" disabled selected>Seleccione la ciudad</option>
                             <option v-for="ciudad in ciudadActivos" :key="ciudad.id" :value="ciudad">{{ ciudad.nombre }}</option>
                             </select><br>
                             <!-- input Direccion -->
+                            Dirección:
                             <input v-model="editDireccion" type="text" class="form-control" placeholder="Direccion" :class="{'is-invalid': !direccion}" /><br>
 
                      <!-- boton guardar -->
-                     <button @click="actualizarCentroFormacionEditado(editCentroFormacion._id)" type="button" class="btn2" style="width: 100px;  ">
+                     <button @click="actualizarCentroFormacionEditado(editCentroFormacion._id)" type="button" class="btn" style="width: 100px;  ">
                         Editar
                     </button>
                    </div>
@@ -201,7 +205,7 @@ async function guardar() {
 
   // Mostrar una alerta temporal de éxito
   Swal.fire({
-    icon: "sucess",
+    icon: "success",
     title: "Éxito",
     text: "Los datos se agregaron con éxito.",
   }).then((result) => {
@@ -229,13 +233,7 @@ function editarCentrosFormacion(centroFormacion) {
 }
 
 
-// listar los centro de formacion
-const lisCentroFormacion = async()=>{
-  console.log(useAdministrador.token);
- let centroFormacio =await useCentroFormacion.getCentrosFormacion(useAdministrador.token);
- centroFormacionActivos.value=centroFormacio.data.centrosFormacion
- console.log(centroFormacionActivos.value);
-}
+
 
 const lisCiudad = async()=>{
  ciudadActivos.value =await useCiudad.getCiudad();
@@ -243,6 +241,13 @@ const lisCiudad = async()=>{
 }
 
 
+// listar los centro de formacion
+const lisCentroFormacion = async()=>{
+ console.log(useAdministrador.token);
+ let centroFormacio =await useCentroFormacion.getCentrosFormacion(useAdministrador.token);
+ centroFormacionActivos.value=centroFormacio.data.centrosFormacion
+ console.log(centroFormacionActivos.value);
+}
 
 
 // Función para editar el conductor seleccionado
@@ -265,7 +270,7 @@ async function actualizarCentroFormacionEditado(id) {
 
     // Mostrar un mensaje de éxito.
     Swal.fire({
-      icon: "sucess",
+      icon: "success",
       title: "Éxito",
       text: "Los datos se editaron con éxito.",
     });
@@ -299,44 +304,5 @@ onMounted(async () => {
 </script>
   
 <style>
-/* Estilos para el contenedor del botón personalizado */
-.file-input-container {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  border-radius: 50px;
-  background-color: rgb(26, 98, 46);
-  color: white;
-  cursor: pointer;
-  padding: 10px 20px;
-}
-
-/* Estilos para ocultar el input de archivos */
-.file-input {
-  display: none;
-}
-
-/* Estilos para el ícono de "más" */
-.custom-file-input-label i {
-  margin-right: 5px;
-}
-
-   .preview-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-}
-
-.image-preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-    
-
-
 
 </style>

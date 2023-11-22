@@ -90,7 +90,7 @@
                             <!-- input rolusuario -->
                             <select :class="{'is-invalid': !rol}" class="form-select" id="red-conocimiento" v-model="rol">
                             <option value="" disabled selected>Seleccione El Rol</option>
-                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
+                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario._id" :value="rolusuario._id">{{ rolusuario.denominacion }}</option>
                             </select><br></label>
                  
                 </div>  <br>
@@ -161,7 +161,7 @@
                             <!-- input editar rolusuario -->
                             <select :class="{'is-invalid': !editRol}" class="form-select" id="red-conocimiento" v-model="editRol">
                             <option value="" disabled selected>Seleccione El Rol</option>
-                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario">{{ rolusuario.denominacion }}</option>
+                            <option v-for="rolusuario in RolusuariosActivos" :key="rolusuario.id" :value="rolusuario._id">{{ rolusuario.denominacion }}</option>
                             </select><br>                     <!-- boton guardar -->
                      <button @click="actualizarUsuarioEditado(editUsuario._id)" type="button" class="btn" style="width: 100px;  ">
                         Editar
@@ -183,6 +183,7 @@
       <th>Estado</th>
       <th>Editar/Usuario</th>
       <th>Editar/Estado</th>
+      <th>Curriculums</th>
     </tr>
   </thead>
   <tbody>
@@ -217,6 +218,7 @@
           <div class="slider"></div>
         </label>
       </td>
+      <td><a :href="usuario.curriculum" target="_blank">Curriculum</a></td>
     </tr>
   </tbody>
 </table>
@@ -295,7 +297,7 @@ let password = ref("");
 let direccion = ref("");
 let email = ref("");
 let perfilProfesional = ref("");
-let curriculum = ref("");
+let curriculum = ref(null);
 let rol = ref("");
 let telefono = ref('');
 let estado = ref(true);
@@ -333,6 +335,12 @@ const filteredUsuarios = computed(() => {
     );
   });
 });
+
+//funcion subir arrchivo
+function subirArchivo(event){
+  curriculum.value= event.target.files[0]
+  console.log(curriculum.value);
+}
 
 async function guardar() {
 
@@ -407,6 +415,7 @@ if (password.value.length < 8) {
     direccion: direccion.value,
     email: email.value,
     perfilProfesional: perfilProfesional.value,
+    curriculum: curriculum.value,
     rol: rol.value,
     telefono: telefono.value,
     estado: estado.value,

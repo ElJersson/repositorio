@@ -1,8 +1,11 @@
 import Usuario from "../modules/usuario.js";
 import bcryptjs from "bcryptjs";
 import { generarJWT } from "../middlewares/validar-jwt.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const httpUsuario = {
+
+  // Iniciar sesion 
   iniciarSesion: async (req, res) => {
     const { email, password } = req.body;
 
@@ -22,7 +25,7 @@ const httpUsuario = {
       if (!compContraseña) {
         return res.status(401).json({ message: "contraseña incorrectos" });
       }
-      let token = await generarJWT(idUsuario); 
+      let token = await generarJWT(idUsuario);
       return res.json({ message: "Inicio de sesión exitoso", token, usuario });
     } catch (error) {
       console.error("Error de inicio de sesión:", error);
@@ -33,58 +36,154 @@ const httpUsuario = {
   },
   //listar los usuarios
   getUsuario: async (req, res) => {
-    const usuarios = await Usuario.find()
-    .populate("rol")
+    const usuarios = await Usuario.find().populate("rol");
     res.json({ usuarios });
   },
 
-  //crear un nuevo Usuario
-
+  //crear un nuevo Usuario con el archivo de curriculum
   postUsuario: async (req, res) => {
-    const {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado,} = req.body;
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_KEY,
+      api_secret: process.env.CLOUDINARY_SECRET,
+      secure: true,
+    });
     try {
-      const nuevoUsuario = {cc,nombre,apellidos,password,direccion,email,perfilProfesional,curriculum,rol,telefono,estado,};
-      const salt = bcryptjs.genSaltSync();
-      nuevoUsuario.password = bcryptjs.hashSync(req.body.password, salt);
-
-      Usuario.create(nuevoUsuario);
-
-      res.status(201).json(nuevoUsuario);
+      const {
+        cc,
+        nombre,
+        apellidos,
+        password,
+        direccion,
+        email,
+        perfilProfesional,
+        rol,
+        telefono,
+        estado,
+      } = req.body;
+      const { curriculum } = req.files;
+      
+      if (curriculum) {
+        const extension = curriculum.name.split(".").pop();
+        const { tempFilePath } = curriculum;
+        const result = await cloudinary.uploader.upload(tempFilePath, {
+          width: 250,
+          crop: "limit",
+          resource_type: "raw",
+          allowedFormats: ["jpg", "png", "docx", "xlsx", "pptx", "pdf"],
+          format: extension,
+        });
+        const buscar = await Usuario.findOne({ cc: cc });
+        if (buscar) {
+          return res
+            .status(400)
+            .json({
+              msg: `Se encontro un Usuario registrado con ese cc ${cc}`,
+            });
+        } else {
+          const nuevoUsuario = new Usuario({
+            cc: cc,
+            nombre: nombre,
+            apellidos: apellidos,
+            password: password,
+            direccion: direccion,
+            email: email,
+            perfilProfesional: perfilProfesional,
+            curriculum: result.url,
+            rol: rol,
+            telefono: telefono,
+            estado: estado,
+          });
+          const salt = bcryptjs.genSaltSync();
+           nuevoUsuario.password = bcryptjs.hashSync(req.body.password, salt);
+          await nuevoUsuario.save()
+          return res.status(201).json(nuevoUsuario);
+        }
+      }
     } catch (error) {
+      console.log(error);
       res.status(500).json({ mensaje: "Error al crear el Usuario" });
     }
   },
-  // editar usuario
-  putUsuario: async (req, res) => {
-    const { id } = req.params; // Se obtiene el parámetro 'id' desde la URL
-    const {nombre,apellidos,direccion,perfilProfesional,curriculum,telefono,estado,rol} = req.body;
+  // Editar Usuario:
+  putUsuario : async (req, res) => {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_KEY,
+      api_secret: process.env.CLOUDINARY_SECRET,
+      secure: true,
+    });
 
     try {
-      // Buscar el usuario por id
-      const usuario = await Usuario.findById(id);
+        const { id } = req.params;
+        const {
+          cc,
+          nombre,
+          apellidos,
+          password,
+          direccion,
+          email,
+          perfilProfesional,
+          rol, 
+          telefono  
+                } = req.body;
 
-      if (!usuario) {
-        return res.status(404).json({ error: "usuario no encontrado" });
-      }
 
-      // Actualizar los campos del usuario con los valores nuevos
-      usuario.apellidos = apellidos;
-      usuario.nombre = nombre;
-      usuario.direccion = direccion;
-      usuario.perfilProfesional = perfilProfesional;
-      usuario.curriculum = curriculum;
-      usuario.telefono = telefono;
-      usuario.estado = estado;
-      usuario.rol = rol;
+        const buscarCodigo = await Usuario.findOne({ cc: cc });
+        if (buscarCodigo && buscarCodigo._id.toString() !== id) {
+            return res
+                .status(404)
+                .json({ msg: "Ya se encuentra un Usuario registrado con ese codigo" });
+        };
 
-      // Guardar los cambios en la base de datos
-      await usuario.save();
+        let updatedData = {
+                    nombre: nombre,
+                    apellidos: apellidos,
+                    cc: cc,
+                    telefono: telefono,
+                    email: email,
+                    password: password,
+                    perfilProfesional: perfilProfesional,
+                    direccion: direccion,
+                    rol: rol
+        };
 
-      res.json({ usuario });
+        if (req.files && req.files.curriculum) {
+            const curriculum = req.files.curriculum;
+            const extension = curriculum.name.split(".").pop();
+            const { tempFilePath } = curriculum;
+            const result = await cloudinary.uploader.upload(tempFilePath, {
+                width: 250,
+                crop: "limit",
+                resource_type: "raw",
+                allowedFormats: ["jpg", "png", "docx", "xlsx", "pptx", "pdf"],
+                format: extension,
+            });
+
+            const buscar = await Usuario.findById(id);
+
+            if (buscar.curriculum) {
+                const nombreTemp = buscar.curriculum.split("/");
+                const nombrecurriculum = nombreTemp[nombreTemp.length - 1];
+                const [public_id] = nombrecurriculum.split(".");
+                await cloudinary.uploader.destroy(public_id);
+            };
+
+            updatedData.curriculum = result.url;
+        };
+
+    
+        const buscarUsuario = await Usuario.findByIdAndUpdate(
+            { _id: id },
+            { $set: updatedData },
+            { new: true }
+        );
+        res.status(201).json(buscarUsuario);
     } catch (error) {
-      res.status(500).json({ error: "Error en el servidor" });
+        console.log(error);
+        return res.status(500).json({ error: error.message });
     }
-  },
+},
 
   // editar el estado
   actualizarestado: async (req, res) => {
@@ -111,30 +210,30 @@ const httpUsuario = {
       res.status(500).json({ error: "no se pudo actualizar el administrador" });
     }
   },
-  
- // putUsuarioCurriculum: async (req, res) => {
+
+  // putUsuarioCurriculum: async (req, res) => {
   //   try {
   //     const { id } = req.params;
   //     const { curriculum } = req.files;
   //     if (!curriculum || !curriculum.tempFilePath) {
   //       return res.status(400).json({ error: "Archivo no proporcionado" });
   //     }
-  
+
   //     const extension = curriculum.name.split('.').pop();
   //     const { tempFilePath } = curriculum;
-  
+
   //     const result = await cloudinary.v2.uploader.upload(tempFilePath, {
   //       width: 250,
   //       crop: "limit",
   //       resource_type: "raw",
   //       format: extension,
   //     });
-  
+
   //     let usuario = await Usuario.findById(id);
   //     if (!usuario) {
   //       return res.status(404).json({ error: "Usuario no encontrado" });
   //     }
-  
+
   //     if (usuario.curriculum) {
   //       const nombreTemp = usuario.curriculum.split("/");
   //       const nombreCurriculum = nombreTemp[nombreTemp.length - 1];
@@ -148,8 +247,6 @@ const httpUsuario = {
   //     res.status(500).json({ error: error.message });
   //   }
   // },
-   
-
 };
 
 export default httpUsuario;

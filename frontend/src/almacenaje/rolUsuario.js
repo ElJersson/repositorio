@@ -1,14 +1,15 @@
 import {defineStore} from 'pinia'
 import axios from "axios"
+import {URL} from "../routes/url.js"
 export const useRolUsuarioStore =defineStore(
     "Rol_Usuario",()=>{
-
+const url=URL
          // lista de centro de formación
          const getRolUsuario= async (token) => {
             try {
                // Crea un objeto de cabecera con el token
               let header = {headers:{"x-token":token}}
-               let res = await axios.get("https://repositorio.onrender.com/rolUsuario",header);
+               let res = await axios.get(`${url}/rolUsuario`,header);
                 console.log(res);
                 return res; 
              } catch (error) {
@@ -19,7 +20,7 @@ export const useRolUsuarioStore =defineStore(
       // agregar centro de formación
       const addRolUsuario = async(info)=>{
           try {
-              let res = await axios.post("https://repositorio.onrender.com/rolUsuario/",info)
+              let res = await axios.post(`${url}/rolUsuario/`,info)
               return res
           } catch (error) {
               console.log(error);
@@ -29,7 +30,7 @@ export const useRolUsuarioStore =defineStore(
       // editar centro de formación
       const updateRolUsuario = async (id, info) => {
         try {
-          let res = await axios.put(`https://repositorio.onrender.com/rolUsuario/editRolUsuario/${id}`, info);
+          let res = await axios.put(`${url}/rolUsuario/editRolUsuario/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);
@@ -39,7 +40,7 @@ export const useRolUsuarioStore =defineStore(
         // editar estado Rol de usuario 
         const putEstadoRolUsuario = async (id, estado) => {
             try {
-              let res = await axios.put(`https://repositorio.onrender.com/rolUsuario/estado/${id}`, {estado:estado});
+              let res = await axios.put(`${url}/rolUsuario/estado/${id}`, {estado:estado});
               return res;
             } catch (error) {
               console.log(error);

@@ -1,14 +1,16 @@
 import {defineStore} from 'pinia'
 import axios from "axios"
+import {URL} from "../routes/url.js"
+
 export const useCentroFormacionStore =defineStore(
     "centroFormaciones",()=>{
-
+const url=URL;
          // lista de centro de formación
          const getCentrosFormacion= async (token) => {
             try {
               // Crea un objeto de cabecera con el token
               let header = {headers:{"x-token":token}}
-               let res = await axios.get("https://repositorio.onrender.com/centrosFormacion",header);
+               let res = await axios.get(`${url}/centrosFormacion`,header);
                 console.log(res);
                 return res
              } catch (error) {
@@ -19,7 +21,7 @@ export const useCentroFormacionStore =defineStore(
       // agregar centro de formación
       const addCentrosFormacion = async(info)=>{
           try {
-              let res = await axios.post("https://repositorio.onrender.com/centrosFormacion/",info)
+              let res = await axios.post(`${url}/centrosFormacion/`,info)
               return res
           } catch (error) {
               console.log(error);
@@ -29,7 +31,7 @@ export const useCentroFormacionStore =defineStore(
       // editar centro de formación
       const updateCentrosFormacion = async (id, info) => {
         try {
-          let res = await axios.put(`https://repositorio.onrender.com/centrosFormacion/editCentroFormacion/${id}`, info);
+          let res = await axios.put(`${url}/centrosFormacion/editCentroFormacion/${id}`, info);
           return res;
         } catch (error) {
           console.log(error);

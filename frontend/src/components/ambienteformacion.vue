@@ -84,7 +84,8 @@
                 <input
                   type="file"
                   class="form-control"
-                 placeholder="Archivos"
+                 placeholder="Documento"
+                 @change="subirArchivo"
                 /><br>
 
               <!-- boton guardar -->
@@ -145,8 +146,8 @@
                 /><br>
               
   
-   <!-- input Centro Formacion -->
-<select :class="{'is-invalid': !editCentroFormacion}" class="form-select" id="red-conocimienn" v-model="editCentroFormacion">
+   <!-- input Editar Centro Formacion -->
+<select :class="{'is-invalid': !editCentroFormacionnn}" class="form-select" id="red-conocimienn" v-model="editCentroFormacionnn">
 <option value="" disabled selected>Seleccione Centro Formación... </option>
 <option v-for="centroformacion in centroFormacionActivos" :key="centroformacion.id" :value="centroformacion">{{ centroformacion.nombre }}</option>
 </select><br>
@@ -229,7 +230,7 @@ import { useAdministradorStore } from "../almacenaje/login.js";
 
 //variable store login
 const useAdministrador = useAdministradorStore();
-//variable store Centro formacion
+//variable store centro Formacion
 const useCentroFormacion = useCentroFormacionStore();
 //variable store Ambiente
 const useAmbienteFormacion = useAmbienteFormacionStore();
@@ -240,7 +241,7 @@ let centroFormaciones = ref('');
 let tipo = ref("");
 let descripcion = ref("");
 let estado = ref(true);
-
+let documento = ref(null)
 let ambienteformacionSeleccionado = ref(null);
 
 let filtro = ref('');
@@ -259,7 +260,7 @@ const ambientesFiltrados = computed(() => {
 
 //variables modal editar
 let editNumAmbiente = ref('');
-let editCentroFormacion = ref('');
+let editCentroFormacionnn = ref('');
 let editTipo = ref("");
 let editDescripcion = ref("");
 let editEstado = ref(true);
@@ -282,6 +283,12 @@ function toggleAccordion(index) {
     // Si se hace clic en otro acordeón, ábrelo y cierra el anterior
     activeAccordion = index;
   }
+}
+
+//funcion subir arrchivo
+function subirArchivo(event){
+  documento.value= event.target.files[0]
+  console.log(documento.value);
 }
 
 async function guardar() {
@@ -307,6 +314,7 @@ async function guardar() {
     centroFormacion: centroFormaciones.value,
     tipo: tipo.value,
     descripcion: descripcion.value,
+    documento:documento.value,
     estado: estado.value,
 
   });
@@ -341,7 +349,7 @@ function editarAmbiente(ambiente) {
   editTipo.value = ambiente.tipo;
   editDescripcion.value = ambiente.descripcion;
   editEstado.value = ambiente.estado;  
-  editCentroFormacion.value = ambiente.centroFormaciones;
+  editCentroFormacionnn.value = ambiente.centroFormaciones;
 }
 
 
@@ -357,7 +365,7 @@ async function lisAmbiente() {
 
 // listar los centro de formacion
 const lisCentroFormacion = async()=>{
-  console.log(useAdministrador.token);
+ console.log(useAdministrador.token);
  let centroFormacio =await useCentroFormacion.getCentrosFormacion(useAdministrador.token);
  centroFormacionActivos.value=centroFormacio.data.centrosFormacion
  console.log(centroFormacionActivos.value);
@@ -372,7 +380,7 @@ async function actualizarAmbienteEditado(id) {
       tipo: editTipo.value,
       descripcion: editDescripcion.value,
       estado: editEstado.value,
-      centroFormaciones: editCentroFormacion.value,
+      centroFormaciones: editCentroFormacionnn.value,
 
     });
     // Cerrar el modal manualmente
@@ -426,6 +434,7 @@ function limpiarInputs() {
   centroFormaciones.value = "";
   tipo.value = "";
   descripcion.value = "";
+  documento.value= "";
   estado.value = true;
 
 
@@ -434,7 +443,7 @@ function limpiarInputs() {
 
 onMounted(async () => {
   await lisAmbiente();
-  await lisCentroformacion();
+  await lisCentroFormacion();
 }); 
 
 </script>

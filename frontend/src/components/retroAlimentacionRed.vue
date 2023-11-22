@@ -1,9 +1,9 @@
 <template>
     <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
-        <h1 style="text-align: center; margin-top: 10px; color: #209702;">proyectos</h1> 
+        <h1 style="text-align: center; margin-top: 10px; color: #209702;">Retro alimentacion de red</h1> 
             <br />
             <div class="group" style="display: flex; justify-content: space-between; align-items: center">
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agregarProyectos"
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agreagarRetroAlimentacionRed"
                     style="width: 220px; height: 60px; background-color: rgb(255, 255, 255)">
                     <i class="fa-solid fa-plus fa-xl" style="color: #000000"></i> 
                 </button>
@@ -16,11 +16,11 @@
             <br />
     
             <!-- modal para agregar nuevo nivel de formacion  -->
-            <div class="modal fade" id="agregarProyectos" tabindex="-1" aria-label="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="agreagarRetroAlimentacionRed" tabindex="-1" aria-label="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content" style="background-color: #26b502; border-radius: 10px">
                         <div class="modal-header">
-                            <h2>nuevo proyecto</h2>
+                            <h2>nueva retro alimentacion de red</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                         </div>
                         <div class="modal-body">
@@ -32,19 +32,13 @@
     
                                         <input v-model="nombre" type="text" class="form-control"
                                             :class="{ 'is-invalid': !editNombre }"
-                                            placeholder="nombre del proyecto" /><br />
-
-                                            <input v-model="descripcion" type="text" class="form-control"
-                                            :class="{ 'is-invalid': !editDescripcion }"
-                                            placeholder="descripcion del proyecto" /><br />
+                                            placeholder="nombre de la retro alimentacion de red" /><br />
     
                                         <button @click="guardar()" type="button" class="centrar; btn btn-success">
                                             guardar
                                         </button>
                                     </div>
                                 </div>
-
-                            
                             </div>
                         </div>
                     </div>
@@ -56,7 +50,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content" style="background-color: #ffffff; border-radius: 10px">
                         <div class="modal-header">
-                            <h4>nuevo proyecto</h4>
+                            <h4>nueva retro alimentacion de red</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                         </div>
                         <div class="modal-body">
@@ -71,14 +65,11 @@
                                             :class="{ 'is-invalid': !editCodigo }" placeholder="codigo" /><br />
     
                                         <input v-model="editNombre" type="text" class="form-control"
-                                            :class="{ 'is-invalid': !editNombre }" placeholder="nombre proyecto" /><br />
-
-                                            <input v-model="editDescripcion" type="text" class="form-control"
-                                            :class="{ 'is-invalid': !editDescripcion }" placeholder="descripcion del proyecto" /><br />
+                                            :class="{ 'is-invalid': !editNombre }" placeholder="nombre de retro alimentacion de red" /><br />
                                     </div>
     
                                     <button @click="
-                                        actualizarProyectoEditado(editProyecto._id)
+                                        actualizarRetroAlimentacionRedEditado(editRetroAlimentacionRed._id)
                                         " type="button" class="btn2" style="width: 100px">
                                         Editar
                                     </button>
@@ -94,30 +85,28 @@
                     <tr>
                         <th>codigo</th>
                         <th>nombre</th>
-                        <th>descripcion</th>
                         <th>estado</th>
                         <th>Opciones</th>
                         <th>....</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="Proyecto in proyectosActivos" :key="Proyecto.id && Proyecto.id">
-                        <td>{{ Proyecto.codigo }}</td>
-                        <td>{{ Proyecto.nombre }}</td>
-                        <td>{{ Proyecto.descripcion }}</td>
+                    <tr v-for="RetroAlimentacionRed in retroAlimentacionActivas" :key="RetroAlimentacionRed.id && RetroAlimentacionRed.id">
+                        <td>{{ RetroAlimentacionRed.codigo }}</td>
+                        <td>{{ RetroAlimentacionRed.nombre }}</td>
                         <td>
-                            <span v-if="Proyecto.estado" style="color: green">Activo</span>
-                            <span v-else style="color: red">Inactivo</span>
+                            <span v-if="RetroAlimentacionRed.estado" style="color: green"><i class="fa-solid fa-circle" style="color: #30a53a;"></i></span>
+                            <span v-else style="color: red"><i class="fa-solid fa-circle" style="color: #ff1100;"></i></span>
                         </td>
                         <td>
                             <i data-bs-toggle="modal" data-bs-target="#statickBackdrop"
-                                @click="editarProyecto(Proyecto)" class="fa-solid fa-pen fa-lg"
+                                @click="editarRetroAlimentacionRed(RetroAlimentacionRed)" class="fa-solid fa-pen fa-lg"
                                 style="color: #000000"></i>
                         </td>
                         <td>
                             <label class="switch">
-                                <input @click="editEstados(Proyecto)" v-model="Proyecto.estado"
-                                    :checked="Proyecto.estado" type="checkbox" class="checkbox" />
+                                <input @click="editEstados(RetroAlimentacionRed)" v-model="RetroAlimentacionRed.estado"
+                                    :checked="RetroAlimentacionRed.estado" type="checkbox" class="checkbox" />
                                 <div class="slider"></div>
                             </label>
                         </td>
@@ -125,44 +114,42 @@
                 </tbody>
             </table>
         </div>
-    </template>
+</template>
     
-    <script setup>
+<script setup>
     import { ref, onMounted } from "vue";
     import Swal from "sweetalert2";
-    import { useProyectoStore } from "../almacenaje/proyecto.js";
+    import { useRetroAlimentacionRedStore } from "../almacenaje/retroAlimentacionRed.js";
     
     const RedActivos = ref([])
     
     // Variables para agregar nivel de formación
     let codigo = ref("");
     let nombre = ref("");
-    let descripcion = ref ("")
     let estado = ref(true);
     
-    let ProyectoSeleccionado = ref (null)
+    let RetroAlimentacionRedSeleccionado = ref (null)
     
     // Variables para editar nivel de formación
     let editCodigo = ref("");
     let editNombre = ref("");
-    let editDescripcion = ref ("")
     let editEstado = ref(true);
     
     // Almacenamiento de niveles de formación
-    let proyectosActivos = ref([]);
-    let editProyecto = ref(null);
+    let retroAlimentacionActivas = ref([]);
+    let editRetroAlimentacionRed = ref(null);
     
-    const useProyecto = useProyectoStore();
+    const useRetroAlimentacionRed = useRetroAlimentacionRedStore();
     
     // Obtener y mostrar los niveles de formación
-     const lisProyecto = async () => {
-        proyectosActivos.value = await useProyecto.getProyecto()
-        console.log(proyectosActivos.value);
+     const lisRetroAlimentacionRed = async () => {
+        retroAlimentacionActivas.value = await useRetroAlimentacionRed.getRetroAlimentacionRed()
+        console.log(retroAlimentacionActivas.value);
      }
     
     // Guardar un nuevo nivel de formación
     async function guardar() {
-        if (!codigo.value || !nombre.value || !descripcion.value) {
+        if (!codigo.value || !nombre.value) {
           Swal.fire({
             icon: "error",
             tittle: "error",
@@ -170,14 +157,13 @@
           })
           return
         }
-    let r = await useProyecto.addProyecto({
+    let r = await useRetroAlimentacionRed.addRetroAlimentacionRed({
         codigo : codigo.value,
         nombre: nombre.value,
-        descripcion: descripcion.value,
         estado : estado.value
     });
     
-    await lisProyecto()
+    await lisRetroAlimentacionRed()
     
     Swal.fire({
         icon: "sucess",
@@ -185,37 +171,35 @@
         text: "Los datos se agregaron con éxito.",
       }).then((result) => {
         if (result.isConfirmed) {
-            const agregarProyectos = document.getElementById("agregarProyectos")
-            const modalProyectoInstance = bootstrap.Modal.getInstance(agregarProyectos)
-            modalProyectoInstance.hide()
+            const agreagarRetroAlimentacionRed = document.getElementById("agreagarRetroAlimentacionRed")
+            const modalRetroAlimentacionRedInstance = bootstrap.Modal.getInstance(agreagarRetroAlimentacionRed)
+            modalRetroAlimentacionRedInstance.hide()
         }
     })
     }
     
     // Editar un nivel de formación
-    function editarProyecto(Proyecto) {
-        editProyecto.value = Proyecto;
-        editCodigo.value = Proyecto.codigo;
-        editNombre.value = Proyecto.nombre;
-        editDescripcion.value = Proyecto.descripcion;
-        editEstado.value = Proyecto.estado;
+    function editarRetroAlimentacionRed(RetroAlimentacionRed) {
+        editRetroAlimentacionRed.value = RetroAlimentacionRed;
+        editCodigo.value = RetroAlimentacionRed.codigo;
+        editNombre.value = RetroAlimentacionRed.nombre;
+        editEstado.value = RetroAlimentacionRed.estado;
     }
     
     // Actualizar un nivel de formación editado
-    async function actualizarProyectoEditado(id) {
+    async function actualizarRetroAlimentacionRedEditado(id) {
         try {
-            await useProyecto.updateProyecto(id, {
+            await useRetroAlimentacionRed.updateRetroAlimentacionRed(id, {
                 codigo: editCodigo.value,
                 nombre: editNombre.value,
-                descripcion: editDescripcion.value,
                 estado: editEstado.value
             });
     
-            const editarProyectoModal = document.getElementById("statickBackdrop");
-            const modalProyectoInstance = bootstrap.Modal.getInstance(editarProyectoModal);
-            modalProyectoInstance.hide();
+            const editarRetroAlimentacionRedModal = document.getElementById("statickBackdrop");
+            const modalRetroAlimentacionRedInstance = bootstrap.Modal.getInstance(editarRetroAlimentacionRedModal);
+            modalRetroAlimentacionRedInstance.hide();
     
-            await lisProyecto();
+            await lisRetroAlimentacionRed();
        Swal.fire({
         icons: "sucess",
         tittle: "exito",
@@ -231,12 +215,12 @@
     }
     
     // Cambiar el estado de un nivel de formación
-    async function editEstados(proyectosActivos) {
+    async function editEstados(retroAlimentacionActivas) {
     try {
-        if (proyectosActivos.estado === true) {
-            await useProyecto.putProyectoEstado(proyectosActivos._id, false)
+        if (retroAlimentacionActivas.estado === true) {
+            await useRetroAlimentacionRed.putRetroAlimentacionRedEstado(retroAlimentacionActivas._id, false)
         } else {
-            await useProyecto.putProyectoEstado(proyectosActivos._id, true)
+            await useRetroAlimentacionRed.putRetroAlimentacionRedEstado(retroAlimentacionActivas._id, true)
         }
     } catch (error) {
         console.error('error en editar estado', error)
@@ -247,20 +231,19 @@
     function limpiarInputs() {
         codigo.value = "";
         nombre.value = "";
-        descripcion.value = "";
         estado.value = true;
-        ProyectoSeleccionado.value = null;
+        RetroAlimentacionRedSeleccionado.value = null;
     }
     
     
     
     onMounted(async () => {
-        await lisProyecto();
+        await lisRetroAlimentacionRed();
     });
-    </script>
+</script>
     
     
-    <style>
+<style>
     
-    </style>
+</style>
     

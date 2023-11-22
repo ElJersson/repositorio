@@ -1,4 +1,5 @@
 import MaterialFormacion from "../modules/materialFormacion.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const httpMaterialFormacion = {
     //listar los MaterialFormacion 
@@ -7,23 +8,59 @@ const httpMaterialFormacion = {
         res.json({ materialFormacion });
       },
       
-   //crear un MaterialFormacion
+   //crear un MaterialFormacion con el documento 
    postMaterialFormacion: async (req, res) => {
-    const { nombre, descripcion, tipo, codigo,documento } = req.body;
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_NAME,
+        api_key: process.env.CLOUDINARY_KEY,
+        api_secret: process.env.CLOUDINARY_SECRET,
+        secure: true,
+      });
     try {
-        // Crear un nuevo centro de formación y esperar la promesa
-        const nuevoMaterialFormacion = await MaterialFormacion.create({
-            nombre,
-            descripcion,
-            tipo,
-            codigo,
-            documento
-        });
+        const { 
+             nombre,
+             descripcion, 
+             tipo, 
+             codigo,
+             estado
+            } = req.body;
+      const {documento} = req.files;
 
+      if (documento) {
+        const extension = documento.name.split(".").pop();
+        const { tempFilePath } = documento;
+        const result = await cloudinary.uploader.upload(tempFilePath, {
+          width: 250,
+          crop: "limit",
+          resource_type: "raw",
+          allowedFormats: ["jpg", "png", "docx", "xlsx", "pptx", "pdf"],
+          format: extension,
+        });
+        const buscar = await MaterialFormacion.findOne({ codigo: codigo });
+        if (buscar) {
+          return res
+            .status(400)
+            .json({
+              msg: `Se encontro un material de formacion registrado con ese codigo ${codigo}`,
+            });
+        } else {
+        // Crear un nuevo centro de formación y esperar la promesa
+        const nuevoMaterialFormacion = new MaterialFormacion({
+            nombre: nombre,
+            descripcion: descripcion,
+            tipo: tipo,
+            codigo:codigo,
+            documento: result.url,
+            estado: estado,
+
+        }); 
         res.status(201).json(nuevoMaterialFormacion);
-    } catch (error) {
-        res.status(500).json({ mensaje: "Error al crear el centro de formación" });
-    }
+        }
+      }
+    }catch (error) {
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al crear el Material de Formacion" });
+      }
 },
        // editar usuario 
        putMaterialFormacion: async (req, res) => {

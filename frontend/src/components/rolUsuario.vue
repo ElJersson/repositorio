@@ -34,7 +34,7 @@
             style="background-color:  #ffffff; border-radius: 10px"
           >
             <div class="modal-header">
-              <h2>Agregar rol de usuario</h2>
+              <h2>Agregar Rol De Usuario</h2>
               <button
                 type="button"
                 class="btn-close"
@@ -92,7 +92,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <div class="modal-content" style="background-color:  #e0e0e0; border-radius: 10px">
+          <div class="modal-content" style="background-color: #ffffff; border-radius: 10px">
             <div class="modal-header">
               <h2>Editar rol de usuario</h2>
               <button

@@ -9,12 +9,17 @@
 			<div class="logo">
 			</div>
 			<nav class="menu">
-				<a href="#" style="color: #ffffff;">Inicio</a>
+        			<router-link  to="/home" @click="handleRouterLinkClick('/home')" ><a  style="color: #ffffff;">Inicio</a>
+</router-link>
+
 		
-       <i class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);" @click="useAdministrador.logout"></i>
+       <i data-bs-toggle="modal" data-bs-target="#exampleModal"  class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);"  ></i>
 
 			</nav>
 		</div>
+
+
+
 	</header>
 	<div class="container-main"  @click="closeMenuOnClickOutside">
    <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./logosena.png" alt="">
@@ -33,24 +38,42 @@
 	<div class="cont-menu">
 		<nav>
 			<div class="image-preview">
-                    <img src="./logosena.png"  class="preview-image" style="background-color: #ffffff;">
+                    <img src="./logosena.png"  class="preview-image" style="background-color: #ffffff; width: 70px; height: 70px;">
         </div>
-			<router-link  to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" >Redes de conocimiento</router-link>
-			<router-link  to="/usuario" @click="handleRouterLinkClick('/usuario')">usuarios</router-link>
-			<router-link  to="/rolUsuario" @click="closeMenu">Roles de usuario</router-link>
-			<router-link  to="/ambienteformacion" @click="handleRouterLinkClick('/ambienteformacion')" >Ambientes de formacion</router-link>
-			<router-link   to="/centroFormacion" @click="closeMenu">Centros de formacion</router-link>			
-			<router-link  to="/programas_formacion" @click="closeMenu">Programas de formacion</router-link>
-			<router-link to="/instructores" @click="handleRouterLinkClick('/instructores')">Instructores</router-link>
-      <router-link to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')">Materiales de formación</router-link>
-      <router-link to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')">Desarrollo Curricular</router-link>
-      <router-link to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')">Nivel De Formación</router-link>
-      <router-link to="/registro_calificado" @click="closeMenu">Registro Calificado</router-link>			
-      <router-link to="/selectprogramaFormacion" @click="closeMenu">Seleccionar Programa Formación</router-link>			
-			<router-link to="/configuracion" @click="handleRouterLinkClick('/configuracion')">Configuracion</router-link>
+			<router-link v-if="showLink('redesconocimiento')" to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" ><i class="fa-brands fa-connectdevelop" style="color: #ffffff;"></i> Redes de conocimiento</router-link>
+			<router-link v-if="showLink('usuario')" to="/usuario" @click="handleRouterLinkClick('/usuario')"><i class="fa-solid fa-user" style="color: #ffffff;"></i> usuarios</router-link>
+			<router-link v-if="showLink('rolUsuario')" to="/rolUsuario" @click="closeMenu"><i class="fa-solid fa-user-gear" style="color: #ffffff;"></i> Roles de usuario</router-link>
+			<router-link v-if="showLink('ambienteformacion')" to="/ambienteformacion" @click="handleRouterLinkClick('/ambienteformacion')" ><i class="fa-solid fa-hand-holding-heart" style="color: #ffffff;"></i> Ambientes de formacion</router-link>
+			<router-link v-if="showLink('centroFormacion')" to="/centroFormacion" @click="closeMenu"><i class="fa-solid fa-arrows-to-eye" style="color: #ffffff;"></i> Centros de formacion</router-link>			
+			<router-link v-if="showLink('programas_formacion')" to="/programas_formacion" @click="closeMenu"><i class="fa-solid fa-list-check" style="color: #ffffff;"></i> Programas de formacion</router-link>
+			<router-link v-if="showLink('instructores')" to="/instructores" @click="handleRouterLinkClick('/instructores')"><i class="fa-solid fa-user-tie" style="color: #fafcff;"></i> Instructores</router-link>
+      <router-link v-if="showLink('materialFormacion')" to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')"><i class="fa-solid fa-book" style="color: #ffffff;"></i> Materiales de formación</router-link>
+      <router-link v-if="showLink('desarrollocurricular')" to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')"><i class="fa-solid fa-window-restore" style="color: #ffffff;"></i> Desarrollo Curricular</router-link>
+      <router-link v-if="showLink('nivelFormacion')" to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')"><i class="fa-solid fa-turn-up" style="color: #ffffff;"></i> Nivel De Formación</router-link>
+      <router-link v-if="showLink('registro_calificado')" to="/registro_calificado" @click="closeMenu"><i class="fa-regular fa-registered" style="color: #ffffff;"></i> Registro Calificado</router-link>			
+      <router-link v-if="showLink('selectprogramaFormacion')" to="/selectprogramaFormacion" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Seleccionar Programa Formación</router-link>			
+      <router-link v-if="showLink('proyectos')" to="/proyectos" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Proyectos</router-link>			
+      <router-link v-if="showLink('retroAlimentacionRed')" to="/retroAlimentacionRed" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Retro alimentación De Red</router-link>			
+      <router-link v-if="showLink('investigacion')" to="/investigacion" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Investigación</router-link>			
+      <router-link v-if="showLink('configuracion')" to="/configuracion" @click="handleRouterLinkClick('/configuracion')"><i class="fa-solid fa-gears" style="color: #ffffff;"></i> Configuracion</router-link>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Seguro quieres salir </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button data-bs-dismiss="modal" type="button" class="btn btn-primary" @click="useAdministrador.logout" >Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -62,6 +85,59 @@ import { ref, onMounted } from 'vue';
 import { useAdministradorStore } from "../almacenaje/login.js";
 
 const useAdministrador = useAdministradorStore();
+
+
+
+const showLink = (routeName) => {
+  const role = useAdministrador.rolUsuario;
+
+const Administrador ="65441996cbf7c5850ca19c1d"
+const Gestor ="651720c5626d21f8942681f6"
+const Instructor  ="651f2996b5a857f19437298c"
+const Invitados ="651720d2626d21f8942681f8"
+
+  switch (routeName) {
+    case 'home':
+      return true; // Mostrar siempre el enlace a "home"
+
+  case 'redesconocimiento':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'usuario':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'rolUsuario':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'ambienteformacion':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'centroFormacion':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'programas_formacion':
+      return role === `${Administrador}`|| role === `${Gestor}`|| role === `${Invitados}`|| role === `${Instructor}`; // Mostrar solo si el rol es "Administrador"
+  case 'instructores':
+      return ; // Mostrar solo si el rol es "Administrador"
+  case 'materialFormacion':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'configuracion':
+      return role === `${Administrador}`|| role === `${Gestor}`|| role === `${Invitados}`|| role === `${Instructor}`; // Mostrar solo si el rol es "Administrador"
+  case 'selectprogramaFormacion':
+      return role === `${Administrador}`|| role === `${Gestor}`|| role === `${Invitados}`|| role === `${Instructor}`; // Mostrar solo si el rol es "Administrador"
+  case 'registro_calificado':
+      return  ; // Mostrar solo si el rol es "Administrador"
+  case 'desarrollocurricular':
+      return  ; // Mostrar solo si el rol es "Administrador"
+  case 'nivelFormacion':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'proyectos':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'retroAlimentacionRed':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+  case 'investigacion':
+      return role === `${Administrador}`; // Mostrar solo si el rol es "Administrador"
+
+
+    default:
+      return true; // Mostrar por defecto si no hay lógica específica para el enlace
+  }
+};
 
 
 let isLoading = ref(true); 
