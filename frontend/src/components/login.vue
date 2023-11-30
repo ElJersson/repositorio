@@ -50,7 +50,7 @@
                 <div v-if="loading" class="loading-spinner" style="position: relative;">
 
     </div>
-                <button style="width: 300px;" class="btn" @click="login" :disabled="loading">INGRESAR</button>
+                <button type="button" style="background-color: rgb(46, 158, 63);"  class="btn" @click="login" :disabled="loading">INGRESAR</button>
 
               </form>
               

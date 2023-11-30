@@ -1,19 +1,19 @@
 <template>
     
     <div class="card">
-        <h1 style="text-align: center; margin-top: 10px; color: #209702;">Registro calificado</h1> 
+        <h1 style="text-align: center; margin-top: 10px; " class="letra">Registro calificado</h1> 
       <div class="card-header">
         <h3 style="text-align: center; margin-top: 10px;"></h3>
         <slot name="header">
-            <i class="fa-solid fa-play" style="color: #29993b;"><a style="color: black;">Titulo que otorga:</a></i> <br>
+            <i class="fa-solid fa-play letra" ><a style="color: black;">Titulo que otorga:</a></i> <br>
             <h7>Tecnologo en gestion contable:</h7><br><br>
-            <i class="fa-solid fa-play" style="color: #29993b;"><a style="color: black;">Lugar de desarrolla de la oferta:</a></i> <br>
+            <i class="fa-solid fa-play  letra" ><a style="color: black;">Lugar de desarrolla de la oferta:</a></i> <br>
             <h7>Nombre del lugar:</h7><br><br>
-            <i class="fa-solid fa-play" style="color: #29993b;"><a style="color: black;">Metodologia:</a></i> <br>
+            <i class="fa-solid fa-play letra" ><a style="color: black;">Metodologia:</a></i> <br>
             <h7>Metodologia:</h7><br><br>
-            <i class="fa-solid fa-play" style="color: #29993b;"><a style="color: black;">Numero de creditos:</a></i> <br>
+            <i class="fa-solid fa-play letra" ><a style="color: black;">Numero de creditos:</a></i> <br>
             <h7>:</h7><br><br>
-            <i class="fa-solid fa-play" style="color: #29993b;"><a style="color: black;">Codigo series:</a></i> <br>
+            <i class="fa-solid fa-play letra" ><a style="color: black;">Codigo series:</a></i> <br>
             <h7>:</h7><br>
         </slot>
            <button class="btn">Descargar <i class="fa-solid fa-download" style="color: #ffffff;"></i></button>  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar</button>

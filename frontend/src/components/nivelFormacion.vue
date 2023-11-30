@@ -1,10 +1,10 @@
 <template>
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
-    <h1 style="text-align: center; margin-top: 10px; color: #209702;">Nivel De Formación</h1> 
+    <h1 style="text-align: center; margin-top: 10px; " class="letra">Nivel De Formación</h1> 
         <br />
         <div class="group" style="display: flex; justify-content: space-between; align-items: center">
             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agregarNivelFormacion"
-                style="width: 220px; height: 60px; background-color: rgb(255, 255, 255)">
+                style="width: 220px; height: 60px; ">
                 <i class="fa-solid fa-plus fa-xl" style="color: #000000"></i> 
             </button>
 
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <table class="table table-striped table-success table-hover">
+        <table class="table table-striped table table-hover">
             <thead>
                 <tr>
                     <th>codigo</th>

@@ -1,6 +1,6 @@
 <template >
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
-  <h1 style="text-align: center; margin-top: 10px; color: #209702;">Redes De Conocimiento</h1> <!-- Agregamos el letrero aquí -->
+  <h1 style="text-align: center; margin-top: 10px; " class="letra">Redes De Conocimiento</h1> <!-- Agregamos el letrero aquí -->
 
     <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
       <button
@@ -8,7 +8,7 @@
         class="btn"
         data-bs-toggle="modal"
         data-bs-target="#agregarRedConocimiento"
-        style="width: 220px; height: 50px; background-color: rgb(26, 98, 46); display: flex; align-items: center; justify-content: center;"
+        style="width: 220px; height: 50px;  display: flex; align-items: center; justify-content: center;"
       >
         <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;" ></i>
       </button>
@@ -24,7 +24,7 @@
       <div class="modal-dialog">
         <div class="modal-content" style="background-color:  #ffffff; border-radius: 10px">
           <div class="modal-header">
-            <h2>Nueva Red De Conocimiento</h2>
+            <h2 class="letra">Nueva Red De Conocimiento</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -53,7 +53,7 @@
       <div class="modal-dialog">
         <div class="modal-content" style="background-color: #ffffff; border-radius: 10px">
           <div class="modal-header">
-            <h2>Editar Red De Conocimiento</h2>
+            <h2 class="letra">Editar Red De Conocimiento</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -89,7 +89,7 @@
     </div>
     <!-- tabla de red de conocimiento -->
 
-    <table class="table table-striped table-success table-hover">
+    <table class="table table-striped table table-hover  ">
       <thead>
         <tr>
           <th>Nombre</th>

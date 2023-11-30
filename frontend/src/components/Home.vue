@@ -4,16 +4,16 @@
 		<div class="container" >
 		<div class="btn-menu">
 			<label for="btn-menu" >
-        <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></label>
+        <i class="fa-solid fa-bars fa-xl color" ></i></label>
 		</div>
 			<div class="logo">
 			</div>
 			<nav class="menu">
-        			<router-link  to="/home" @click="handleRouterLinkClick('/home')" ><a  style="color: #ffffff;">Inicio</a>
+        			<router-link  to="/home" @click="handleRouterLinkClick('/home')" ><p class="color">Inicio</p>
 </router-link>
 
 		
-       <i data-bs-toggle="modal" data-bs-target="#exampleModal"  class="fa-solid fa-right-from-bracket fa-lg fixed-icon" style="color: rgb(255, 255, 255);"  ></i>
+       <i data-bs-toggle="modal" data-bs-target="#exampleModal"  class="fa-solid fa-right-from-bracket fa-lg fixed-icon color"   ></i>
 
 			</nav>
 		</div>
@@ -24,8 +24,8 @@
 	<div class="container-main"  @click="closeMenuOnClickOutside">
    <img style=" margin-top: 200px;width: 300px; height: 300px; /* Ajusta el valor según tus necesidades */" src="./logosena.png" alt="">
       <div v-if="isLoading" class="loading-indicator">
-      <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #000;"></i>
-      <p>Cargando...</p>
+      <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #ffffff;"></i>
+      <p style="color: rgb(255, 255, 255);">Cargando...</p>
     </div>
 
     <h1 v-if="showWelcomeMessage">¡BIENVENIDO!</h1>
@@ -40,25 +40,58 @@
 			<div class="image-preview">
                     <img src="./logosena.png"  class="preview-image" style="background-color: #ffffff; width: 70px; height: 70px;">
         </div>
-			<router-link v-if="showLink('redesconocimiento')" to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')" ><i class="fa-brands fa-connectdevelop" style="color: #ffffff;"></i> Redes de conocimiento</router-link>
-			<router-link v-if="showLink('usuario')" to="/usuario" @click="handleRouterLinkClick('/usuario')"><i class="fa-solid fa-user" style="color: #ffffff;"></i> usuarios</router-link>
-			<router-link v-if="showLink('rolUsuario')" to="/rolUsuario" @click="closeMenu"><i class="fa-solid fa-user-gear" style="color: #ffffff;"></i> Roles de usuario</router-link>
-			<router-link v-if="showLink('ambienteformacion')" to="/ambienteformacion" @click="handleRouterLinkClick('/ambienteformacion')" ><i class="fa-solid fa-hand-holding-heart" style="color: #ffffff;"></i> Ambientes de formacion</router-link>
-			<router-link v-if="showLink('centroFormacion')" to="/centroFormacion" @click="closeMenu"><i class="fa-solid fa-arrows-to-eye" style="color: #ffffff;"></i> Centros de formacion</router-link>			
-			<router-link v-if="showLink('programas_formacion')" to="/programas_formacion" @click="closeMenu"><i class="fa-solid fa-list-check" style="color: #ffffff;"></i> Programas de formacion</router-link>
-			<router-link v-if="showLink('instructores')" to="/instructores" @click="handleRouterLinkClick('/instructores')"><i class="fa-solid fa-user-tie" style="color: #fafcff;"></i> Instructores</router-link>
-      <router-link v-if="showLink('materialFormacion')" to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')"><i class="fa-solid fa-book" style="color: #ffffff;"></i> Materiales de formación</router-link>
-      <router-link v-if="showLink('desarrollocurricular')" to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')"><i class="fa-solid fa-window-restore" style="color: #ffffff;"></i> Desarrollo Curricular</router-link>
-      <router-link v-if="showLink('nivelFormacion')" to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')"><i class="fa-solid fa-turn-up" style="color: #ffffff;"></i> Nivel De Formación</router-link>
-      <router-link v-if="showLink('registro_calificado')" to="/registro_calificado" @click="closeMenu"><i class="fa-regular fa-registered" style="color: #ffffff;"></i> Registro Calificado</router-link>			
-      <router-link v-if="showLink('selectprogramaFormacion')" to="/selectprogramaFormacion" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Seleccionar Programa Formación</router-link>			
-      <router-link v-if="showLink('proyectos')" to="/proyectos" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Proyectos</router-link>			
-      <router-link v-if="showLink('retroAlimentacionRed')" to="/retroAlimentacionRed" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Retro alimentación De Red</router-link>			
-      <router-link v-if="showLink('investigacion')" to="/investigacion" @click="closeMenu"><i class="fa-regular fa-object-group" style="color: #ffffff;"></i> Investigación</router-link>			
-      <router-link v-if="showLink('configuracion')" to="/configuracion" @click="handleRouterLinkClick('/configuracion')"><i class="fa-solid fa-gears" style="color: #ffffff;"></i> Configuracion</router-link>
+			<router-link v-if="showLink('redesconocimiento')" to="/redesconocimiento" @click="handleRouterLinkClick('/redesconocimiento')"><i class="fa-brands fa-connectdevelop color" ></i><p class="link-text color" > Redes de conocimiento</p></router-link>
+			<router-link v-if="showLink('usuario')" to="/usuario" @click="handleRouterLinkClick('/usuario')" class="color"><i class="fa-solid fa-user color" ></i> <p class="link-text color">Usuarios</p></router-link>
+			<router-link v-if="showLink('rolUsuario')" to="/rolUsuario" @click="closeMenu" class="color"><i class="fa-solid fa-user-gear color" ></i> <p class="link-text color">Roles de usuario</p></router-link>
+			<router-link v-if="showLink('ambienteformacion')" to="/ambienteformacion" @click="handleRouterLinkClick('/ambienteformacion')" class="color" ><i class="fa-solid fa-hand-holding-heart color"></i> <p class="link-text color">Ambientes formacion</p></router-link>
+			<router-link v-if="showLink('centroFormacion')" to="/centroFormacion" @click="closeMenu" class="color"><i class="fa-solid fa-arrows-to-eye color" ></i> <p class="link-text color">Centros de formacion</p></router-link>			
+			<router-link v-if="showLink('programas_formacion')" to="/programas_formacion" @click="closeMenu" class="color"><i class="fa-solid fa-list-check color" ></i><p class="link-text color">Programas de formacion</p></router-link>
+			<router-link v-if="showLink('instructores')" to="/instructores" @click="handleRouterLinkClick('/instructores')" class="color"><i class="fa-solid fa-user-tie color" ></i> <p class="link-text color">Instructores</p></router-link>
+      <router-link v-if="showLink('materialFormacion')" to="/materialFormacion" @click="handleRouterLinkClick('/materialFormacion')" class="color"><i class="fa-solid fa-book color" ></i> <p class="link-text color">Materiales de formación</p></router-link>
+      <router-link v-if="showLink('desarrollocurricular')" to="/desarrollocurricular" @click="handleRouterLinkClick('/desarrollocurricular')" class="color"><i class="fa-solid fa-window-restore color" ></i> <p class="link-text color">Desarrollo Curricular</p></router-link>
+      <router-link v-if="showLink('nivelFormacion')" to="/nivelFormacion" @click="handleRouterLinkClick('/nivelFormacion')" class="color"><i class="fa-solid fa-turn-up color" ></i><p class="link-text color">Nivel De Formación</p> </router-link>
+      <router-link v-if="showLink('registro_calificado')" to="/registro_calificado" @click="closeMenu" class="color"><i class="fa-regular fa-registered color" ></i> <p class="link-text color">Registro Calificado</p></router-link>			
+      <router-link v-if="showLink('selectprogramaFormacion')" to="/selectprogramaFormacion" @click="closeMenu" class="color"><i class="fa-regular fa-object-group color" ></i><p class="link-text color">Seleccionar Programa Formación</p> </router-link>			
+      <router-link v-if="showLink('proyectos')" to="/proyectos" @click="closeMenu" class="color"><i class="fa-regular fa-object-group color" ></i> <p class="link-text color">Proyectos</p></router-link>			
+      <router-link v-if="showLink('retroAlimentacionRed')" to="/retroAlimentacionRed" @click="closeMenu" class="color"><i class="fa-regular fa-object-group color" ></i> <p class="link-text color">Retroalimentación De Red</p></router-link>			
+      <router-link v-if="showLink('investigacion')" to="/investigacion" @click="closeMenu" class="color"><i class="fa-regular fa-object-group color" ></i> <p class="link-text color">Investigación</p></router-link>			
+      <router-link v-if="showLink('configuracion')" to="/configuracion" @click="handleRouterLinkClick('/configuracion')" class="color"><i class="fa-solid fa-gears color" ></i> <p class="link-text color">Configuracion</p></router-link>
+      <a class="color" data-bs-toggle="modal" data-bs-target="#exampleModall" style="color: #f6f9fd;" ><i class="fa-regular fa-pen-to-square color"></i><p class="link-text color">Personalizar</p></a>
 		</nav>
 		<label  style="position: fixed;" for="btn-menu"><i class="fa-solid fa-xmark fa-xl" style="color: #f6f9fd;"></i></label>
 	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: rgb(235, 235, 235);">
+      <div class="modal-header">
+        <h1 class="modal-title letra" id="exampleModalLabel">Personalizar colores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+<br>
+        
+<h3 class="label " style="font-size: 25px;">Elije un color para la letra:</h3>
+<input v-model="colorletra" class="form-control" type="color" :style="{ backgroundColor: letra }"> 
+ 
+<br>
+  <h3 class="label" style="font-size: 25px;">Elije un color para el menú:</h3>
+  <input v-model="colormenu" class="form-control" type="color" :style="{ backgroundColor: menu }">
+ 
+  <br>
+
+<hr>
+      
+      </div>
+      <div class="modal-footer">
+        <button  class="btn btn-dark" style="font-size: 12px;" data-bs-dismiss="modal">Salir</button>
+        <button @click="editarcolor()" style="font-size: 12px;" class="btn btn-dark" >ACTUALIZAR COLOR</button>
+      
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,6 +116,49 @@
 import { onBeforeRouteUpdate } from 'vue-router';
 import { ref, onMounted } from 'vue'; 
 import { useAdministradorStore } from "../almacenaje/login.js";
+import { useConfiguracionStore } from "../almacenaje/configuracion.js";
+import Swal from "sweetalert2";
+const useconfiguracion = useConfiguracionStore();
+let colorletra = ref("");
+let colormenu = ref("");
+let colores = ref([]);
+let menu = ref("");
+let letra = ref("");
+const liscolores = async()=>{
+
+ colores.value =await useconfiguracion.traerConfiguracion(useconfiguracion.token);
+ console.log(colores.value)
+ menu.value=colores.value[0].colormenu
+letra.value=colores.value[0].colorletra
+}
+
+onMounted(async () => {
+  await liscolores();
+}); 
+
+ async function editarcolor(id) {
+  try {
+   
+    await useconfiguracion.editarConfiguracion(colores.value[0]._id, {
+     colorletra: colorletra.value,
+      colormenu: colormenu.value,
+    });
+    await liscolores(); 
+
+    // Mostrar un mensaje de éxito.
+    Swal.fire({
+      icon: "success",
+      title: "Éxito",
+      text: "color editado con exito",
+    });
+  } catch (error) {
+    console.error(error);
+    // Mostrar un mensaje de error en caso de fallo.
+    alert(
+      "Hubo un error al actualizar el color."
+    );
+  }
+} 
 
 const useAdministrador = useAdministradorStore();
 
@@ -176,7 +252,85 @@ onMounted(() => {
 </script>
 
 <style >
+/* input agregar imagen  */
+ .file-input-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 50px;
+  background-color: v-bind(menu);
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+}
 
+.file-input {
+  display: none;
+}
+
+.custom-file-input-label i {
+  margin-right: 5px;
+}
+/* --- */
+
+/* boton activo inactivo */
+ .checkbox {
+    display: none;
+  }
+  
+  .slider {
+    width: 60px;
+    height: 30px;
+    background-color: lightgray;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 4px solid transparent;
+    transition: .3s;
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+  }
+  
+  .slider::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    transform: translateX(-30px);
+    border-radius: 20px;
+    transition: .3s;
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+  }
+  
+  .checkbox:checked ~ .slider::before {
+    transform: translateX(30px);
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+  }
+  
+  .checkbox:checked ~ .slider {
+    background-color: v-bind(menu);
+  }
+  
+  .checkbox:active ~ .slider::before {
+    transform: translate(0);
+  }
+  /* ------ */
+
+.link-text {
+        display: inline;
+        margin-left: 5px; /* You can adjust the margin as needed */
+    }
+.color{
+  color:v-bind(letra);
+}
+.letra{
+  color: v-bind(menu);
+}
+.menu{
+  background-color: v-bind(menu);
+}
 .loading-indicator {
   position: fixed; /* Fija la posición en la ventana del navegador */
   z-index: 9999; /* Asegura que esté en la capa superior */
@@ -184,7 +338,7 @@ onMounted(() => {
   left: 0;
   width: 100%; /* Ocupa todo el ancho */
   height: 100%; /* Ocupa todo el alto */
-  background-color: rgba(255, 255, 255, 0.29); /* Fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.618); /* Fondo semitransparente */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -222,7 +376,7 @@ onMounted(() => {
   border: none;
   padding: 13px 21px;
   font-size: 15px;
-  background-color:  rgb(25, 103, 42);
+  background-color: v-bind(menu);
   color: #fffffff3;
   border-radius: 10px;
   box-shadow: 10px  10px 10px rgba(13, 14, 16, 0.741);
@@ -264,7 +418,7 @@ onMounted(() => {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(26, 98, 46);
+  background-color: v-bind(menu);
   z-index: 100; /* Asegura que esté en la capa superior */
 }
 
@@ -333,7 +487,7 @@ onMounted(() => {
   position: fixed;
   width: 100%;
   max-width: 300px;
-  background: rgb(26, 98, 46);
+  background:v-bind(menu);
   left: 0;
   top: 0;
   transition: all 500ms ease;

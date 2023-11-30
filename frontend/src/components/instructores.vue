@@ -1,6 +1,6 @@
 <template >
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">
-     <h1 style="text-align: center; margin-top: 10px; color: #209702;">Instructores</h1> <!-- Agregamos el letrero aquí -->
+     <h1 style="text-align: center; margin-top: 10px;">Instructores</h1> <!-- Agregamos el letrero aquí -->
 
  <br>
  <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
@@ -9,7 +9,7 @@
        class="btn"
        data-bs-toggle="modal"
        data-bs-target="#agregarUsuario"
-       style="width: 220px; height: 50px; background-color: rgb(26, 98, 46); display: flex; align-items: center; justify-content: center;"
+       style="width: 220px; height: 50px; display: flex; align-items: center; justify-content: center;"
      >
        <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;" ></i>
      </button>

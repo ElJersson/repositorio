@@ -12,7 +12,6 @@ router.get("/",
  hhtpRolUsuario.getRolUsuario);
 
 router.post("/", [
-    validarJWT,
     check("codigo", "El código es requerido").not().isEmpty(),
     check("denominacion", "La denominación es requerida").not().isEmpty(),
 ], validarCampos, hhtpRolUsuario.postRolUsuario);

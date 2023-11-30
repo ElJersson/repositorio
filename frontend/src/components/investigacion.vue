@@ -1,11 +1,11 @@
 <template>
     <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
-        <h1 style="text-align: center; margin-top: 10px; color: #209702;">investigacion</h1> 
+        <h1 style="text-align: center; margin-top: 10px; " class="letra">investigacion</h1> 
             <br />
             <div class="group" style="display: flex; justify-content: space-between; align-items: center">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agregarInvestigacion"
-                    style="width: 220px; height: 60px; background-color: rgb(255, 255, 255)">
-                    <i class="fa-solid fa-plus fa-xl" style="color: #000000"></i> 
+                    style="width: 220px; height: 60px; ">
+                    <i class="fa-solid fa-plus fa-xl" ></i> 
                 </button>
     
                 <div class="input-container">
@@ -18,9 +18,9 @@
             <!-- modal para agregar nuevo nivel de formacion  -->
             <div class="modal fade" id="agregarInvestigacion" tabindex="-1" aria-label="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content" style="background-color: #26b502; border-radius: 10px">
+                    <div class="modal-content" >
                         <div class="modal-header">
-                            <h2>nueva investigacion</h2>
+                            <h2 class="letra">nueva investigacion</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                         </div>
                         <div class="modal-body">
@@ -35,17 +35,17 @@
                                             placeholder="nombre de la investigacion" /><br />
 
                                             <input v-model="descripcion" type="text" class="form-control"
-                                            :class="{'is-invalid':  !editDescripcion}" placeholder="descripcion de la investigacion">
+                                            :class="{'is-invalid':  !editDescripcion}" placeholder="descripcion de la investigacion"><br>
     
                                             <input v-model="fecha" type="text" class="form-control"
-                                            :class="{'is-invalid':  !editFecha}" placeholder="fecha de la investigacion">
+                                            :class="{'is-invalid':  !editFecha}" placeholder="fecha de la investigacion"><br>
 
                                             <input v-model="documento" type="text" class="form-control"
-                                            :class="{'is-invalid':  !editDocumento}" placeholder="documento de la investigacion">
+                                            :class="{'is-invalid':  !editDocumento}" placeholder="documento de la investigacion"> <br>
 
                                            
 
-                                        <button @click="guardar()" type="button" class="centrar; btn btn-success">
+                                        <button @click="guardar()" type="btn" class="centrar; btn btn-success">
                                             guardar
                                         </button>
                                     </div>
@@ -61,7 +61,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content" style="background-color: #ffffff; border-radius: 10px">
                         <div class="modal-header">
-                            <h4>nueva investigacion</h4>
+                            <h4 class="letra">Actualizar investigacion</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                         </div>
                         <div class="modal-body">
@@ -101,7 +101,7 @@
                 </div>
             </div>
     
-            <table class="table table-striped table-success table-hover">
+            <table class="table table-striped table table-hover">
                 <thead>
                     <tr>
                         <th>codigo</th>
@@ -143,9 +143,9 @@
                 </tbody>
             </table>
         </div>
-    </template>
+</template>
     
-    <script setup>
+<script setup>
     import { ref, onMounted } from "vue";
     import Swal from "sweetalert2";
     import { useInvestigacionStore } from "../almacenaje/investigacion.js";
@@ -287,10 +287,10 @@
     onMounted(async () => {
         await lisInvestigacion();
     });
-    </script>
+</script>
     
     
-    <style>
+<style>
     
-    </style>
+</style>
     

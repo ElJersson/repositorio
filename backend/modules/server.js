@@ -14,6 +14,7 @@ import nivelFormacion from "../routes/nivelFormacion.js"
 import proyecto from "../routes/proyecto.js"
 import retroAlimentacionRed from "../routes/retroAlimentacionRed.js"
 import investigacion from "../routes/investigacion.js"
+import configuracion from "../routes/configuracion.js"
 
 
 import fileUpload from 'express-fileupload';
@@ -46,6 +47,7 @@ class Server{
         this.app.use('/proyecto',proyecto)
         this.app.use('/investigacion',investigacion)
         this.app.use('/retroAlimentacionRed',retroAlimentacionRed)
+        this.app.use('/configuracion',configuracion)
 
 
     }

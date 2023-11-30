@@ -35,7 +35,7 @@
             <div class="modal-body">
                 <div class="card-body ">
                   <div class="image-preview">
-                    <img :src="imageUrl || 'users.png'" class="preview-image">
+                    <img :src="imageUrl || './users.png'" class="preview-image">
         </div>
                    <!-- Input para cargar imagen -->
     <!-- Contenedor del botón personalizado -->
@@ -346,16 +346,16 @@ async function guardar() {
 
   // Realizar validaciones
   if (
-    !cc.value ||
-    !nombre.value ||
-    !apellidos.value ||
-    !password.value ||
-    !direccion.value ||
-    !email.value ||
-    !perfilProfesional.value ||
-    !rol.value ||
-    !telefono.value ||   
-    !estado.value 
+    !cc.value.trim() ||
+    !nombre.value.trim() ||
+    !apellidos.value.trim() ||
+    !password.value.trim() ||
+    !direccion.value.trim() ||
+    !email.value.trim() ||
+    !perfilProfesional.value.trim() ||
+    !rol.value.trim() ||
+    !telefono.value.trim() ||   
+    !estado.value.trim() 
   ) {
     // Mostrar una alerta temporal de error en caso de campos vacíos
     Swal.fire({
@@ -484,12 +484,12 @@ async function actualizarUsuarioEditado(id) {
 
     // Validar que ningún campo edit esté vacío
     if (
-      !editNombre.value ||
-      !editApellidos.value ||
-      !editDireccion.value ||
-      !editperfilProfesional.value ||
-      !editTelefono.value ||
-      !editRol.value) {
+      !editNombre.value.trim() ||
+      !editApellidos.value.trim() ||
+      !editDireccion.value.trim() ||
+      !editperfilProfesional.value.trim() ||
+      !editTelefono.value.trim() ||
+      !editRol.value.trim()) {
       Swal.fire({
         icon: "error",
         title: "Error",

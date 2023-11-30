@@ -1,10 +1,10 @@
 <template>
     <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">  
-        <h1 style="text-align: center; margin-top: 10px; color: #209702;">Retro alimentacion de red</h1> 
+        <h1 style="text-align: center; margin-top: 10px; " class="letra" >Retro alimentacion de red</h1> 
             <br />
             <div class="group" style="display: flex; justify-content: space-between; align-items: center">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agreagarRetroAlimentacionRed"
-                    style="width: 220px; height: 60px; background-color: rgb(255, 255, 255)">
+                    style="width: 220px; height: 60px; ">
                     <i class="fa-solid fa-plus fa-xl" style="color: #000000"></i> 
                 </button>
     
@@ -18,9 +18,9 @@
             <!-- modal para agregar nuevo nivel de formacion  -->
             <div class="modal fade" id="agreagarRetroAlimentacionRed" tabindex="-1" aria-label="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content" style="background-color: #26b502; border-radius: 10px">
+                    <div class="modal-content" style=" border-radius: 10px">
                         <div class="modal-header">
-                            <h2>nueva retro alimentacion de red</h2>
+                            <h2 >nueva retro alimentacion de red</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                         </div>
                         <div class="modal-body">
@@ -80,7 +80,7 @@
                 </div>
             </div>
     
-            <table class="table table-striped table-success table-hover">
+            <table class="table table-striped table table-hover">
                 <thead>
                     <tr>
                         <th>codigo</th>

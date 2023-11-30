@@ -7,11 +7,9 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 const router = Router();
 
 router.get("/",
-[validarJWT],
  httpMaterialFormacion.getMaterialFormacion);
 
 router.post("/", [
-    validarJWT,
     check("nombre", "El nombre es requerido").not().isEmpty(),
     check("descripcion", "La descripción es requerida").not().isEmpty(),
     check("tipo", "El tipo es requerido").not().isEmpty(),

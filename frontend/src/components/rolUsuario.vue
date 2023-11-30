@@ -1,7 +1,7 @@
 <template >
 
 <div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">
-    <h1 style="text-align: center; margin-top: 10px; color: #209702;">Roles De Usuario</h1> <!-- Agregamos el letrero aquí -->
+    <h1 style="text-align: center; margin-top: 10px; " class="letra">Roles De Usuario</h1> <!-- Agregamos el letrero aquí -->
 
   <div class="group" style="display: flex; justify-content: space-between; align-items: center;">
     <button
@@ -9,7 +9,7 @@
     class="btn"
     data-bs-toggle="modal"
     data-bs-target="#agregarRolUsuario"
-    style="width: 220px; height: 50px; background-color:rgb(35, 113, 52); display: flex; align-items: center; justify-content: center;"
+    style="width: 220px; height: 50px;  display: flex; align-items: center; justify-content: center;"
   >
     <i class="fa-solid fa-plus fa-xl" style="color: #000000; "></i>
     
@@ -139,7 +139,7 @@
         </div>
       </div>
     
-          <table class="table table-striped table-success table-hover"  >
+          <table class="table table-striped table table-hover"  >
             <thead>
               <tr>
                 <th>codigo</th>

@@ -1,13 +1,13 @@
 <template>
-<div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">        <h1 style="color: #008a35;">Informacion personal</h1> <br>
+<div class="container" style="background-color: #f6f6f6; border-radius: 10px; top: 200px; position: absolute; overflow-y: auto; max-height: 500px;">        <h1 class="letra">Informacion personal</h1> <br>
 
-        <h1 style="color: #008a35;">Datos personales:</h1> <br>
+        <h1 class="letra">Datos personales:</h1> <br>
         <a>Nombres: {{usuario.nombre}}</a> <br> 
         <a>Apellidos: {{usuario.apellidos}}</a> <br> 
         <a>Numero de identificacion: {{usuario.cc}}</a>
         
         <hr>
-        <h1 style="color: #008a35;">Contacto</h1> <br> 
+        <h1 class="letra">Contacto</h1> <br> 
         <a>Telefono: {{usuario.telefono}}</a> <br> 
         <a>Correo electronico: {{usuario.email}}</a> 
         <hr>
@@ -17,7 +17,7 @@
              
 
         <hr>
-        <h1 style="color: #008a35;">Configuracion de interfas</h1> <br>
+        <h1 class="letra">Configuracion de interfas</h1> <br>
     <a>Modificar el color de interfas de usuario</a>
     <input type="color" id="colorPicker" @change="handleColorChange"> <br>
    
