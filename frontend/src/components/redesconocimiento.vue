@@ -218,7 +218,20 @@ async function lisRedConocimiento() {
 
 // Función para editar el conductor seleccionado
 async function actualizarRedEditado(id) {
+
+
   try {
+        // Realizar validaciones
+    if (!Editnombre.value.trim() || !Editcodigo.value.trim()) {
+      // Mostrar una alerta temporal de error en caso de campos vacíos
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, completa todos los campos."
+      });
+      return;
+    }
+    
     await useRedConocimiento.updateRedConocimiento(id, {
       nombre: Editnombre.value,
       codigo: Editcodigo.value,
